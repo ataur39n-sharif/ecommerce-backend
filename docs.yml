@@ -1,0 +1,190 @@
+openapi: 3.0.3
+info:
+  title: DTAL Furniture - Backend API
+  description: DTAL Furniture api documentation
+  version: 1.0.0
+servers:
+  - url: 'https://localhost:5000/api/v1'
+tags:
+  - name: Authentication
+    description: Access Control of website secure content
+  - name: Product
+    description: Product management path's
+  - name: Category
+    description: Category manage path's
+  - name: Order
+    description: Order manage path's
+  - name: Review
+    description: Reviews manage path's
+paths:
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        price:
+          type: integer
+          format: init32
+        discount:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - percentage
+                - fixed
+            value:
+              type: integer
+              format: init32
+        description:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        thumbnail:
+          type: string
+        stock:
+          type: integer
+          format: init32
+          default: 0
+        isVariableProduct:
+          type: boolean
+          default: false
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reviews'
+        attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  type: string
+              values:
+                type: array
+                items:
+                  type: string
+        tags:
+          type: array
+          items:
+            type: string
+    Single_Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        price:
+          type: integer
+          format: init32
+        discount:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - percentage
+                - fixed
+            value:
+              type: integer
+              format: init32
+        images:
+          type: array
+          items:
+            type: string
+        thumbnail:
+          type: string
+        stock:
+          type: integer
+          format: init32
+          default: 0
+        isVariableProduct:
+          type: boolean
+          default: false
+    Variable_Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        price:
+          type: string
+          example: 10 BDT - 15 BDT
+        images:
+          type: array
+          items:
+            type: string
+        thumbnail:
+          type: string
+        stock:
+          type: integer
+          format: init32
+          default: 0
+        isVariableProduct:
+          type: boolean
+          default: false
+    Category:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        icon:
+          type: string
+        parent:
+          type: string
+          example: 5f7a2db4a5e093001f076f5c
+          default: null
+        status:
+          type: string
+          enum:
+            - active
+            - inactive
+          default: active
+        tags:
+          type: array
+          items:
+            type: string
+    Reviews:
+      type: object
+      properties:
+        _id:
+          type: string
+        orderId:
+          type: string
+        uid:
+          type: string
+        ratting:
+          type: integer
+          format: init32
+          maximum: 5
+          default: 5
+        comments:
+          type: string
+          default: ''
+
+
+  securitySchemes:
+    Auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
