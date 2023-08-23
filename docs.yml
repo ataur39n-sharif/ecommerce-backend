@@ -16,6 +16,8 @@ tags:
     description: Order manage path's
   - name: Review
     description: Reviews manage path's
+  - name: Admin
+    description: Admin manage path's
 paths:
   '/auth/login':
     post:
@@ -99,7 +101,102 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
+  '/auth/create-account':
+    post:
+      tags:
+        - Admin
+      security:
+        - Authorization: [ ]
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: object
+                  properties:
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                email:
+                  type: string
+                  format: email
+                phoneNumber:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+                  enum:
+                    - customer
+                    - editor
+                    - administration
+                    - admin
+              required:
+                - name
+                - email
+                - phoneNumber
+                - password
+                - role
+      responses:
+        201:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  '/auth/forget-password':
+    post:
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email/phoneNumber:
+                  type: string
+              required:
+                - email/phoneNumber
 
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        404:
+          description: User not found
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                    format: int32
+                    example: 404
+                  message:
+                    type: string
+                    example: Issue detected
+                  errorMessages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                          example: /api/v1/unknownRoute
+                        message:
+                          type: string
+                          example: not found
+        500:
+          $ref: "#/components/responses/500"
 components:
   responses:
     200:
@@ -443,7 +540,7 @@ components:
           type: string
           default: ''
   securitySchemes:
-    Auth:
+    Authorization:
       type: http
       scheme: bearer
       bearerFormat: JWT
