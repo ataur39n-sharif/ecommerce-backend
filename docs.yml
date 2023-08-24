@@ -329,6 +329,33 @@ paths:
       responses:
         201:
           $ref: "#/components/responses/200"
+    delete:
+      tags:
+        - Product
+      security:
+        - Authorization: [ ]
+      description: Delete multiple product's at a time.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                products:
+                  type: array
+                  description: Array of product's id
+                  items:
+                    type: string
+                    example: "1234567890123456"
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        403:
+          $ref: "#/components/responses/403"
+        500:
+          $ref: "#/components/responses/500"
   '/product/{id}':
     get:
       tags:
@@ -357,6 +384,8 @@ paths:
                     $ref: '#/components/schemas/Product'
         400:
           $ref: "#/components/responses/400"
+        403:
+          $ref: "#/components/responses/403"
         404:
           description: Product not found
           content:
@@ -372,6 +401,26 @@ paths:
                     example: Product not found
         500:
           $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - Product
+      security:
+        - Authorization: [ ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+
+
 
 components:
   responses:
@@ -414,6 +463,19 @@ components:
                     message:
                       type: string
                       example: details of the issue
+    403:
+      description: Forbidden
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: Permission denied.
     404:
       description: Route not found
       content:
