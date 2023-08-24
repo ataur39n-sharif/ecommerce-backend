@@ -62,7 +62,6 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-
   '/auth/register':
     post:
       tags:
@@ -164,7 +163,6 @@ paths:
                   type: string
               required:
                 - email/phoneNumber
-
       responses:
         200:
           $ref: "#/components/responses/200"
@@ -197,6 +195,184 @@ paths:
                           example: not found
         500:
           $ref: "#/components/responses/500"
+  '/auth/reset-password':
+    patch:
+      tags:
+        - Authentication
+      parameters:
+        - in: header
+          name: Request token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newPassword:
+                  type: string
+                  example: '@Passw0rd!'
+
+              required:
+                - newPassword
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  '/auth/delete-account':
+    delete:
+      tags:
+        - Admin
+      security:
+        - Authorization: [ ]
+      parameters:
+        - in: path
+          name: User id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  "/auth/change-password":
+    patch:
+      tags:
+        - Authentication
+      security:
+        - Authorization: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                  example: <PASSWORD>
+                newPassword:
+                  type: string
+                  example: <PASSWORD>
+              required:
+                - oldPassword
+                - newPassword
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+  '/products':
+    get:
+      tags:
+        - Product
+      parameters:
+        - $ref: '#/components/parameters/productSearch'
+        - $ref: '#/components/parameters/productFilter'
+        - $ref: '#/components/parameters/sortOrder'
+        - $ref: '#/components/parameters/sortBy'
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      products:
+                        type: array
+                        items:
+                          allOf:
+                            - $ref: '#/components/schemas/Product'
+                            - type: object
+                              properties:
+                                meta:
+                                  type: object
+                                  $ref: '#/components/schemas/PaginationMeta'
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - Product
+      security:
+        - Authorization: [ ]
+      description: Before adding product make sure the product type and the schema
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "#/components/schemas/Single_Product"
+                - $ref: "#/components/schemas/Variable_Product"
+      responses:
+        201:
+          $ref: "#/components/responses/200"
+  '/product/{id}':
+    get:
+      tags:
+        - Product
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      description: Single product information
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Product'
+        400:
+          $ref: "#/components/responses/400"
+        404:
+          description: Product not found
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Product not found
+        500:
+          $ref: "#/components/responses/500"
+
 components:
   responses:
     200:
@@ -292,8 +468,6 @@ components:
     Product:
       type: object
       properties:
-        _id:
-          type: string
         name:
           type: string
         category:
@@ -383,8 +557,6 @@ components:
     Single_Product:
       type: object
       properties:
-        id:
-          type: string
         name:
           type: string
         category:
@@ -437,6 +609,13 @@ components:
           type: array
           items:
             type: string
+      required:
+        - name
+        - category
+        - price
+        - images
+        - thumbnail
+        - description
     Variable_Product:
       type: object
       properties:
@@ -497,6 +676,15 @@ components:
           type: array
           items:
             type: string
+      required:
+        - name
+        - category
+        - price
+        - images
+        - thumbnail
+        - description
+        - attributes
+        - variations
     Category:
       type: object
       properties:
@@ -539,6 +727,47 @@ components:
         comments:
           type: string
           default: ''
+    PaginationMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: init32
+        limit:
+          type: integer
+          format: init32
+        total:
+          type: integer
+          format: init32
+
+  parameters:
+    productSearch:
+      in: query
+      name: search
+      description: search by name,category
+      schema:
+        type: string
+    productFilter:
+      in: query
+      name: price
+      description: filter by price
+      schema:
+        type: string
+    sortBy:
+      in: query
+      name: sortBy
+      description: sort by property
+      schema:
+        type: string
+    sortOrder:
+      in: query
+      name: sortOrder
+      description: Mark sort order Ascending or descending
+      schema:
+        type: string
+        enum:
+          - asc
+          - desc
   securitySchemes:
     Authorization:
       type: http
