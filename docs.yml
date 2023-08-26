@@ -832,13 +832,44 @@ paths:
                     type: boolean
                   message:
                     type: string
-                    example: Successfully order placed.
-                  data:
-                    type: object
-                    properties:
-                      orderId:
-                        type: string
-                        example: 1234567890123456
+                    example: Successfully order updated.
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - Order
+      security:
+        - Authorization: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderIds:
+                  type: array
+                  description: Array of order's id
+                  items:
+                    type: string
+              required:
+                - orderIds
+                - status
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                    example: Successfully order deleted.
         400:
           $ref: "#/components/responses/400"
         500:
@@ -872,8 +903,78 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-
-
+    patch:
+      tags:
+        - Order
+      security:
+        - Authorization: [ ]
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - pending
+                    - paid
+                    - shipped
+              required:
+                - orderIds
+                - status
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                    example: Successfully order information updated.
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - Order
+      security:
+        - Authorization: [ ]
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                    example: Successfully order deleted.
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
 
 
 
