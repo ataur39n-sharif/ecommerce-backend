@@ -1,4 +1,5 @@
-import {Model} from "mongoose";
+import {Model, Types} from "mongoose";
+import {TAddress} from "@/Utils/types/customSchema.type";
 
 export type TName = {
     firstName: string
@@ -7,7 +8,9 @@ export type TName = {
 
 export interface IUser {
     _id?: string
+    auid: Types.ObjectId,
     name: TName,
+    address?: TAddress
     email: string
     image?: string
     createdAt?: string

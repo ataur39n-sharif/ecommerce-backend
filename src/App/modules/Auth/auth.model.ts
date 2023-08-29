@@ -1,6 +1,6 @@
 import {model, Schema} from "mongoose";
 import {HashHelper} from "@/Utils/helper/hashHelper";
-import { IAuthModel, IAuthProperty } from "./auth.types";
+import {ERole, IAuthModel, IAuthProperty} from "./auth.types";
 
 const dataSchema = new Schema<IAuthProperty, IAuthModel>({
     email: {
@@ -14,13 +14,29 @@ const dataSchema = new Schema<IAuthProperty, IAuthModel>({
             message: "Email must be unique.",
         }
     },
+    phone: {
+        type: String,
+        required: true,
+        validate: {
+            validator: async (value: string): Promise<boolean> => {
+                const result = await AuthModel.countDocuments({phone: value})
+                return result === 0
+            },
+            message: "Phone number must be unique.",
+        }
+    },
     password: {
         type: String,
         required: true
     },
-    uid:{
+    uid: {
         type: Schema.Types.ObjectId,
-        ref:'user',
+        ref: 'user',
+        required: true
+    },
+    role: {
+        type: String,
+        enum: Object.values(ERole),
         required: true
     }
 }, {

@@ -5,10 +5,8 @@
 import express, {Application} from 'express'
 import cors from 'cors'
 import rootRouter from "./Routes";
-import config from "@/Config";
 import globalErrorHandler from "@/Middlewares/Errors/globalErrorHandler";
 import notFoundHandler from "@/Middlewares/Errors/notFoundHandler";
-import connectDB from "@/Config/db";
 
 const app: Application = express()
 app.use(express.json())

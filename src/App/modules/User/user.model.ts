@@ -1,9 +1,13 @@
-import { model, Schema } from "mongoose";
-import { IUser, IUserModel } from "@/App/modules/User/user.types";
-import { HashHelper } from "@/Utils/helper/hashHelper";
-import { NameSchema } from "@/Utils/schema/name.schema";
+import {model, Schema} from "mongoose";
+import {IUser, IUserModel} from "@/App/modules/User/user.types";
+import {NameSchema} from "@/Utils/schema/name.schema";
+import {AddressSchema} from "@/Utils/schema/address.schema";
 
 const dataSchema = new Schema<IUser, IUserModel>({
+    auid: {
+        type: Schema.Types.ObjectId,
+        required: true
+    },
     name: {
         type: NameSchema,
         required: true
@@ -11,6 +15,13 @@ const dataSchema = new Schema<IUser, IUserModel>({
     email: {
         type: String,
         required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: AddressSchema,
     }
 }, {
     timestamps: true,

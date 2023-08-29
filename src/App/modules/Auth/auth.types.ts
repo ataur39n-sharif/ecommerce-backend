@@ -1,17 +1,19 @@
-import { Model, Types } from "mongoose";
+import {Model, Types} from "mongoose";
 
 export enum ERole {
-    superAdmin = "superAdmin",
-    admin = "admin",
-    user = "user",
+    admin = 'admin',
+    administration = 'administration',
+    editor = 'editor',
+    customer = 'customer'
 }
 
 export interface IAuthProperty {
     _id?: string
     email: string
+    phone: string
     password: string
-    uid?: Types.ObjectId
-    role?: ERole
+    uid: Types.ObjectId
+    role: ERole
     createdAt?: string
     updatedAt?: string
 }
