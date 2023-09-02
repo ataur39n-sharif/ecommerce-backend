@@ -8,7 +8,6 @@ export type TName = {
 
 export interface IUser {
     _id?: string
-    auid: Types.ObjectId,
     name: TName,
     address?: TAddress
     email: string

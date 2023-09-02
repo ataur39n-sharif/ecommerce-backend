@@ -7,7 +7,7 @@ import {AuthValidation} from "@/App/modules/Auth/auth.validation";
 
 const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data = pickFunction(req.body, ['name', 'email', 'password', 'phone'])
-    const validate = AuthValidation.singUp.parse(data)
+    const validate = AuthValidation.singUpPayload.parse(data)
     const user = await AuthServices.CreateNewAccount(validate)
 
     sendResponse.success(res, {

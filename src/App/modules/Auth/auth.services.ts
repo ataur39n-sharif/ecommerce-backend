@@ -2,12 +2,12 @@ import {IAuthWithName} from './auth.validation';
 import CustomError from "@/Utils/errors/customErrror.class";
 import {HashHelper} from "@/Utils/helper/hashHelper";
 import {generateToken} from "@/Utils/helper/generateToken";
-import {IAuthProperty} from "./auth.types";
+import {ERole, IAuthProperty} from "./auth.types";
 import {AuthModel} from "./auth.model";
 import {UserModel} from '../User/user.model';
 import mongoose from 'mongoose';
 
-const CreateNewAccount = async (data: IAuthWithName): Promise<IAuthProperty> => {
+const CreateNewAccount = async (data: Partial<IAuthWithName>): Promise<IAuthProperty> => {
     const session = await mongoose.startSession()
     try {
         session.startTransaction()
@@ -23,7 +23,9 @@ const CreateNewAccount = async (data: IAuthWithName): Promise<IAuthProperty> => 
         const newUser = new AuthModel({
             email: data.email,
             password: data.password,
-            uid: userData._id
+            phone: data.phone,
+            uid: userData._id,
+            role:data.role || ERole.customer
         })
         await newUser.save({session})
         await session.commitTransaction()

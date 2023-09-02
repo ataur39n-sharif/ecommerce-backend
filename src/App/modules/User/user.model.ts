@@ -4,10 +4,6 @@ import {NameSchema} from "@/Utils/schema/name.schema";
 import {AddressSchema} from "@/Utils/schema/address.schema";
 
 const dataSchema = new Schema<IUser, IUserModel>({
-    auid: {
-        type: Schema.Types.ObjectId,
-        required: true
-    },
     name: {
         type: NameSchema,
         required: true
@@ -18,7 +14,6 @@ const dataSchema = new Schema<IUser, IUserModel>({
     },
     image: {
         type: String,
-        required: true
     },
     address: {
         type: AddressSchema,

@@ -9,13 +9,17 @@ export interface IAuthWithName extends IAuthProperty {
     }
 }
 
-const singUp: ZodType<IAuthWithName> = z.object({
+const singUpPayload = z.object({
     name: z.object({
         firstName: z.string(),
         lastName: z.string(),
     }),
     email: z.string().email(),
     password: z.string(),
+    phone:z.string()
+})
+
+const createAccount: ZodType<IAuthWithName> = singUpPayload.extend({
     uid: z.instanceof(Types.ObjectId, {
         message: 'Something is wrong. '
     }),
@@ -28,6 +32,7 @@ const singIn: ZodType<Partial<IAuthProperty>> = z.object({
 })
 
 export const AuthValidation = {
-    singUp,
+    singUpPayload,
+    createAccount,
     singIn
 }
