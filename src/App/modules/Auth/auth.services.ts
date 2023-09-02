@@ -1,4 +1,4 @@
-import {IAuthWithName} from './auth.validation';
+import {AuthValidation, IAuthWithName} from './auth.validation';
 import CustomError from "@/Utils/errors/customErrror.class";
 import {HashHelper} from "@/Utils/helper/hashHelper";
 import {generateToken} from "@/Utils/helper/generateToken";
@@ -20,13 +20,14 @@ const CreateNewAccount = async (data: Partial<IAuthWithName>): Promise<IAuthProp
         })
         await userData.save({session})
 
-        const newUser = new AuthModel({
+        const validateUserCreation = AuthValidation.createAccount.parse({
             email: data.email,
             password: data.password,
             phone: data.phone,
             uid: userData._id,
             role:data.role || ERole.customer
         })
+        const newUser = new AuthModel(validateUserCreation)
         await newUser.save({session})
         await session.commitTransaction()
         await session.endSession()
