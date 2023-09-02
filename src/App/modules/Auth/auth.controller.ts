@@ -19,11 +19,8 @@ const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction
 
 const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data = pickFunction(req.body, ["email", "phone", 'password'])
-    console.log({data});
     const validateData = AuthValidation.singIn.parse(data)
-    console.log({
-        validateData
-    });
+
 
     const { accessToken, refreshToken } = await AuthServices.logIntoAccount(validateData)
     res.cookie('refreshToken', refreshToken)

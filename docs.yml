@@ -34,12 +34,12 @@ paths:
             schema:
               type: object
               properties:
-                email/phoneNumber:
+                email/phone:
                   type: string
                 password:
                   type: string
               required:
-                - email/phoneNumber
+                - email/phone
                 - password
       responses:
         200:
