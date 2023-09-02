@@ -27,8 +27,14 @@ const createAccount: ZodType<IAuthWithName> = singUpPayload.extend({
 })
 
 const singIn: ZodType<Partial<IAuthProperty>> = z.object({
-    email: z.string().email(),
+    email: z.string().email().optional(),
+    phone: z.string().optional(),
     password: z.string()
+}).refine((data)=>{
+    return (data.email && !data.phone) || (!data.email && data.phone);
+},{
+    message: "Either 'email' or 'phone' field should be provided.",
+    path: ["email", "phone"],
 })
 
 export const AuthValidation = {
