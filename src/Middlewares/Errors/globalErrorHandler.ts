@@ -14,9 +14,8 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
         statusCode: 500,
         message: "Something went wrong !.",
         errorMessages: [],
-        stack: config.node_env === "development" && err.stack ? err.stack : ""
+        stack: config.node_env === "development" && err.stack ? err.stack : undefined
     }
-
 
     // check is this ( err instanceof Error.ValidationError || err instanceof Error.CastError) working or not
     if (err instanceof Error.ValidationError || err instanceof Error.CastError) {
