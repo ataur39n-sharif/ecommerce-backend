@@ -4,7 +4,10 @@ info:
   description: DTAL Furniture api documentation
   version: 1.0.0
 servers:
-  - url: 'http://localhost:5000/api/v1'
+  - description: live
+    url: https://ecommerce-backend-d2ai.onrender.com/api/v1
+  - description: localhost
+    url: "http://localhost:5000/api/v1"
 tags:
   - name: Authentication
     description: Access Control of website secure content
@@ -19,7 +22,7 @@ tags:
   - name: Admin
     description: Admin manage path's
 paths:
-  '/auth/login':
+  "/auth/login":
     post:
       tags:
         - Authentication
@@ -62,7 +65,7 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-  '/auth/register':
+  "/auth/register":
     post:
       tags:
         - Authentication
@@ -100,12 +103,12 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-  '/auth/create-account':
+  "/auth/create-account":
     post:
       tags:
         - Admin
       security:
-        - Authorization: [ ]
+        - Authorization: []
       operationId: register
       requestBody:
         required: true
@@ -148,7 +151,7 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-  '/auth/forget-password':
+  "/auth/forget-password":
     post:
       tags:
         - Authentication
@@ -195,7 +198,7 @@ paths:
                           example: not found
         500:
           $ref: "#/components/responses/500"
-  '/auth/reset-password':
+  "/auth/reset-password":
     patch:
       tags:
         - Authentication
@@ -214,7 +217,7 @@ paths:
               properties:
                 newPassword:
                   type: string
-                  example: '@Passw0rd!'
+                  example: "@Passw0rd!"
 
               required:
                 - newPassword
@@ -225,12 +228,12 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-  '/auth/delete-account':
+  "/auth/delete-account":
     delete:
       tags:
         - Admin
       security:
-        - Authorization: [ ]
+        - Authorization: []
       parameters:
         - in: path
           name: User id
@@ -249,7 +252,7 @@ paths:
       tags:
         - Authentication
       security:
-        - Authorization: [ ]
+        - Authorization: []
       requestBody:
         required: true
         content:
@@ -273,16 +276,16 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-  '/products':
+  "/products":
     get:
       tags:
         - Product
       parameters:
-        - $ref: '#/components/parameters/productSearch'
-        - $ref: '#/components/parameters/productMinPriceFilter'
-        - $ref: '#/components/parameters/productMaxPriceFilter'
-        - $ref: '#/components/parameters/sortOrder'
-        - $ref: '#/components/parameters/sortBy'
+        - $ref: "#/components/parameters/productSearch"
+        - $ref: "#/components/parameters/productMinPriceFilter"
+        - $ref: "#/components/parameters/productMaxPriceFilter"
+        - $ref: "#/components/parameters/sortOrder"
+        - $ref: "#/components/parameters/sortBy"
       responses:
         200:
           description: Success Response
@@ -303,12 +306,12 @@ paths:
                         type: array
                         items:
                           allOf:
-                            - $ref: '#/components/schemas/Product'
+                            - $ref: "#/components/schemas/Product"
                             - type: object
                               properties:
                                 meta:
                                   type: object
-                                  $ref: '#/components/schemas/PaginationMeta'
+                                  $ref: "#/components/schemas/PaginationMeta"
         400:
           $ref: "#/components/responses/400"
         500:
@@ -317,7 +320,7 @@ paths:
       tags:
         - Product
       security:
-        - Authorization: [ ]
+        - Authorization: []
       description: Before adding product make sure the product type and the schema
       requestBody:
         required: true
@@ -334,7 +337,7 @@ paths:
       tags:
         - Product
       security:
-        - Authorization: [ ]
+        - Authorization: []
       description: Delete multiple product's at a time.
       requestBody:
         content:
@@ -357,7 +360,7 @@ paths:
           $ref: "#/components/responses/403"
         500:
           $ref: "#/components/responses/500"
-  '/product/{id}':
+  "/product/{id}":
     get:
       tags:
         - Product
@@ -382,7 +385,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Product'
+                    $ref: "#/components/schemas/Product"
         400:
           $ref: "#/components/responses/400"
         403:
@@ -406,7 +409,7 @@ paths:
       tags:
         - Product
       security:
-        - Authorization: [ ]
+        - Authorization: []
       parameters:
         - in: path
           name: id
@@ -420,7 +423,7 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-  '/categories':
+  "/categories":
     get:
       tags:
         - Category
@@ -459,7 +462,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Category'
+                      $ref: "#/components/schemas/Category"
         400:
           $ref: "#/components/responses/400"
         500:
@@ -468,7 +471,7 @@ paths:
       tags:
         - Category
       security:
-        - Authorization: [ ]
+        - Authorization: []
       requestBody:
         required: true
         content:
@@ -484,11 +487,11 @@ paths:
                   example: cloths
                 icon:
                   type: string
-                  example: 'www.svg-icon.com'
+                  example: "www.svg-icon.com"
                 parentId:
                   type: string
                   default: null
-                  example: '1234567890123456'
+                  example: "1234567890123456"
               required:
                 - name
                 - icon
@@ -510,7 +513,7 @@ paths:
                     type: object
                     properties:
                       category:
-                        $ref: '#/components/schemas/Category'
+                        $ref: "#/components/schemas/Category"
         400:
           $ref: "#/components/responses/400"
         403:
@@ -521,7 +524,7 @@ paths:
       tags:
         - Category
       security:
-        - Authorization: [ ]
+        - Authorization: []
       requestBody:
         required: true
         content:
@@ -556,7 +559,7 @@ paths:
                     type: object
                     properties:
                       category:
-                        $ref: '#/components/schemas/Category'
+                        $ref: "#/components/schemas/Category"
         400:
           $ref: "#/components/responses/400"
         403:
@@ -567,7 +570,7 @@ paths:
       tags:
         - Category
       security:
-        - Authorization: [ ]
+        - Authorization: []
       requestBody:
         required: true
         content:
@@ -589,7 +592,7 @@ paths:
           $ref: "#/components/responses/403"
         500:
           $ref: "#/components/responses/500"
-  '/category/{id}':
+  "/category/{id}":
     get:
       tags:
         - Category
@@ -616,12 +619,12 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Category'
+                    $ref: "#/components/schemas/Category"
     patch:
       tags:
         - Category
       security:
-        - Authorization: [ ]
+        - Authorization: []
       parameters:
         - in: query
           name: id
@@ -643,11 +646,11 @@ paths:
                   example: cloths
                 icon:
                   type: string
-                  example: 'www.svg-icon.com'
+                  example: "www.svg-icon.com"
                 parentId:
                   type: string
                   default: null
-                  example: '1234567890123456'
+                  example: "1234567890123456"
       responses:
         200:
           description: Success
@@ -665,7 +668,7 @@ paths:
                     type: object
                     properties:
                       category:
-                        $ref: '#/components/schemas/Category'
+                        $ref: "#/components/schemas/Category"
         400:
           $ref: "#/components/responses/400"
         403:
@@ -676,7 +679,7 @@ paths:
       tags:
         - Category
       security:
-        - Authorization: [ ]
+        - Authorization: []
       parameters:
         - in: query
           name: id
@@ -692,7 +695,7 @@ paths:
           $ref: "#/components/responses/403"
         500:
           $ref: "#/components/responses/500"
-  '/orders':
+  "/orders":
     get:
       tags:
         - Order
@@ -734,12 +737,12 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Order'
+                      $ref: "#/components/schemas/Order"
     post:
       tags:
         - Order
       security:
-        - Authorization: [ ]
+        - Authorization: []
       requestBody:
         required: true
         content:
@@ -798,7 +801,7 @@ paths:
       tags:
         - Order
       security:
-        - Authorization: [ ]
+        - Authorization: []
       requestBody:
         required: true
         content:
@@ -841,7 +844,7 @@ paths:
       tags:
         - Order
       security:
-        - Authorization: [ ]
+        - Authorization: []
       requestBody:
         required: true
         content:
@@ -874,7 +877,7 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-  '/orders/{id}':
+  "/orders/{id}":
     get:
       tags:
         - Order
@@ -898,7 +901,7 @@ paths:
                     type: string
                   data:
                     type: object
-                    $ref: '#/components/schemas/Order'
+                    $ref: "#/components/schemas/Order"
         400:
           $ref: "#/components/responses/400"
         500:
@@ -907,7 +910,7 @@ paths:
       tags:
         - Order
       security:
-        - Authorization: [ ]
+        - Authorization: []
       parameters:
         - in: query
           name: id
@@ -951,7 +954,7 @@ paths:
       tags:
         - Order
       security:
-        - Authorization: [ ]
+        - Authorization: []
       parameters:
         - in: query
           name: id
@@ -975,8 +978,6 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-
-
 
 components:
   responses:
@@ -1121,7 +1122,7 @@ components:
         reviews:
           type: array
           items:
-            $ref: '#/components/schemas/Reviews'
+            $ref: "#/components/schemas/Reviews"
         attributes: &common_attribute
           type: object
           properties:
@@ -1211,7 +1212,7 @@ components:
         reviews:
           type: array
           items:
-            $ref: '#/components/schemas/Reviews'
+            $ref: "#/components/schemas/Reviews"
         attributes:
           type: object
           properties:
@@ -1344,7 +1345,7 @@ components:
           default: 5
         comments:
           type: string
-          default: ''
+          default: ""
     PaginationMeta:
       type: object
       properties:
@@ -1366,7 +1367,7 @@ components:
           type: array
           description: Array of product's
           items:
-            $ref: '#/components/schemas/Product'
+            $ref: "#/components/schemas/Product"
         shipping_information:
           type: object
           properties:
@@ -1386,9 +1387,6 @@ components:
         total:
           type: integer
           format: init32
-
-
-
 
   parameters:
     productSearch:

@@ -48,7 +48,6 @@ const logIntoAccount = async (data: Partial<IAuthProperty>) => {
     }
 
     const validPassword = user && await HashHelper.comparePassword(data.password as string, user.password)
-
     if (!validPassword || !user) throw new CustomError('Invalid email or password', 401)
 
     const tokenData = {
