@@ -21,6 +21,7 @@ const CreateNewAccount = async (data: Partial<IAuthWithName>): Promise<IAuthProp
         await userData.save({session})
 
         const validateUserCreation = AuthValidation.createAccount.parse({
+            name:data.name,
             email: data.email,
             password: data.password,
             phone: data.phone,
