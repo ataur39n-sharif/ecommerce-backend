@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 servers:
   - description: live
-    url: 'https://ecommerce-backend-d2ai.onrender.com/api/v1'
+    url: "https://ecommerce-backend-d2ai.onrender.com/api/v1"
   - description: localhost
     url: "http://localhost:5000/api/v1"
 tags:
@@ -108,7 +108,7 @@ paths:
       tags:
         - Admin
       security:
-        - Authorization: []
+        - Authorization: [ ]
       operationId: register
       requestBody:
         required: true
@@ -233,7 +233,7 @@ paths:
       tags:
         - Admin
       security:
-        - Authorization: []
+        - Authorization: [ ]
       parameters:
         - in: path
           name: User id
@@ -252,7 +252,7 @@ paths:
       tags:
         - Authentication
       security:
-        - Authorization: []
+        - Authorization: [ ]
       requestBody:
         required: true
         content:
@@ -320,7 +320,7 @@ paths:
       tags:
         - Product
       security:
-        - Authorization: []
+        - Authorization: [ ]
       description: Before adding product make sure the product type and the schema
       requestBody:
         required: true
@@ -337,7 +337,7 @@ paths:
       tags:
         - Product
       security:
-        - Authorization: []
+        - Authorization: [ ]
       description: Delete multiple product's at a time.
       requestBody:
         content:
@@ -409,7 +409,7 @@ paths:
       tags:
         - Product
       security:
-        - Authorization: []
+        - Authorization: [ ]
       parameters:
         - in: path
           name: id
@@ -471,7 +471,7 @@ paths:
       tags:
         - Category
       security:
-        - Authorization: []
+        - Authorization: [ ]
       requestBody:
         required: true
         content:
@@ -524,7 +524,7 @@ paths:
       tags:
         - Category
       security:
-        - Authorization: []
+        - Authorization: [ ]
       requestBody:
         required: true
         content:
@@ -570,7 +570,7 @@ paths:
       tags:
         - Category
       security:
-        - Authorization: []
+        - Authorization: [ ]
       requestBody:
         required: true
         content:
@@ -624,7 +624,7 @@ paths:
       tags:
         - Category
       security:
-        - Authorization: []
+        - Authorization: [ ]
       parameters:
         - in: query
           name: id
@@ -679,7 +679,7 @@ paths:
       tags:
         - Category
       security:
-        - Authorization: []
+        - Authorization: [ ]
       parameters:
         - in: query
           name: id
@@ -742,7 +742,7 @@ paths:
       tags:
         - Order
       security:
-        - Authorization: []
+        - Authorization: [ ]
       requestBody:
         required: true
         content:
@@ -801,7 +801,7 @@ paths:
       tags:
         - Order
       security:
-        - Authorization: []
+        - Authorization: [ ]
       requestBody:
         required: true
         content:
@@ -844,7 +844,7 @@ paths:
       tags:
         - Order
       security:
-        - Authorization: []
+        - Authorization: [ ]
       requestBody:
         required: true
         content:
@@ -910,7 +910,7 @@ paths:
       tags:
         - Order
       security:
-        - Authorization: []
+        - Authorization: [ ]
       parameters:
         - in: query
           name: id
@@ -954,7 +954,7 @@ paths:
       tags:
         - Order
       security:
-        - Authorization: []
+        - Authorization: [ ]
       parameters:
         - in: query
           name: id
