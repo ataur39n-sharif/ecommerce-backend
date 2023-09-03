@@ -20,6 +20,7 @@ const singleProductAttributeSchema = new Schema<TSingleProductAttribute>({
     _id: false,
     versionKey: false
 })
+
 const variableProductAttributeSchema = new Schema<TVariableProductAttribute>({
     image: {
         type: String,
@@ -45,6 +46,7 @@ const variableProductAttributeSchema = new Schema<TVariableProductAttribute>({
     _id: false,
     versionKey: false
 })
+
 const discountSchema = new Schema<TDiscount>({
     type: {
         type: String,
@@ -124,4 +126,4 @@ const dataSchema = new Schema<IProduct>({
     versionKey: false
 })
 
-export const ProductModel = model('Product', dataSchema)
+export const ProductModel = model<IProduct>('Product', dataSchema)

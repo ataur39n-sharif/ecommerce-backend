@@ -1,5 +1,7 @@
+import {Types} from "mongoose";
+
 export interface IProduct {
-    _id?: string,
+    _id?: Types.ObjectId,
     name: string,
     description: string,
     price?: number,
@@ -74,4 +76,9 @@ export type TVariableProductAttribute = {
     stock: number,
     attributes: [TVariableAttr],
     discount: TDiscount
+}
+
+export type TBulkProductPayload = {
+    stock?: number
+    status?: 'published' | 'unpublished'
 }
