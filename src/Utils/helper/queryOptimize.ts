@@ -6,8 +6,8 @@ import {
     TSearchOption,
     TSortOptions
 } from "@/Utils/types/query.type";
-import { pickFunction } from "@/Utils/helper/pickFunction";
-import { Request } from "express";
+import {pickFunction} from "@/Utils/helper/pickFunction";
+import {Request} from "express";
 
 export const calculatePagination = (data: Partial<TPaginationOptions>): TPaginationOptions => {
     const page = Number(data.page || 1)
@@ -20,7 +20,7 @@ export const calculatePagination = (data: Partial<TPaginationOptions>): TPaginat
     }
 }
 
-export const manageSorting = (data: Partial<TSortOptions>): TSortOptions => {
+export const manageSorting = <T>(data: Partial<TSortOptions<T>>): TSortOptions<T> => {
     const sortOrder = data.sortOrder || "desc"
     const sortBy = data.sortBy || "createdAt"
     return {
@@ -31,12 +31,12 @@ export const manageSorting = (data: Partial<TSortOptions>): TSortOptions => {
 
 export const queryOptimization = <M>(req: Request, fields: (keyof M)[], extraFields: string[] = []): IQueryItems<Partial<M>> => {
     const search: Partial<TSearchOption> = pickFunction(req.query, ["search"])
-    const filter: Partial<any> = pickFunction(req.query, [
+    const filter: any = pickFunction(req.query, [
         ...fields.map((field) => String(field)),
         ...extraFields
     ])
     const pagination: Partial<TPaginationOptions> = pickFunction(req.query, PaginationKeys)
-    const sort: Partial<TSortOptions> = pickFunction(req.query, SortKeys)
+    const sort: Partial<TSortOptions<M>> = pickFunction(req.query, SortKeys)
 
     return {
         searchFields: search,
@@ -47,6 +47,7 @@ export const queryOptimization = <M>(req: Request, fields: (keyof M)[], extraFie
 }
 
 export const MongoQueryHelper = (fieldType: string, fieldName: string, searchValue: string) => {
+    console.log(fieldType)
     if (fieldType === "Number") {
         //number
         if (!isNaN(Number(searchValue))) {

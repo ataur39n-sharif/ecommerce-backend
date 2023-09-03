@@ -1,9 +1,44 @@
 import {ProductModel} from "@/App/modules/Products/product.model";
 import {IProduct, TBulkProductPayload} from "@/App/modules/Products/product.types";
 import {Types} from "mongoose";
+import {IQueryItems} from "@/Utils/types/query.type";
+import {calculatePagination, manageSorting, MongoQueryHelper} from "@/Utils/helper/queryOptimize";
 
-const getProducts = async (): Promise<IProduct[]> => {
-    return ProductModel.find({}).lean()
+const getProducts = async (payload: IQueryItems<IProduct>): Promise<IProduct[] | null> => {
+    const {search} = payload.searchFields
+    const {page, limit, skip} = calculatePagination(payload.paginationFields)
+    const {sortBy, sortOrder} = manageSorting(payload.sortFields)
+
+    console.log(payload.filterFields)
+
+    const queryConditions = []
+
+    //search condition
+    if (search) {
+        queryConditions.push({
+            $or: ['name', 'category'].map((field) => {
+                const fieldType = ProductModel.schema.path(field).instance
+                return MongoQueryHelper(fieldType, field, search)
+            })
+        })
+    }
+
+    //filter conditions
+    if (Object.entries(payload.filterFields).length > 0) {
+        console.log(payload.filterFields)
+        queryConditions.push({
+            $and: Object.entries(payload.filterFields).map(([key, value]) => {
+                let fieldType = 'String'
+                if (Object.keys(ProductModel.schema.obj).includes(key)) {
+                    fieldType = ProductModel.schema.path(key).instance
+                }
+                return MongoQueryHelper(fieldType, key, value as string)
+            })
+        })
+    }
+
+    const query = queryConditions.length ? {$and: queryConditions} : {}
+    return ProductModel.find(query).lean()
 }
 
 const getSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> => {

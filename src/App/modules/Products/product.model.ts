@@ -37,8 +37,7 @@ const variableProductAttributeSchema = new Schema<TVariableProductAttribute>({
     attributes: {
         type: [{
             label: String,
-            value: String,
-            acb: Schema
+            value: String
         }],
         required: true
     }

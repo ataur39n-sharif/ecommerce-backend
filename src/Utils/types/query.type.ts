@@ -2,9 +2,9 @@ import {SortOrder} from "mongoose";
 
 export interface IQueryItems<T> {
     searchFields: Partial<TSearchOption>,
-    filterFields: T,
+    filterFields: Partial<T>,
     paginationFields: Partial<TPaginationOptions>,
-    sortFields: Partial<TSortOptions>,
+    sortFields: Partial<TSortOptions<T>>,
 }
 
 export type TSearchOption = {
@@ -18,8 +18,8 @@ export type TPaginationOptions = {
 }
 export const PaginationKeys = ["page", "limit"]
 
-export type TSortOptions = {
-    sortBy: string;
+export type TSortOptions<T> = {
+    sortBy: keyof T | string;
     sortOrder: SortOrder;
 }
 export const SortKeys = ["sortBy", "sortOrder"]
