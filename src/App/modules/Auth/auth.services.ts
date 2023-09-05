@@ -1,24 +1,24 @@
-import { AuthValidation, IAuthWithName } from './auth.validation';
+import {AuthValidation, IAuthWithName} from './auth.validation';
 import CustomError from "@/Utils/errors/customErrror.class";
-import { HashHelper } from "@/Utils/helper/hashHelper";
-import { generateToken } from "@/Utils/helper/generateToken";
-import { ERole, IAuthProperty } from "./auth.types";
-import { AuthModel } from "./auth.model";
-import { UserModel } from '../User/user.model';
+import {HashHelper} from "@/Utils/helper/hashHelper";
+import {generateToken} from "@/Utils/helper/generateToken";
+import {ERole, IAuthProperty} from "./auth.types";
+import {AuthModel} from "./auth.model";
+import {UserModel} from '../User/user.model';
 import mongoose from 'mongoose';
 
 const CreateNewAccount = async (data: Partial<IAuthWithName>): Promise<IAuthProperty> => {
     const session = await mongoose.startSession()
     try {
         session.startTransaction()
-        const exist = await UserModel.findOne({ email: data.email }).session(session)
+        const exist = await UserModel.findOne({email: data.email}).session(session)
         if (exist) throw new CustomError(`User with ${data.email} already exists`, 400)
 
         const userData = new UserModel({
             email: data.email,
             name: data.name
         })
-        await userData.save({ session })
+        await userData.save({session})
 
         const validateUserCreation = AuthValidation.createAccount.parse({
             name: data.name,
@@ -29,7 +29,7 @@ const CreateNewAccount = async (data: Partial<IAuthWithName>): Promise<IAuthProp
             role: data.role || ERole.customer
         })
         const newUser = new AuthModel(validateUserCreation)
-        await newUser.save({ session })
+        await newUser.save({session})
         await session.commitTransaction()
         await session.endSession()
         return newUser
@@ -41,10 +41,10 @@ const CreateNewAccount = async (data: Partial<IAuthWithName>): Promise<IAuthProp
 }
 const logIntoAccount = async (data: Partial<IAuthProperty>) => {
     let user: IAuthProperty | null = null;
-    if (data.phone ) {
-        user = await AuthModel.findOne({ phone: data.phone })
-    }else{
-        user = await AuthModel.findOne({ email: data.email })
+    if (data.phone) {
+        user = await AuthModel.findOne({phone: data.phone})
+    } else {
+        user = await AuthModel.findOne({email: data.email})
     }
 
     const validPassword = user && await HashHelper.comparePassword(data.password as string, user.password)
@@ -64,6 +64,11 @@ const logIntoAccount = async (data: Partial<IAuthProperty>) => {
     }
 }
 
+const forgetPassword = async (email: string) => {
+    /*
+    * send email to user with a token for update password
+    * */
+}
 
 export const AuthServices = {
     CreateNewAccount,

@@ -10,9 +10,10 @@ AuthRoutes
         AuthMiddleware.userExists,
         AuthController.login
     )
-// .post('/logout', AuthMiddleware)
-// .post('/forget-password', AuthMiddleware)
-// .post('/reset-password', AuthMiddleware)
+    // .post('/logout', AuthMiddleware)
+    .post('/forget-password', AuthController.forgetPassword)
+    .patch('/reset-password', AuthController.restPassword)
+    .patch('/change-password', AuthController.changePassword)
 
 
 export default AuthRoutes

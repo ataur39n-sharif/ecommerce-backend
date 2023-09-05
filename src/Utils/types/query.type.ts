@@ -30,6 +30,6 @@ export type TMeta = {
     total: number
 }
 export type TDataWithMeta<T> = {
+    data: T,
     meta: TMeta,
-    data: T
 }

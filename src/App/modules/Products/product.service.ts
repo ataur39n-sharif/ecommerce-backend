@@ -52,12 +52,12 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
         .lean()
     const total = await ProductModel.countDocuments()
     return {
+        data: products,
         meta: {
             page,
             limit,
             total
         },
-        data: products
     }
 }
 
