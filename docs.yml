@@ -282,12 +282,14 @@ paths:
         - Product
       parameters:
         - $ref: "#/components/parameters/productSearch"
-        - $ref: "#/components/parameters/name"
         - $ref: "#/components/parameters/category"
         - $ref: "#/components/parameters/productMinPriceFilter"
         - $ref: "#/components/parameters/productMaxPriceFilter"
         - $ref: "#/components/parameters/sortOrder"
         - $ref: "#/components/parameters/sortBy"
+        - $ref: "#/components/parameters/status"
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
       responses:
         200:
           description: Success Response
@@ -1397,18 +1399,33 @@ components:
       description: search by name,category
       schema:
         type: string
-    name:
+    status:
       in: query
-      name: name
-      description: filter by name
+      name: status
+      description: filter by status
       schema:
         type: string
+        enum:
+          - published
+          - unpublished
     category:
       in: query
       name: category
       description: filter by category
       schema:
         type: string
+    page:
+      in: query
+      name: page
+      description: jump to page
+      schema:
+        type: number
+    limit:
+      in: query
+      name: limit
+      description: limit data per request
+      schema:
+        type: number
     productMinPriceFilter:
       in: query
       name: min_price
@@ -1427,6 +1444,11 @@ components:
       description: sort by property
       schema:
         type: string
+        enum:
+          - name
+          - price
+          - createdAt
+          - updatedAt
     sortOrder:
       in: query
       name: sortOrder

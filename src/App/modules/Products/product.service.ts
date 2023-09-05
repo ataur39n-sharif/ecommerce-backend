@@ -1,15 +1,14 @@
 import {ProductModel} from "@/App/modules/Products/product.model";
-import {IProduct, TBulkProductPayload} from "@/App/modules/Products/product.types";
+import {IProduct, TBulkProductPayload, TExtraProductKeys} from "@/App/modules/Products/product.types";
 import {Types} from "mongoose";
-import {IQueryItems} from "@/Utils/types/query.type";
+import {IQueryItems, TDataWithMeta} from "@/Utils/types/query.type";
 import {calculatePagination, manageSorting, MongoQueryHelper} from "@/Utils/helper/queryOptimize";
+import {ProductUtils} from "@/App/modules/Products/product.utils";
 
-const getProducts = async (payload: IQueryItems<IProduct>): Promise<IProduct[] | null> => {
+const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMeta<IProduct[]>> => {
     const {search} = payload.searchFields
     const {page, limit, skip} = calculatePagination(payload.paginationFields)
     const {sortBy, sortOrder} = manageSorting(payload.sortFields)
-
-    console.log(payload.filterFields)
 
     const queryConditions = []
 
@@ -25,20 +24,41 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<IProduct[] |
 
     //filter conditions
     if (Object.entries(payload.filterFields).length > 0) {
-        console.log(payload.filterFields)
+        ProductUtils.manageFilterFields(payload.filterFields)
         queryConditions.push({
             $and: Object.entries(payload.filterFields).map(([key, value]) => {
-                let fieldType = 'String'
+
                 if (Object.keys(ProductModel.schema.obj).includes(key)) {
-                    fieldType = ProductModel.schema.path(key).instance
+                    // mongoose schema keys
+                    const fieldType = ProductModel.schema.path(key).instance
+                    return MongoQueryHelper(fieldType, key, value as string)
+                } else if ((ProductUtils.getProductExtraKeys('keys') as string[]).includes(key)) {
+                    //extra keys
+                    const {
+                        fieldType
+                    } = ProductUtils.getProductExtraKeys('specific', key) as TExtraProductKeys
+                    return MongoQueryHelper(fieldType, key, value as string)
                 }
-                return MongoQueryHelper(fieldType, key, value as string)
+                return MongoQueryHelper('String', '', '')
             })
         })
     }
 
     const query = queryConditions.length ? {$and: queryConditions} : {}
-    return ProductModel.find(query).lean()
+    const products: IProduct[] = await ProductModel.find(query)
+        .sort({[sortBy]: sortOrder})
+        .skip(skip)
+        .limit(limit)
+        .lean()
+    const total = await ProductModel.countDocuments()
+    return {
+        meta: {
+            page,
+            limit,
+            total
+        },
+        data: products
+    }
 }
 
 const getSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> => {

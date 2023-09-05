@@ -83,4 +83,8 @@ export type TBulkProductPayload = {
     status?: 'published' | 'unpublished'
 }
 
-export type TExtraProductKeysType = 'key' | 'specific'
+export type TExtraProductKeysType = 'keys' | 'specific'
+export type TExtraProductKeys = {
+    fieldName: string,
+    fieldType: string,
+}

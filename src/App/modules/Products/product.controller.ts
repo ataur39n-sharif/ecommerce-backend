@@ -4,7 +4,7 @@ import {queryOptimization} from "@/Utils/helper/queryOptimize";
 import {IProduct} from "@/App/modules/Products/product.types";
 import {sendResponse} from "@/Utils/helper/sendResponse";
 import {ProductServices} from "@/App/modules/Products/product.service";
-import {getProductExtraKeys} from "@/App/modules/Products/product.utils";
+import {ProductUtils} from "@/App/modules/Products/product.utils";
 
 const allProducts = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const {
@@ -12,16 +12,16 @@ const allProducts = catchAsync(async (req: Request, res: Response, next: NextFun
         filterFields,
         sortFields,
         paginationFields
-    } = queryOptimization<IProduct>(req, ['name', 'category', 'status'], getProductExtraKeys('key') as string[])
-    
-    const products = await ProductServices.getProducts({
+    } = queryOptimization<IProduct>(req, ['category', 'status'], ProductUtils.getProductExtraKeys('keys') as string[])
+
+    const data = await ProductServices.getProducts({
         searchFields, filterFields, sortFields, paginationFields
     })
 
     sendResponse.success(res, {
         statusCode: 200,
         message: 'Products fetched successfully',
-        // data: products
+        data
     })
 })
 

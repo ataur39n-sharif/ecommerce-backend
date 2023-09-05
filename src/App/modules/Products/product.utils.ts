@@ -1,6 +1,6 @@
-import {TExtraProductKeysType} from "@/App/modules/Products/product.types";
+import {IProduct, TExtraProductKeys, TExtraProductKeysType} from "@/App/modules/Products/product.types";
 
-const ProductExtraKeys = [
+const ProductExtraKeys: TExtraProductKeys[] = [
     {
         fieldName: 'min_price',
         fieldType: 'Number',
@@ -10,9 +10,9 @@ const ProductExtraKeys = [
         fieldType: 'Number',
     }
 ]
-export const getProductExtraKeys = (type: TExtraProductKeysType, keyName?: string) => {
+const getProductExtraKeys = (type: TExtraProductKeysType, keyName?: string) => {
     switch (type) {
-        case 'key':
+        case 'keys':
             return ProductExtraKeys.map((eachField) => eachField.fieldName)
         case "specific":
             return ProductExtraKeys.find((field) => field.fieldName === keyName) || {}
@@ -21,6 +21,11 @@ export const getProductExtraKeys = (type: TExtraProductKeysType, keyName?: strin
     }
 }
 
+const manageFilterFields = (fields: Partial<IProduct>) => {
+
+}
+
 export const ProductUtils = {
-    getProductExtraKeys
+    getProductExtraKeys,
+    manageFilterFields
 }

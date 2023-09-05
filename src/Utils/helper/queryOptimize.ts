@@ -47,13 +47,28 @@ export const queryOptimization = <M>(req: Request, fields: (keyof M)[], extraFie
 }
 
 export const MongoQueryHelper = (fieldType: string, fieldName: string, searchValue: string) => {
-    console.log(fieldType)
     if (fieldType === "Number") {
         //number
         if (!isNaN(Number(searchValue))) {
-            return {
-                [fieldName]: Number(searchValue)
+            switch (fieldName) {
+                case "min_price":
+                    return {
+                        price: {
+                            $gte: Number(searchValue)
+                        }
+                    }
+                case "max_price":
+                    return {
+                        price: {
+                            $lte: Number(searchValue)
+                        }
+                    }
+                default:
+                    return {
+                        [fieldName]: Number(searchValue)
+                    }
             }
+
         } else {
             return {
                 [fieldName]: {
