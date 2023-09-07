@@ -10,7 +10,7 @@ const ProductExtraKeys: TExtraProductKeys[] = [
         fieldType: 'Number',
     }
 ]
-const getProductExtraKeys = (type: TExtraProductKeysType, keyName?: string) => {
+const getProductExtraKeys = (type: TExtraProductKeysType = 'keys', keyName?: string) => {
     switch (type) {
         case 'keys':
             return ProductExtraKeys.map((eachField) => eachField.fieldName)

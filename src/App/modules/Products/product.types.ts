@@ -12,7 +12,7 @@ export interface IProduct {
     reviews: [],
     isVariableProduct: boolean,
     tags: [string],
-    attributes: TSingleProductAttribute,
+    attributes: [TSingleProductAttribute],
     discount?: TDiscount,
     status: 'published' | 'unpublished',
     variableProducts?: TVariableProductAttribute,
@@ -32,7 +32,7 @@ export interface ISingleProduct {
     reviews: [],
     isVariableProduct: boolean,
     tags: [string],
-    attributes: TSingleProductAttribute,
+    attributes: [TSingleProductAttribute],
     discount: TDiscount,
     status: 'published' | 'unpublished',
     createdAt?: Date,
@@ -49,7 +49,7 @@ export interface IVariableProduct {
     reviews: [],
     isVariableProduct: boolean,
     tags: [string],
-    attributes: TSingleProductAttribute,
+    attributes: [TSingleProductAttribute],
     status: 'published' | 'unpublished',
     variableProducts: TVariableProductAttribute,
     createdAt?: Date,
@@ -63,7 +63,7 @@ export type TDiscount = {
 }
 
 export type TSingleProductAttribute = {
-    labels: [string],
+    label: string,
     values: [string]
 }
 type TVariableAttr = {

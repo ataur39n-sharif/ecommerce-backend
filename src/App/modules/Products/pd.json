@@ -1,0 +1,805 @@
+[
+  {
+    "name": "Product 1",
+    "description": "Description for Product 1",
+    "price": 19.99,
+    "stock": 50,
+    "category": "Electronics",
+    "images": [
+      "image1.jpg",
+      "image2.jpg"
+    ],
+    "thumbnail": "thumbnail1.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag1",
+      "Tag2"
+    ],
+    "attributes": [
+      {
+        "label": "Color",
+        "values": [
+          "Red",
+          "Blue",
+          "Green"
+        ]
+      },
+      {
+        "label": "Size",
+        "values": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "percentage",
+      "value": 5
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T09:30:34.994Z",
+    "updatedAt": "2023-09-06T09:30:34.994Z"
+  },
+  {
+    "name": "Product 2",
+    "description": "Description for Product 2",
+    "price": 29.99,
+    "stock": 75,
+    "category": "Clothing",
+    "images": [
+      "image3.jpg",
+      "image4.jpg"
+    ],
+    "thumbnail": "thumbnail2.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag3",
+      "Tag4"
+    ],
+    "attributes": [
+      {
+        "label": "Size",
+        "values": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "fixed",
+      "value": 10
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T09:31:00.308Z",
+    "updatedAt": "2023-09-06T09:31:00.308Z"
+  },
+  {
+    "name": "Product 3",
+    "description": "Description for Product 3",
+    "price": 39.99,
+    "stock": 60,
+    "category": "Home & Kitchen",
+    "images": [
+      "image5.jpg",
+      "image6.jpg"
+    ],
+    "thumbnail": "thumbnail3.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag5",
+      "Tag6"
+    ],
+    "attributes": [
+      {
+        "label": "Material",
+        "values": [
+          "Wood",
+          "Metal",
+          "Plastic"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "percentage",
+      "value": 15
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T09:31:32.015Z",
+    "updatedAt": "2023-09-06T09:31:32.015Z"
+  },
+  {
+    "name": "Product 7",
+    "description": "Description for Product 7",
+    "price": 79.99,
+    "stock": 20,
+    "category": "Home & Garden",
+    "images": [
+      "image13.jpg",
+      "image14.jpg"
+    ],
+    "thumbnail": "thumbnail7.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag13",
+      "Tag14"
+    ],
+    "attributes": [
+      {
+        "label": "Material",
+        "values": [
+          "Cotton",
+          "Wood",
+          "Metal"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "percentage",
+      "value": 8
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T12:00:00Z",
+    "updatedAt": "2023-09-06T14:30:00Z"
+  },
+  {
+    "name": "Product 8",
+    "description": "Description for Product 8",
+    "price": 89.99,
+    "stock": 15,
+    "category": "Fashion",
+    "images": [
+      "image15.jpg",
+      "image16.jpg"
+    ],
+    "thumbnail": "thumbnail8.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag15",
+      "Tag16"
+    ],
+    "attributes": [
+      {
+        "label": "Size",
+        "values": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "fixed",
+      "value": 10
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T13:30:00Z",
+    "updatedAt": "2023-09-06T15:45:00Z"
+  },
+  {
+    "name": "Product 9",
+    "description": "Description for Product 9",
+    "price": 99.99,
+    "stock": 10,
+    "category": "Electronics",
+    "images": [
+      "image17.jpg",
+      "image18.jpg"
+    ],
+    "thumbnail": "thumbnail9.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag17",
+      "Tag18"
+    ],
+    "attributes": [
+      {
+        "label": "Color",
+        "values": [
+          "Black",
+          "White",
+          "Silver"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "percentage",
+      "value": 12
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T14:00:00Z",
+    "updatedAt": "2023-09-06T16:15:00Z"
+  },
+  {
+    "name": "Product 10",
+    "description": "Description for Product 10",
+    "price": 109.99,
+    "stock": 5,
+    "category": "Toys & Games",
+    "images": [
+      "image19.jpg",
+      "image20.jpg"
+    ],
+    "thumbnail": "thumbnail10.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag19",
+      "Tag20"
+    ],
+    "attributes": [
+      {
+        "label": "Age Group",
+        "values": [
+          "Kids",
+          "Teens",
+          "Adults"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "fixed",
+      "value": 15
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T15:00:00Z",
+    "updatedAt": "2023-09-06T17:30:00Z"
+  },
+  {
+    "name": "Product 11",
+    "description": "Description for Product 11",
+    "price": 119.99,
+    "stock": 8,
+    "category": "Home Decor",
+    "images": [
+      "image21.jpg",
+      "image22.jpg"
+    ],
+    "thumbnail": "thumbnail11.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag21",
+      "Tag22"
+    ],
+    "attributes": [
+      {
+        "label": "Material",
+        "values": [
+          "Glass",
+          "Ceramic",
+          "Metal"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "fixed",
+      "value": 20
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T16:30:00Z",
+    "updatedAt": "2023-09-06T18:45:00Z"
+  },
+  {
+    "name": "Product 12",
+    "description": "Description for Product 12",
+    "price": 129.99,
+    "stock": 12,
+    "category": "Health & Wellness",
+    "images": [
+      "image23.jpg",
+      "image24.jpg"
+    ],
+    "thumbnail": "thumbnail12.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag23",
+      "Tag24"
+    ],
+    "attributes": [
+      {
+        "label": "Weight",
+        "values": [
+          "Light",
+          "Medium",
+          "Heavy"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "percentage",
+      "value": 15
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T17:00:00Z",
+    "updatedAt": "2023-09-06T19:15:00Z"
+  },
+  {
+    "name": "Product 13",
+    "description": "Description for Product 13",
+    "price": 139.99,
+    "stock": 15,
+    "category": "Clothing",
+    "images": [
+      "image25.jpg",
+      "image26.jpg"
+    ],
+    "thumbnail": "thumbnail13.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag25",
+      "Tag26"
+    ],
+    "attributes": [
+      {
+        "label": "Size",
+        "values": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "fixed",
+      "value": 10
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T18:30:00Z",
+    "updatedAt": "2023-09-06T20:45:00Z"
+  },
+  {
+    "name": "Product 14",
+    "description": "Description for Product 14",
+    "price": 149.99,
+    "stock": 10,
+    "category": "Electronics",
+    "images": [
+      "image27.jpg",
+      "image28.jpg"
+    ],
+    "thumbnail": "thumbnail14.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag27",
+      "Tag28"
+    ],
+    "attributes": [
+      {
+        "label": "Color",
+        "values": [
+          "Black",
+          "White",
+          "Silver"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "percentage",
+      "value": 12
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T19:00:00Z",
+    "updatedAt": "2023-09-06T21:15:00Z"
+  },
+  {
+    "name": "Product 15",
+    "description": "Description for Product 15",
+    "price": 159.99,
+    "stock": 5,
+    "category": "Toys & Games",
+    "images": [
+      "image29.jpg",
+      "image30.jpg"
+    ],
+    "thumbnail": "thumbnail15.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag29",
+      "Tag30"
+    ],
+    "attributes": [
+      {
+        "label": "Age Group",
+        "values": [
+          "Kids",
+          "Teens",
+          "Adults"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "fixed",
+      "value": 15
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T20:30:00Z",
+    "updatedAt": "2023-09-06T22:45:00Z"
+  },
+  {
+    "name": "Product 16",
+    "description": "Description for Product 16",
+    "price": 169.99,
+    "stock": 20,
+    "category": "Home & Garden",
+    "images": [
+      "image31.jpg",
+      "image32.jpg"
+    ],
+    "thumbnail": "thumbnail16.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag31",
+      "Tag32"
+    ],
+    "attributes": [
+      {
+        "label": "Material",
+        "values": [
+          "Wood",
+          "Ceramic",
+          "Metal"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "percentage",
+      "value": 8
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T21:00:00Z",
+    "updatedAt": "2023-09-06T23:15:00Z"
+  },
+  {
+    "name": "Product 17",
+    "description": "Description for Product 17",
+    "price": 179.99,
+    "stock": 18,
+    "category": "Health & Wellness",
+    "images": [
+      "image33.jpg",
+      "image34.jpg"
+    ],
+    "thumbnail": "thumbnail17.jpg",
+    "reviews": [],
+    "isVariableProduct": false,
+    "tags": [
+      "Tag33",
+      "Tag34"
+    ],
+    "attributes": [
+      {
+        "label": "Weight",
+        "values": [
+          "Light",
+          "Medium",
+          "Heavy"
+        ]
+      }
+    ],
+    "discount": {
+      "type": "fixed",
+      "value": 12
+    },
+    "status": "published",
+    "createdAt": "2023-09-06T22:30:00Z",
+    "updatedAt": "2023-09-07T00:45:00Z"
+  },
+  {
+    "name": "Variable Product 1",
+    "description": "Description for Variable Product 1",
+    "category": "Electronics",
+    "images": [
+      "image1.jpg",
+      "image2.jpg"
+    ],
+    "thumbnail": "thumbnail1.jpg",
+    "reviews": [],
+    "isVariableProduct": true,
+    "tags": [
+      "Tag1",
+      "Tag2"
+    ],
+    "attributes": [
+      {
+        "label": "Color",
+        "values": [
+          "Red",
+          "Blue",
+          "Green"
+        ]
+      },
+      {
+        "label": "Size",
+        "values": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    ],
+    "status": "published",
+    "variableProducts": {
+      "image": "variable-image1.jpg",
+      "price": 39.99,
+      "stock": 50,
+      "attributes": [
+        {
+          "label": "Color",
+          "value": "Red"
+        },
+        {
+          "label": "Size",
+          "value": "Small"
+        }
+      ],
+      "discount": {
+        "type": "percentage",
+        "value": 5
+      }
+    },
+    "createdAt": "2023-09-06T12:00:00Z",
+    "updatedAt": "2023-09-06T14:30:00Z"
+  },
+  {
+    "name": "Variable Product 2",
+    "description": "Description for Variable Product 2",
+    "category": "Clothing",
+    "images": [
+      "image3.jpg",
+      "image4.jpg"
+    ],
+    "thumbnail": "thumbnail2.jpg",
+    "reviews": [],
+    "isVariableProduct": true,
+    "tags": [
+      "Tag3",
+      "Tag4"
+    ],
+    "attributes": [
+      {
+        "label": "Size",
+        "values": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    ],
+    "status": "published",
+    "variableProducts": {
+      "image": "variable-image2.jpg",
+      "price": 49.99,
+      "stock": 75,
+      "attributes": [
+        {
+          "label": "Size",
+          "value": "Medium"
+        }
+      ],
+      "discount": {
+        "type": "fixed",
+        "value": 10
+      }
+    },
+    "createdAt": "2023-09-06T13:00:00Z",
+    "updatedAt": "2023-09-06T15:45:00Z"
+  },
+  {
+    "name": "Variable Product 16",
+    "description": "Description for Variable Product 16",
+    "category": "Electronics",
+    "images": [
+      "image16.jpg",
+      "image17.jpg"
+    ],
+    "thumbnail": "thumbnail16.jpg",
+    "reviews": [],
+    "isVariableProduct": true,
+    "tags": [
+      "Tag16",
+      "Tag17"
+    ],
+    "attributes": [
+      {
+        "label": "Color",
+        "values": [
+          "Black",
+          "Silver"
+        ]
+      },
+      {
+        "label": "Size",
+        "values": [
+          "Medium",
+          "Large"
+        ]
+      }
+    ],
+    "status": "published",
+    "variableProducts": {
+      "image": "variable-image16.jpg",
+      "price": 59.99,
+      "stock": 60,
+      "attributes": [
+        {
+          "label": "Color",
+          "value": "Black"
+        },
+        {
+          "label": "Size",
+          "value": "Large"
+        }
+      ],
+      "discount": {
+        "type": "percentage",
+        "value": 15
+      }
+    },
+    "createdAt": "2023-09-06T16:30:00Z",
+    "updatedAt": "2023-09-06T18:45:00Z"
+  },
+  {
+    "name": "Variable Product 17",
+    "description": "Description for Variable Product 17",
+    "category": "Clothing",
+    "images": [
+      "image18.jpg",
+      "image19.jpg"
+    ],
+    "thumbnail": "thumbnail17.jpg",
+    "reviews": [],
+    "isVariableProduct": true,
+    "tags": [
+      "Tag18",
+      "Tag19"
+    ],
+    "attributes": [
+      {
+        "label": "Size",
+        "values": [
+          "Small",
+          "Medium"
+        ]
+      }
+    ],
+    "status": "published",
+    "variableProducts": {
+      "image": "variable-image17.jpg",
+      "price": 69.99,
+      "stock": 40,
+      "attributes": [
+        {
+          "label": "Size",
+          "value": "Medium"
+        }
+      ],
+      "discount": {
+        "type": "fixed",
+        "value": 20
+      }
+    },
+    "createdAt": "2023-09-06T17:00:00Z",
+    "updatedAt": "2023-09-06T19:15:00Z"
+  },
+  {
+    "name": "Variable Product 26",
+    "description": "Description for Variable Product 26",
+    "category": "Home & Garden",
+    "images": [
+      "image26.jpg",
+      "image27.jpg"
+    ],
+    "thumbnail": "thumbnail26.jpg",
+    "reviews": [],
+    "isVariableProduct": true,
+    "tags": [
+      "Tag26",
+      "Tag27"
+    ],
+    "attributes": [
+      {
+        "label": "Material",
+        "values": [
+          "Wood",
+          "Metal"
+        ]
+      },
+      {
+        "label": "Size",
+        "values": [
+          "Small",
+          "Medium"
+        ]
+      }
+    ],
+    "status": "published",
+    "variableProducts": {
+      "image": "variable-image26.jpg",
+      "price": 79.99,
+      "stock": 30,
+      "attributes": [
+        {
+          "label": "Material",
+          "value": "Metal"
+        },
+        {
+          "label": "Size",
+          "value": "Medium"
+        }
+      ],
+      "discount": {
+        "type": "percentage",
+        "value": 10
+      }
+    },
+    "createdAt": "2023-09-07T12:00:00Z",
+    "updatedAt": "2023-09-07T14:30:00Z"
+  },
+  {
+    "name": "Variable Product 27",
+    "description": "Description for Variable Product 27",
+    "category": "Health & Wellness",
+    "images": [
+      "image27.jpg",
+      "image28.jpg"
+    ],
+    "thumbnail": "thumbnail27.jpg",
+    "reviews": [],
+    "isVariableProduct": true,
+    "tags": [
+      "Tag27",
+      "Tag28"
+    ],
+    "attributes": [
+      {
+        "label": "Weight",
+        "values": [
+          "Light",
+          "Medium"
+        ]
+      },
+      {
+        "label": "Size",
+        "values": [
+          "Small",
+          "Medium"
+        ]
+      }
+    ],
+    "status": "published",
+    "variableProducts": {
+      "image": "variable-image27.jpg",
+      "price": 89.99,
+      "stock": 25,
+      "attributes": [
+        {
+          "label": "Weight",
+          "value": "Medium"
+        },
+        {
+          "label": "Size",
+          "value": "Medium"
+        }
+      ],
+      "discount": {
+        "type": "percentage",
+        "value": 15
+      }
+    },
+    "createdAt": "2023-09-07T13:00:00Z",
+    "updatedAt": "2023-09-07T15:45:00Z"
+  }
+]

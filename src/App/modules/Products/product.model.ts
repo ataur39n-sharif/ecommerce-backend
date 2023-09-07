@@ -8,9 +8,8 @@ import {
 
 
 const singleProductAttributeSchema = new Schema<TSingleProductAttribute>({
-    labels: {
-        type: [String],
-        default: []
+    label: {
+        type: String,
     },
     values: {
         type: [String],
@@ -105,7 +104,7 @@ const dataSchema = new Schema<IProduct>({
         default: []
     },
     attributes: {
-        type: singleProductAttributeSchema
+        type: [singleProductAttributeSchema]
     },
     discount: {
         type: discountSchema,

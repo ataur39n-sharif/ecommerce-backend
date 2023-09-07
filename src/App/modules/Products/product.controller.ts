@@ -12,7 +12,7 @@ const allProducts = catchAsync(async (req: Request, res: Response, next: NextFun
         filterFields,
         sortFields,
         paginationFields
-    } = queryOptimization<IProduct>(req, ['category', 'status'], ProductUtils.getProductExtraKeys('keys') as string[])
+    } = queryOptimization<IProduct>(req, ['category', 'status'], ProductUtils.getProductExtraKeys() as string[])
 
     const data = await ProductServices.getProducts({
         searchFields, filterFields, sortFields, paginationFields

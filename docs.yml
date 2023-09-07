@@ -1128,16 +1128,16 @@ components:
           items:
             $ref: "#/components/schemas/Reviews"
         attributes: &common_attribute
-          type: object
-          properties:
-            list:
-              type: array
-              items:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
                 type: string
-            values:
-              type: array
-              items:
-                type: string
+              values:
+                type: array
+                items:
+                  type: string
         variations:
           type: array
           items:
@@ -1213,21 +1213,22 @@ components:
           default: false
         description:
           type: string
+        short_description:
+          type: string
         reviews:
           type: array
           items:
             $ref: "#/components/schemas/Reviews"
         attributes:
-          type: object
-          properties:
-            list:
-              type: array
-              items:
+          type: array
+          items:
+            properties:
+              label:
                 type: string
-            value:
-              type: array
-              items:
-                type: string
+              values:
+                type: array
+                items:
+                  type: string
         tags:
           type: array
           items:
@@ -1242,8 +1243,6 @@ components:
     Variable_Product:
       type: object
       properties:
-        _id:
-          type: string
         name:
           type: string
         category:
@@ -1251,6 +1250,10 @@ components:
         price:
           type: string
           example: 10 BDT - 15 BDT
+        description:
+          type: string
+        short_description:
+          type: string
         images:
           type: array
           items:
@@ -1261,16 +1264,15 @@ components:
           type: boolean
           default: true
         attributes:
-          type: object
-          properties:
-            list:
-              type: array
-              items:
+          type: array
+          items:
+            properties:
+              label:
                 type: string
-            value:
-              type: array
-              items:
-                type: string
+              values:
+                type: array
+                items:
+                  type: string
         variations:
           type: array
           items:
