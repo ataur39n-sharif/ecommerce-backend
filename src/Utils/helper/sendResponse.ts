@@ -3,7 +3,7 @@ import {TCustomErrorResponse, TGenericSuccessMessages} from "@/Utils/types/respo
 import {pickFunction} from "@/Utils/helper/pickFunction";
 
 const successResponse = <T, M>(res: Response, data: TGenericSuccessMessages<T, M>) => {
-    const property = pickFunction(data, ["message", "data", "statusCode", "meta"])
+    const property = pickFunction<any, any>(data, ["message", "data", "statusCode", "meta"])
 
     res.status(data.statusCode).json({
         success: true,

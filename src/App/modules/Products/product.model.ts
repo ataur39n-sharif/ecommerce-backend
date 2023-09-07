@@ -1,13 +1,8 @@
 import {model, Schema} from "mongoose";
-import {
-    IProduct,
-    TDiscount,
-    TSingleProductAttribute,
-    TVariableProductAttribute
-} from "@/App/modules/Products/product.types";
+import {IProduct, TDiscount, TProductAttribute, TVariableProductAttribute} from "@/App/modules/Products/product.types";
 
 
-const singleProductAttributeSchema = new Schema<TSingleProductAttribute>({
+const productAttributeSchema = new Schema<TProductAttribute>({
     label: {
         type: String,
     },
@@ -104,7 +99,7 @@ const dataSchema = new Schema<IProduct>({
         default: []
     },
     attributes: {
-        type: [singleProductAttributeSchema]
+        type: [productAttributeSchema]
     },
     discount: {
         type: discountSchema,

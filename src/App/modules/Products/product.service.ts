@@ -1,5 +1,11 @@
 import {ProductModel} from "@/App/modules/Products/product.model";
-import {IProduct, TBulkProductPayload, TExtraProductKeys} from "@/App/modules/Products/product.types";
+import {
+    IProduct,
+    ISingleProduct,
+    IVariableProduct,
+    TBulkProductPayload,
+    TExtraProductKeys
+} from "@/App/modules/Products/product.types";
 import {Types} from "mongoose";
 import {IQueryItems, TDataWithMeta} from "@/Utils/types/query.type";
 import {calculatePagination, manageSorting, MongoQueryHelper} from "@/Utils/helper/queryOptimize";
@@ -64,8 +70,12 @@ const getSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> =>
     return ProductModel.findOne({_id: id}).lean()
 }
 
-const addProduct = async () => {
-    
+const addSingleProduct = async (payload: Partial<ISingleProduct>) => {
+// validate
+}
+
+const addVariableProduct = async (payload: Partial<IVariableProduct>) => {
+
 }
 
 const updateSingleProduct = async (id: Types.ObjectId, payload: Partial<IProduct>): Promise<IProduct | null> => {

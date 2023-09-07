@@ -1123,10 +1123,6 @@ components:
         isVariableProduct:
           type: boolean
           default: false
-        reviews:
-          type: array
-          items:
-            $ref: "#/components/schemas/Reviews"
         attributes: &common_attribute
           type: array
           items:
@@ -1215,10 +1211,6 @@ components:
           type: string
         short_description:
           type: string
-        reviews:
-          type: array
-          items:
-            $ref: "#/components/schemas/Reviews"
         attributes:
           type: array
           items:

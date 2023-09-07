@@ -1,39 +1,35 @@
-import {Types} from "mongoose";
-
 export interface IProduct {
-    _id?: Types.ObjectId,
     name: string,
     description: string,
     price?: number,
     stock?: number,
     category: string,
-    images: [string],
+    images: string[],
     thumbnail: string,
     reviews: [],
     isVariableProduct: boolean,
-    tags: [string],
-    attributes: [TSingleProductAttribute],
+    tags: string[],
+    attributes: TProductAttribute[],
     discount?: TDiscount,
     status: 'published' | 'unpublished',
-    variableProducts?: TVariableProductAttribute,
-    createdAt?: Date,
-    updatedAt?: Date
+    variableProducts?: TVariableProductAttribute
 }
 
 export interface ISingleProduct {
     _id?: string,
     name: string,
     description: string,
+    short_description: string,
     price: number,
     stock: number,
     category: string,
-    images: [string],
+    images?: string[],
     thumbnail: string,
-    reviews: [],
+    reviews?: [],
     isVariableProduct: boolean,
-    tags: [string],
-    attributes: [TSingleProductAttribute],
-    discount: TDiscount,
+    tags: string[],
+    attributes?: TProductAttribute[],
+    discount?: TDiscount,
     status: 'published' | 'unpublished',
     createdAt?: Date,
     updatedAt?: Date
@@ -43,15 +39,16 @@ export interface IVariableProduct {
     _id?: string,
     name: string,
     description: string,
+    short_description: string,
     category: string,
-    images: [string],
+    images?: string[],
     thumbnail: string,
-    reviews: [],
+    reviews?: [],
     isVariableProduct: boolean,
-    tags: [string],
-    attributes: [TSingleProductAttribute],
+    tags: string[],
+    attributes: TProductAttribute[],
     status: 'published' | 'unpublished',
-    variableProducts: TVariableProductAttribute,
+    variableProducts: TVariableProductAttribute[],
     createdAt?: Date,
     updatedAt?: Date
 }
@@ -62,9 +59,9 @@ export type TDiscount = {
     value: number
 }
 
-export type TSingleProductAttribute = {
+export type TProductAttribute = {
     label: string,
-    values: [string]
+    values: string[]
 }
 type TVariableAttr = {
     label: string,
@@ -74,7 +71,7 @@ export type TVariableProductAttribute = {
     image: string,
     price: number,
     stock: number,
-    attributes: [TVariableAttr],
+    attributes: TVariableAttr[],
     discount: TDiscount
 }
 

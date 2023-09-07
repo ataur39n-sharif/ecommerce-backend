@@ -10,6 +10,7 @@ const docs = YAML.load(path.join(process.cwd(), "docs.yml"))
 
 rootRouter
     .get('/products', ProductController.allProducts)
+    .post('/products', ProductController.newProduct)
     .use('/auth', AuthRoutes)
     .use('/docs', swaggerUI.serve, swaggerUI.setup(docs))
 
