@@ -12,6 +12,7 @@
     "thumbnail": "thumbnail1.jpg",
     "reviews": [],
     "isVariableProduct": false,
+    "productType": "single_product",
     "tags": [
       "Tag1",
       "Tag2"
@@ -759,6 +760,7 @@
     "thumbnail": "thumbnail27.jpg",
     "reviews": [],
     "isVariableProduct": true,
+    "productType": "variable_product",
     "tags": [
       "Tag27",
       "Tag28"
@@ -780,26 +782,26 @@
       }
     ],
     "status": "published",
-    "variableProducts": {
-      "image": "variable-image27.jpg",
-      "price": 89.99,
-      "stock": 25,
-      "attributes": [
-        {
-          "label": "Weight",
-          "value": "Medium"
-        },
-        {
-          "label": "Size",
-          "value": "Medium"
+    "variableProducts": [
+      {
+        "image": "variable-image27.jpg",
+        "price": 89.99,
+        "stock": 25,
+        "attributes": [
+          {
+            "label": "Weight",
+            "value": "Medium"
+          },
+          {
+            "label": "Size",
+            "value": "Medium"
+          }
+        ],
+        "discount": {
+          "type": "percentage",
+          "value": 15
         }
-      ],
-      "discount": {
-        "type": "percentage",
-        "value": 15
       }
-    },
-    "createdAt": "2023-09-07T13:00:00Z",
-    "updatedAt": "2023-09-07T15:45:00Z"
+    ]
   }
 ]

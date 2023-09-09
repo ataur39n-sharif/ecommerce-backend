@@ -108,11 +108,6 @@ const dataSchema = new Schema<IProduct>({
         ref: 'Review',
         default: []
     },
-    isVariableProduct: {
-        type: Boolean,
-        default: false,
-        required: true
-    },
     productType: {
         type: String,
         enum: ['single_product', 'variable_product'],
