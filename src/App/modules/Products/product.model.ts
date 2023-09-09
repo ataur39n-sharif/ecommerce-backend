@@ -1,5 +1,11 @@
 import {model, Schema} from "mongoose";
-import {IProduct, TDiscount, TProductAttribute, TVariableProductAttribute} from "@/App/modules/Products/product.types";
+import {
+    IProduct,
+    TDiscount,
+    TProductAttribute,
+    TVariableAttr,
+    TVariableProductAttribute
+} from "@/App/modules/Products/product.types";
 
 
 const productAttributeSchema = new Schema<TProductAttribute>({
@@ -9,6 +15,18 @@ const productAttributeSchema = new Schema<TProductAttribute>({
     values: {
         type: [String],
         default: []
+    }
+}, {
+    _id: false,
+    versionKey: false
+})
+
+const variableProductAttr = new Schema<TVariableAttr>({
+    label: {
+        type: String,
+    },
+    value: {
+        type: String
     }
 }, {
     _id: false,
@@ -29,10 +47,7 @@ const variableProductAttributeSchema = new Schema<TVariableProductAttribute>({
         required: true
     },
     attributes: {
-        type: [{
-            label: String,
-            value: String
-        }],
+        type: [variableProductAttr],
         required: true
     }
 }, {
@@ -120,7 +135,7 @@ const dataSchema = new Schema<IProduct>({
         required: true
     },
     variableProducts: {
-        type: variableProductAttributeSchema,
+        type: [variableProductAttributeSchema],
         default: null
     },
 }, {

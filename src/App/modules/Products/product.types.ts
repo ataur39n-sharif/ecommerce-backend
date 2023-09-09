@@ -73,7 +73,7 @@ export type TProductAttribute = {
     label: string,
     values: string[]
 }
-type TVariableAttr = {
+export type TVariableAttr = {
     label: string,
     value: string
 }

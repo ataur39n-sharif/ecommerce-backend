@@ -30,21 +30,22 @@ const allProducts = catchAsync(async (req: Request, res: Response, next: NextFun
 
 const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const data = pickFunction<IProduct>(req.body, Object.keys(ProductModel.schema.obj))
-    const data = pickFunction<IProduct, keyof IProduct>(req.body, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
+    const payload = pickFunction<IProduct, keyof IProduct>(req.body, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
 
-    if (!data.isVariableProduct) {
-        const validateData = ProductValidation.singleProduct.parse(data)
-        await ProductServices.addVariableProduct(validateData)
-        // console.log(ProductValidation.singleProduct.parse({...data, short_description: 'abc', status: 'published'}))
+    let data: IProduct | null = null;
+
+    if (payload.productType === 'variable_product') {
+        const validateVariablePd = ProductValidation.variableProduct.parse(payload)
+        data = await ProductServices.addVariableProduct(validateVariablePd)
     } else {
-        const validateData = ProductValidation.variableProduct.parse(data)
-        await ProductServices.addVariableProduct(validateData)
-        // console.log(ProductValidation.variableProduct.parse({...data, short_description: 'abc', status: 'published'}))
+        const validateSinglePd = ProductValidation.singleProduct.parse(payload)
+        data = await ProductServices.addSingleProduct(validateSinglePd)
     }
 
     sendResponse.success(res, {
         statusCode: 200,
-        message: 'Product successfully added.'
+        message: 'Product successfully added.',
+        data
     })
 })
 

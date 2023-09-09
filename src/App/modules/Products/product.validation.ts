@@ -22,19 +22,22 @@ const singleProduct = z.object({
     images: z.array(z.string()),
     thumbnail: z.string(),
     isVariableProduct: z.boolean(),
+    productType: z.enum(['single_product']),
     tags: z.array(z.string()),
     attributes: z.array(productAttributeZodSchema).optional(),
     discount: discountZodSchema.optional(),
 });
 
+const variableProductAttr = z.object({
+    label: z.string(),
+    value: z.string(),
+})
+
 const variableProductAttributeZodSchema = z.object({
     image: z.string(),
     price: z.number(),
     stock: z.number(),
-    attributes: z.array(z.object({
-        label: z.string(),
-        value: z.string(),
-    })),
+    attributes: z.array(variableProductAttr),
     discount: z.object({
         type: z.enum(["percentage", "fixed"]),
         value: z.number(),
@@ -49,6 +52,7 @@ const variableProduct = z.object({
     images: z.array(z.string()),
     thumbnail: z.string(),
     isVariableProduct: z.boolean(),
+    productType: z.enum(['variable_product']),
     tags: z.array(z.string()),
     attributes: z.array(productAttributeZodSchema),
     variableProducts: z.array(variableProductAttributeZodSchema)
@@ -67,6 +71,7 @@ const productZodSchema = z.object({
     thumbnail: z.string(),
     reviews: z.array(ReviewValidation.reviewZodSchema).optional(),
     isVariableProduct: z.boolean(),
+    productType: z.enum(['single_product', 'variable_product']),
     tags: z.array(z.string()),
     attributes: z.array(productAttributeZodSchema),
     discount: z.optional(discountZodSchema),
