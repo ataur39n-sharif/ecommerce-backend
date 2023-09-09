@@ -1,19 +1,26 @@
+import {IReview} from "@/App/modules/Reviews/review.types";
+import {Types} from "mongoose";
+
 export interface IProduct {
+    _id?: Types.ObjectId,
     name: string,
     description: string,
     short_description?: string,
-    price?: number,
+    price: number,
     stock?: number,
     category: string,
     images: string[],
     thumbnail: string,
-    reviews: [],
+    reviews: Types.ObjectId[] | IReview[],
     isVariableProduct: boolean,
+    productType: 'single_product' | 'variable_product',
     tags: string[],
     attributes: TProductAttribute[],
     discount?: TDiscount,
     status: 'published' | 'unpublished',
-    variableProducts?: TVariableProductAttribute
+    variableProducts?: TVariableProductAttribute,
+    createdAt?: Date,
+    updatedAt?: Date
 }
 
 export interface ISingleProduct {
@@ -26,8 +33,9 @@ export interface ISingleProduct {
     category: string,
     images?: string[],
     thumbnail: string,
-    reviews?: [],
+    reviews?: Types.ObjectId[] | IReview[],
     isVariableProduct: boolean,
+    productType: 'single_product',
     tags: string[],
     attributes?: TProductAttribute[],
     discount?: TDiscount,
@@ -44,8 +52,9 @@ export interface IVariableProduct {
     category: string,
     images?: string[],
     thumbnail: string,
-    reviews?: [],
+    reviews?: Types.ObjectId[] | IReview[],
     isVariableProduct: boolean,
+    productType: 'variable_product',
     tags: string[],
     attributes: TProductAttribute[],
     status: 'published' | 'unpublished',

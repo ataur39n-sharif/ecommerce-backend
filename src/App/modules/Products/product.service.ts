@@ -72,13 +72,13 @@ const getSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> =>
 }
 
 const addSingleProduct = async (payload: Partial<ISingleProduct>) => {
-    const validateProduct = ProductValidation.productSchema.parse(payload)
+    const validateProduct = ProductValidation.productZodSchema.parse(payload)
     const pd: IProduct = await ProductModel.create(validateProduct)
     return pd
 }
 
 const addVariableProduct = async (payload: Partial<IVariableProduct>) => {
-    const validateProduct = ProductValidation.productSchema.parse(payload)
+    const validateProduct = ProductValidation.productZodSchema.parse(payload)
     const pd: IProduct = await ProductModel.create(validateProduct)
     return pd
 }

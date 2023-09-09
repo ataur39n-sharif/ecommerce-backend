@@ -1,4 +1,5 @@
 import {z} from 'zod';
+import {ReviewValidation} from "@/App/modules/Reviews/review.validation";
 
 
 const productAttributeZodSchema = z.object({
@@ -54,7 +55,7 @@ const variableProduct = z.object({
 });
 
 
-const productSchema = z.object({
+const productZodSchema = z.object({
     _id: z.string().optional(),
     name: z.string(),
     description: z.string(),
@@ -64,7 +65,7 @@ const productSchema = z.object({
     category: z.string(),
     images: z.array(z.string()),
     thumbnail: z.string(),
-    // reviews: z.array(z.unknown()), // Change this to your review schema
+    reviews: z.array(ReviewValidation.reviewZodSchema).optional(),
     isVariableProduct: z.boolean(),
     tags: z.array(z.string()),
     attributes: z.array(productAttributeZodSchema),
@@ -76,7 +77,7 @@ const productSchema = z.object({
 });
 
 export const ProductValidation = {
-    productSchema,
+    productZodSchema,
     singleProduct,
     variableProduct
 }
