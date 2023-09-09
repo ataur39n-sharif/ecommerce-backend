@@ -64,6 +64,10 @@ const dataSchema = new Schema<IProduct>({
         type: String,
         required: true
     },
+    short_description: {
+        type: String,
+        default: null
+    },
     category: {
         type: String,
         required: true

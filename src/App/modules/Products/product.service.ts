@@ -10,6 +10,7 @@ import {Types} from "mongoose";
 import {IQueryItems, TDataWithMeta} from "@/Utils/types/query.type";
 import {calculatePagination, manageSorting, MongoQueryHelper} from "@/Utils/helper/queryOptimize";
 import {ProductUtils} from "@/App/modules/Products/product.utils";
+import {ProductValidation} from "@/App/modules/Products/product.validation";
 
 const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMeta<IProduct[]>> => {
     const {search} = payload.searchFields
@@ -71,11 +72,15 @@ const getSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> =>
 }
 
 const addSingleProduct = async (payload: Partial<ISingleProduct>) => {
-// validate
+    const validateProduct = ProductValidation.productSchema.parse(payload)
+    const pd: IProduct = await ProductModel.create(validateProduct)
+    return pd
 }
 
 const addVariableProduct = async (payload: Partial<IVariableProduct>) => {
-
+    const validateProduct = ProductValidation.productSchema.parse(payload)
+    const pd: IProduct = await ProductModel.create(validateProduct)
+    return pd
 }
 
 const updateSingleProduct = async (id: Types.ObjectId, payload: Partial<IProduct>): Promise<IProduct | null> => {
@@ -102,6 +107,8 @@ const deleteBulkProducts = async (ids: Types.ObjectId[]) => {
 export const ProductServices = {
     getProducts,
     getSingleProduct,
+    addSingleProduct,
+    addVariableProduct,
     updateSingleProduct,
     updateBulkProducts,
     deleteSingleProduct,

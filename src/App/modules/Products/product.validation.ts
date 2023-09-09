@@ -14,7 +14,7 @@ const discountZodSchema = z.object({
 const singleProduct = z.object({
     name: z.string(),
     description: z.string(),
-    short_description: z.string(),
+    short_description: z.string().optional(),
     price: z.number(),
     stock: z.number(),
     category: z.string(),
@@ -24,9 +24,6 @@ const singleProduct = z.object({
     tags: z.array(z.string()),
     attributes: z.array(productAttributeZodSchema).optional(),
     discount: discountZodSchema.optional(),
-    status: z.enum(["published", "unpublished"]),
-    createdAt: z.date().optional(),
-    updatedAt: z.date().optional(),
 });
 
 const variableProductAttributeZodSchema = z.object({
@@ -46,18 +43,40 @@ const variableProductAttributeZodSchema = z.object({
 const variableProduct = z.object({
     name: z.string(),
     description: z.string(),
-    short_description: z.string(),
+    short_description: z.string().optional(),
     category: z.string(),
     images: z.array(z.string()),
     thumbnail: z.string(),
     isVariableProduct: z.boolean(),
     tags: z.array(z.string()),
     attributes: z.array(productAttributeZodSchema),
-    status: z.enum(["published", "unpublished"]),
     variableProducts: z.array(variableProductAttributeZodSchema)
 });
 
+
+const productSchema = z.object({
+    _id: z.string().optional(),
+    name: z.string(),
+    description: z.string(),
+    short_description: z.string().optional(),
+    price: z.optional(z.number()),
+    stock: z.optional(z.number()),
+    category: z.string(),
+    images: z.array(z.string()),
+    thumbnail: z.string(),
+    // reviews: z.array(z.unknown()), // Change this to your review schema
+    isVariableProduct: z.boolean(),
+    tags: z.array(z.string()),
+    attributes: z.array(productAttributeZodSchema),
+    discount: z.optional(discountZodSchema),
+    status: z.enum(["published", "unpublished"]).default('published'),
+    variableProducts: z.optional(z.array(variableProductAttributeZodSchema)),
+    createdAt: z.date().optional(),
+    updatedAt: z.date().optional(),
+});
+
 export const ProductValidation = {
+    productSchema,
     singleProduct,
     variableProduct
 }

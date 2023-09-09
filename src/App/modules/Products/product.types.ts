@@ -1,6 +1,7 @@
 export interface IProduct {
     name: string,
     description: string,
+    short_description?: string,
     price?: number,
     stock?: number,
     category: string,
