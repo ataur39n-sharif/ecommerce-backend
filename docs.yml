@@ -1100,6 +1100,12 @@ components:
         category:
           type: string
           example: 'electronics'
+        productType:
+          type: string
+          enum:
+            - 'single_product'
+            - 'variable_product'
+          example: 'single_product'
         price:
           type: string
           example: 1020
@@ -1126,7 +1132,9 @@ components:
           type: array
           items:
             type: string
-          example: "['image1.jpg', 'image2.jpg']"
+          example:
+            - 'image1.jpg'
+            - 'image2.jpg'
         thumbnail:
           type: string
           example: 'thumbnail27.jpg'
@@ -1146,7 +1154,9 @@ components:
                 type: array
                 items:
                   type: string
-                example: '["Light","Medium"]'
+                example:
+                  - 'light'
+                  - 'medium'
         variations:
           type: array
           items:
@@ -1191,7 +1201,9 @@ components:
           type: array
           items:
             type: string
-            example: '["flash_sale","popular"]'
+            example:
+              - 'flash_sale'
+              - 'popular'
     Single_Product:
       type: object
       properties:
@@ -1201,6 +1213,12 @@ components:
         category:
           type: string
           example: 'Electronics'
+        productType:
+          type: string
+          enum:
+            - 'single_product'
+            - 'variable_product'
+          example: 'single_product'
         price:
           type: integer
           format: init32
@@ -1222,7 +1240,10 @@ components:
           type: array
           items:
             type: string
-          example: "[ 'image1.jpg','image2.jpg']"
+          example:
+            - 'image1.jpg'
+            - 'image2.jpg'
+            - 'image3.jpg'
         thumbnail:
           type: string
           example: 'thumbnail.jpg'
@@ -1247,12 +1268,16 @@ components:
                 type: array
                 items:
                   type: string
-                example: '["black", "white", "red"]'
+                example:
+                  - 'black'
+                  - 'white'
+                  - 'red'
         tags:
           type: array
           items:
             type: string
-          example: '["black_friday"]'
+          example:
+            - 'black_friday'
       required:
         - name
         - category
@@ -1269,6 +1294,12 @@ components:
         category:
           type: string
           example: 'Electronics'
+        productType:
+          type: string
+          enum:
+            - 'single_product'
+            - 'variable_product'
+          example: 'variable_product'
         price:
           type: number
           example: 21000
@@ -1282,7 +1313,10 @@ components:
           type: array
           items:
             type: string
-          example: '["image1.jpg", "image2.jpg", "image3.jpg"]'
+          example:
+            - 'image1.jpg'
+            - 'image2.jpg'
+            - 'image3.jpg'
         thumbnail:
           type: string
           example: 'thumbnail.jpg'
@@ -1297,7 +1331,10 @@ components:
                 type: array
                 items:
                   type: string
-                example: '[4,6,8]'
+                example:
+                  - 2
+                  - 4
+                  - 6
         variations:
           type: array
           items:
@@ -1329,7 +1366,9 @@ components:
           type: array
           items:
             type: string
-          example: '["flash_sale"]'
+            example:
+              - 'flash_sale'
+              - 'hot_deals'
       required:
         - name
         - category
