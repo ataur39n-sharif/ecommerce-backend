@@ -5,6 +5,7 @@ import {AuthServices} from "@/App/modules/Auth/auth.services";
 import {sendResponse} from "@/Utils/helper/sendResponse";
 import {AuthValidation} from "@/App/modules/Auth/auth.validation";
 import {z} from "zod";
+import {MailService} from "@/App/modules/Mail/mail.service";
 
 const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -40,7 +41,15 @@ const forgetPassword = catchAsync(async (req: Request, res: Response, next: Next
         email: z.string().email()
     }).parse({email})
 
-    console.log(validate.email)
+    const sendMail = await MailService.forgetPassword({
+        userEmail: validate.email,
+        callbackUrl: 'https://example.com/login'
+    })
+
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: "An email is sent to your mail. Please follow the instructions."
+    })
 
 })
 

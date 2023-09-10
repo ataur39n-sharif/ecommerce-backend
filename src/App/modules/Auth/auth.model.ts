@@ -1,6 +1,6 @@
 import {model, Schema} from "mongoose";
 import {HashHelper} from "@/Utils/helper/hashHelper";
-import {ERole, IAuthModel, IAuthProperty} from "./auth.types";
+import {EAccountStatus, ERole, IAuthModel, IAuthProperty} from "./auth.types";
 
 const dataSchema = new Schema<IAuthProperty, IAuthModel>({
     email: {
@@ -37,6 +37,11 @@ const dataSchema = new Schema<IAuthProperty, IAuthModel>({
     role: {
         type: String,
         enum: Object.values(ERole),
+        required: true
+    },
+    status: {
+        type: String,
+        enum: Object.values(EAccountStatus),
         required: true
     }
 }, {

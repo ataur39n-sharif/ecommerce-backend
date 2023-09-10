@@ -1,5 +1,5 @@
 import {z, ZodType} from "zod";
-import {ERole, IAuthProperty} from "./auth.types";
+import {EAccountStatus, ERole, IAuthProperty} from "./auth.types";
 import {Types} from "mongoose";
 
 export interface IAuthWithName extends IAuthProperty {
@@ -16,23 +16,24 @@ const singUpPayload = z.object({
     }),
     email: z.string().email(),
     password: z.string(),
-    phone:z.string()
+    phone: z.string()
 })
 
 const createAccount: ZodType<IAuthWithName> = singUpPayload.extend({
     uid: z.instanceof(Types.ObjectId, {
         message: 'Something is wrong. '
     }),
-    role: z.enum([ERole.admin, ERole.customer, ERole.administration, ERole.editor])
+    role: z.enum([ERole.admin, ERole.customer, ERole.administration, ERole.editor]),
+    status: z.enum([EAccountStatus.pending, EAccountStatus.active, EAccountStatus.blocked])
 })
 
 const singIn: ZodType<Partial<IAuthProperty>> = z.object({
     email: z.string().email().optional(),
     phone: z.string().optional(),
     password: z.string()
-}).refine((data)=>{
+}).refine((data) => {
     return (data.email && !data.phone) || (!data.email && data.phone);
-},{
+}, {
     message: "Either 'email' or 'phone' field should be provided.",
     path: ["email", "phone"],
 })

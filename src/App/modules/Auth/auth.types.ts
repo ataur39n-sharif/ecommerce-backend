@@ -7,13 +7,20 @@ export enum ERole {
     customer = 'customer'
 }
 
+export enum EAccountStatus {
+    pending = 'pending',
+    active = 'active',
+    blocked = 'blocked',
+}
+
 export interface IAuthProperty {
     _id?: string
     email: string
     phone: string
     password: string
     uid: Types.ObjectId
-    role: ERole
+    role: ERole,
+    status: EAccountStatus,
     createdAt?: string
     updatedAt?: string
 }

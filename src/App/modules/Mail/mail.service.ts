@@ -64,14 +64,13 @@ const forgetPassword = async ({userEmail, callbackUrl}: TForgetPassPayload) => {
         </div>
         `
     })
+
     if (report.messageId) {
         return {
             success: true,
         }
     } else {
-        return {
-            success: false
-        }
+        throw Error()
     }
 }
 

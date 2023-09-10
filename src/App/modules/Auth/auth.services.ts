@@ -2,7 +2,7 @@ import {AuthValidation, IAuthWithName} from './auth.validation';
 import CustomError from "@/Utils/errors/customErrror.class";
 import {HashHelper} from "@/Utils/helper/hashHelper";
 import {generateToken} from "@/Utils/helper/generateToken";
-import {ERole, IAuthProperty} from "./auth.types";
+import {EAccountStatus, ERole, IAuthProperty} from "./auth.types";
 import {AuthModel} from "./auth.model";
 import {UserModel} from '../User/user.model';
 import mongoose from 'mongoose';
@@ -26,7 +26,8 @@ const CreateNewAccount = async (data: Partial<IAuthWithName>): Promise<IAuthProp
             password: data.password,
             phone: data.phone,
             uid: userData._id,
-            role: data.role || ERole.customer
+            role: data.role || ERole.customer, // only admin can define role in user created time
+            status: EAccountStatus.pending
         })
         const newUser = new AuthModel(validateUserCreation)
         await newUser.save({session})
