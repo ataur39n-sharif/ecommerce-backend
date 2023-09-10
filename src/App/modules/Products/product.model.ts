@@ -51,7 +51,7 @@ const variableProductAttributeSchema = new Schema<TVariableProductAttribute>({
         required: true
     }
 }, {
-    _id: false,
+    _id: true,
     versionKey: false
 })
 

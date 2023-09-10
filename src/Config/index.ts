@@ -18,6 +18,7 @@ export default {
         refreshToken: {
             secret: process.env.JWT_REFRESHTOKEN_SECRET,
             exp: process.env.JWT_REFRESHTOKEN_EXP
-        }
+        },
+        common: process.env.JWT
     }
 }
