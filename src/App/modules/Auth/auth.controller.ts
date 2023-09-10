@@ -10,15 +10,18 @@ import {MailService} from "@/App/modules/Mail/mail.service";
 const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
     const data = pickFunction(req.body, ['name', 'email', 'password', 'phone'])
-    const validate = AuthValidation.singUpPayload.parse(data)
+    const validate = AuthValidation.authPayload.parse(data)
     await AuthServices.CreateNewAccount(validate)
-    /*
-    * send email/phone for validate email/phone
-    * */
+
+    await MailService.confirmAccount({
+        name: validate.name.firstName,
+        userEmail: validate.email,
+        callbackUrl: 'https://example.com/login'
+    })
 
     sendResponse.success(res, {
         statusCode: 201,
-        message: 'Successfully created new account'
+        message: "An confirmation email was sent to your mail. Please follow that instructions."
     })
 })
 
@@ -41,7 +44,7 @@ const forgetPassword = catchAsync(async (req: Request, res: Response, next: Next
         email: z.string().email()
     }).parse({email})
 
-    const sendMail = await MailService.forgetPassword({
+    await MailService.forgetPassword({
         userEmail: validate.email,
         callbackUrl: 'https://example.com/login'
     })
