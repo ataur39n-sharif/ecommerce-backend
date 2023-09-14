@@ -80,8 +80,22 @@ const confirmAccount = async (token: string): Promise<boolean> => {
     return true
 }
 
+const resetPassword = async (email: string, password: string) => {
+    //find user
+    const user = await AuthModel.findOne({email: email})
+    if (!user) throw new CustomError('Invalid request', 400)
+    //update password
+    const newPassword = await HashHelper.generateHashPassword(password)
+    user.password = newPassword
+    await user.save()
+
+    return true
+}
+
+
 export const AuthServices = {
     CreateNewAccount,
     logIntoAccount,
-    confirmAccount
+    confirmAccount,
+    resetPassword
 }

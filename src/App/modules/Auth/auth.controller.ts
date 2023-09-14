@@ -51,7 +51,6 @@ const forgetPassword = catchAsync(async (req: Request, res: Response, next: Next
         statusCode: 200,
         message: "An email is sent to your mail. Please follow the instructions."
     })
-
 })
 
 const restPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -61,7 +60,12 @@ const restPassword = catchAsync(async (req: Request, res: Response, next: NextFu
         password: z.string()
     }).parse(data)
 
-    console.log(validate)
+    await AuthServices.resetPassword(validate.email, validate.password)
+
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'Password reset successfully.',
+    })
 })
 
 const confirmAccount = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
