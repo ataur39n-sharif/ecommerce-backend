@@ -15,8 +15,7 @@ const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction
 
     await MailService.confirmAccount({
         name: validate.name.firstName,
-        userEmail: validate.email,
-        callbackUrl: 'https://example.com/login'
+        userEmail: validate.email
     })
 
     sendResponse.success(res, {
@@ -45,8 +44,7 @@ const forgetPassword = catchAsync(async (req: Request, res: Response, next: Next
     }).parse({email})
 
     await MailService.forgetPassword({
-        userEmail: validate.email,
-        callbackUrl: 'https://example.com/login'
+        userEmail: validate.email
     })
 
     sendResponse.success(res, {
@@ -66,14 +64,19 @@ const restPassword = catchAsync(async (req: Request, res: Response, next: NextFu
     console.log(validate)
 })
 
-const changePassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const data = pickFunction(req.body, ['password', 'email'])
+const confirmAccount = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const token = pickFunction(req.query, ['token'])
     const validate = z.object({
-        email: z.string(),
-        password: z.string()
-    }).parse(data)
+        token: z.string(),
+    }).parse({token})
 
-    console.log(validate)
+    await AuthServices.confirmAccount(validate.token)
+
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'Confirmed successfully. Account is activated now.'
+    })
+
 })
 
 
@@ -82,5 +85,5 @@ export const AuthController = {
     login,
     forgetPassword,
     restPassword,
-    changePassword
+    confirmAccount
 }

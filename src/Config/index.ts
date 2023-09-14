@@ -10,6 +10,7 @@ export default {
     mongo_uri: process.env.MONGO_URI,
     node_env: process.env.NODE_ENV,
     bcrypt_saltRounds: process.env.BCRYPT_SALTROUND,
+    login: process.env.LOGIN_LINK,
     jwt: {
         accessToken: {
             secret: process.env.JWT_ACCESSTOKEN_SECRET,

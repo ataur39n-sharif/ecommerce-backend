@@ -6,6 +6,9 @@ import {EAccountStatus, ERole, IAuthProperty} from "./auth.types";
 import {AuthModel} from "./auth.model";
 import {UserModel} from '../User/user.model';
 import mongoose from 'mongoose';
+import jwt from "jsonwebtoken";
+import Config from "@/Config";
+import {IJWTConfirmAccountPayload} from "@/App/modules/Mail/mail.types";
 
 const CreateNewAccount = async (data: Partial<IAuthWithName>): Promise<IAuthProperty> => {
     const session = await mongoose.startSession()
@@ -65,13 +68,20 @@ const logIntoAccount = async (data: Partial<IAuthProperty>) => {
     }
 }
 
-const forgetPassword = async (email: string) => {
-    /*
-    * send email to user with a token for update password
-    * */
+const confirmAccount = async (token: string): Promise<boolean> => {
+    const validate = jwt.verify(token, String(Config.jwt))
+
+    //update user account status pending to active
+    const user = await AuthModel.findOne({email: (validate as IJWTConfirmAccountPayload).userEmail})
+    if (!user) throw new CustomError('Invalid request', 400)
+    user.status = EAccountStatus.active
+    await user.save()
+
+    return true
 }
 
 export const AuthServices = {
     CreateNewAccount,
-    logIntoAccount
+    logIntoAccount,
+    confirmAccount
 }

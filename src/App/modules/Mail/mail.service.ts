@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
-import Config from "@/Config";
 import config from "@/Config";
 import mailTransporter from "@/Config/mailer";
 import {TConfirmAccountPayload, TForgetPassPayload} from "@/App/modules/Mail/mail.types";
 
-const confirmAccount = async ({name, userEmail, callbackUrl}: TConfirmAccountPayload) => {
+const callbackUrl = config.login ?? 'http://localhost:3000/login'
+const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
 
     //create a token
     const token = jwt.sign({email: userEmail, name}, String(config.jwt), {
@@ -12,7 +12,7 @@ const confirmAccount = async ({name, userEmail, callbackUrl}: TConfirmAccountPay
     })
 
     //create verify url
-    const link = `${callbackUrl}/login?token=${token}`
+    const link = `${callbackUrl}?token=${token}`
 
     const report = await mailTransporter.sendMail({
         from: '"Support"<sharif@dreamtouch-bd.com>',
@@ -34,16 +34,14 @@ const confirmAccount = async ({name, userEmail, callbackUrl}: TConfirmAccountPay
             success: true,
         }
     } else {
-        return {
-            success: false
-        }
+        throw Error()
     }
 }
 
-const forgetPassword = async ({userEmail, callbackUrl}: TForgetPassPayload) => {
+const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
 
     //create a token
-    const token = jwt.sign({email: userEmail}, String(Config.jwt), {
+    const token = jwt.sign({email: userEmail}, String(config.jwt), {
         expiresIn: "5m"
     })
 

@@ -13,7 +13,10 @@ AuthRoutes
     // .post('/logout', AuthMiddleware)
     .post('/forget-password', AuthController.forgetPassword)
     .patch('/reset-password', AuthController.restPassword)
-    .patch('/change-password', AuthController.changePassword)
+    .patch('/confirm-account', AuthController.confirmAccount)
+/*
+* Confirm account
+* */
 
 
 export default AuthRoutes
