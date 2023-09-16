@@ -29,6 +29,8 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
         `
     })
 
+    console.log(report.envelope)
+
     if (report.messageId) {
         return {
             success: true,

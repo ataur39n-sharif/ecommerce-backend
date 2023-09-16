@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 
 const mailTransporter = nodemailer.createTransport({
-    host: "Mail.dreamtouch-bd.com",
+    host: "mail.dreamtouch-bd.com",
     port: 465,
     secure: true,
     auth: {
