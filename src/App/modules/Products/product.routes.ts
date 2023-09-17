@@ -6,5 +6,6 @@ const ProductRoutes = Router()
 ProductRoutes
     .get('/', ProductController.allProducts)
     .post('/', ProductController.newProduct)
+    .patch('/', ProductController.newProduct)
 
 export default ProductRoutes

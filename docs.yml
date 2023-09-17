@@ -32,15 +32,29 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email/phone:
-                  type: string
-                password:
-                  type: string
-              required:
-                - email/phone
-                - password
+              oneOf:
+                - type: object
+                  properties:
+                    email:
+                      type: string
+                      example: abc@example.com
+                    password:
+                      type: string
+                      example: '@passW0Rd'
+                  required:
+                    - email
+                    - password
+                - type: object
+                  properties:
+                    phone:
+                      type: string
+                      example: 01111111111
+                    password:
+                      type: string
+                      example: '@passW0Rd'
+                  required:
+                    - phone
+                    - password
       responses:
         200:
           description: Login Success
@@ -1103,9 +1117,9 @@ components:
         productType:
           type: string
           enum:
-            - 'single_product'
+            - 'simple_product'
             - 'variable_product'
-          example: 'single_product'
+          example: 'simple_product'
         price:
           type: string
           example: 1020
@@ -1216,9 +1230,9 @@ components:
         productType:
           type: string
           enum:
-            - 'single_product'
+            - 'simple_product'
             - 'variable_product'
-          example: 'single_product'
+          example: 'simple_product'
         price:
           type: integer
           format: init32
@@ -1297,7 +1311,7 @@ components:
         productType:
           type: string
           enum:
-            - 'single_product'
+            - 'simple_product'
             - 'variable_product'
           example: 'variable_product'
         price:

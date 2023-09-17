@@ -110,7 +110,7 @@ const dataSchema = new Schema<IProduct>({
     },
     productType: {
         type: String,
-        enum: ['single_product', 'variable_product'],
+        enum: ['simple_product', 'variable_product'],
         required: true
     },
     tags: {

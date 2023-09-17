@@ -71,25 +71,24 @@ const getSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> =>
     return ProductModel.findOne({_id: id}).lean()
 }
 
-const addSingleProduct = async (payload: Partial<ISingleProduct>) => {
+const addSingleProduct = async (payload: Partial<ISingleProduct>): Promise<IProduct> => {
     const validateProduct = ProductValidation.productZodSchema.parse(payload)
-    const pd: IProduct = await ProductModel.create(validateProduct)
-    return pd
+    return await ProductModel.create(validateProduct)
 }
 
-const addVariableProduct = async (payload: Partial<IVariableProduct>) => {
+const addVariableProduct = async (payload: Partial<IVariableProduct>): Promise<IProduct> => {
     const validateProduct = ProductValidation.productZodSchema.parse(payload)
-    const pd: IProduct = await ProductModel.create(validateProduct)
-    return pd
+    return await ProductModel.create(validateProduct)
 }
 
-const updateSingleProduct = async (id: Types.ObjectId, payload: Partial<IProduct>): Promise<IProduct | null> => {
-    return ProductModel.findOneAndUpdate({_id: id}, payload, {
+const updateProduct = async (_id: Types.ObjectId, payload: Partial<ISingleProduct | IVariableProduct>): Promise<IProduct | null> => {
+    const validateProduct = ProductValidation.productZodSchema.partial().parse(payload)
+    return ProductModel.findOneAndUpdate({_id}, validateProduct, {
         new: true
-    })
+    }).lean()
 }
 const updateBulkProducts = async (ids: Types.ObjectId[], payload: TBulkProductPayload) => {
-    return ProductModel.updateMany({_id: {$in: ids}}, payload)
+    return ProductModel.updateMany({_id: {$in: ids}}, payload);
 }
 const deleteSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> => {
     return ProductModel.findOneAndDelete({_id: id}).lean();
@@ -109,7 +108,7 @@ export const ProductServices = {
     getSingleProduct,
     addSingleProduct,
     addVariableProduct,
-    updateSingleProduct,
+    updateProduct,
     updateBulkProducts,
     deleteSingleProduct,
     deleteBulkProducts

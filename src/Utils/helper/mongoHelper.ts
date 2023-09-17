@@ -6,13 +6,18 @@ type _TPayload = {
 type TConvertObjectIdResponse = {
     [key: string]: Types.ObjectId
 }
-const convertToObjectId = (data: _TPayload): TConvertObjectIdResponse => {
-    let modifyPayload: any = {}
-    Object.entries(data).map(([key, value]) => {
-        modifyPayload[key] = new Types.ObjectId(value)
-    })
-    return modifyPayload
+// const convertToObjectId = (data: _TPayload): TConvertObjectIdResponse => {
+//     let modifyPayload: any = {}
+//     Object.entries(data).map(([key, value]) => {
+//         modifyPayload[key] = new Types.ObjectId(value)
+//     })
+//     return modifyPayload
+// }
+
+const convertToObjectId = (id: string): Types.ObjectId => {
+    return new Types.ObjectId(id)
 }
+
 export const MongoHelper = {
     convertToObjectId
 }

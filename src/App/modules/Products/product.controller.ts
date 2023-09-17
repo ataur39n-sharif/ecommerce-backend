@@ -8,6 +8,9 @@ import {ProductUtils} from "@/App/modules/Products/product.utils";
 import {pickFunction} from "@/Utils/helper/pickFunction";
 import {ProductModel} from "@/App/modules/Products/product.model";
 import {ProductValidation} from "@/App/modules/Products/product.validation";
+import {z} from "zod";
+import {Types} from "mongoose";
+import {MongoHelper} from "@/Utils/helper/mongoHelper";
 
 const allProducts = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const {
@@ -43,8 +46,29 @@ const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunc
     }
 
     sendResponse.success(res, {
-        statusCode: 200,
+        statusCode: 201,
         message: 'Product successfully added.',
+        data
+    })
+})
+
+const updateProduct = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params?.id))
+    const payload = pickFunction<IProduct, keyof IProduct>(req.body, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
+
+    let data: IProduct | null = null;
+
+    if (payload.productType === 'variable_product') {
+        const validateVariablePd = ProductValidation.variableProduct.partial().parse(payload)
+        data = await ProductServices.updateProduct(id, validateVariablePd)
+    } else {
+        const validateSinglePd = ProductValidation.singleProduct.partial().parse(payload)
+        data = await ProductServices.updateProduct(id, validateSinglePd)
+    }
+
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'Product successfully updated.',
         data
     })
 })
@@ -52,5 +76,6 @@ const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunc
 
 export const ProductController = {
     allProducts,
-    newProduct
+    newProduct,
+    updateProduct
 }
