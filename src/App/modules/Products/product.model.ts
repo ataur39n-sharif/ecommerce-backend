@@ -1,8 +1,6 @@
 import {model, Schema} from "mongoose";
 import {
     IProduct,
-    ISingleProduct,
-    IVariableProduct,
     TDiscount,
     TProductAttribute,
     TVariableAttr,
@@ -73,7 +71,7 @@ const discountSchema = new Schema<TDiscount>({
     versionKey: false
 })
 
-const dataSchema = new Schema<ISingleProduct | IVariableProduct>({
+const dataSchema = new Schema({
     name: {
         type: String,
         required: true
