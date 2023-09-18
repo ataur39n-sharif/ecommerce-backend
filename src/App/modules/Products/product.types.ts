@@ -1,13 +1,12 @@
 import {IReview} from "@/App/modules/Reviews/review.types";
 import {Types} from "mongoose";
+import {TMetadata} from "@/Utils/types/customSchema.type";
 
 export interface IProduct {
-    _id?: Types.ObjectId,
+    _id?: Types.ObjectId | string,
     name: string,
     description: string,
     short_description?: string,
-    price: number,
-    stock?: number,
     category: string,
     images: string[],
     thumbnail: string,
@@ -15,49 +14,20 @@ export interface IProduct {
     productType: 'simple_product' | 'variable_product',
     tags: string[],
     attributes: TProductAttribute[],
-    discount?: TDiscount,
     status: 'published' | 'unpublished',
-    variableProducts?: TVariableProductAttribute,
+    metadata: TMetadata,
     createdAt?: Date,
     updatedAt?: Date
 }
 
-export interface ISingleProduct {
-    _id?: string,
-    name: string,
-    description: string,
-    short_description: string,
-    price: number,
+export interface ISingleProduct extends IProduct {
+    price: string,
     stock: number,
-    category: string,
-    images?: string[],
-    thumbnail: string,
-    reviews?: Types.ObjectId[] | IReview[],
-    productType: 'simple_product',
-    tags: string[],
-    attributes?: TProductAttribute[],
     discount?: TDiscount,
-    status: 'published' | 'unpublished',
-    createdAt?: Date,
-    updatedAt?: Date
 }
 
-export interface IVariableProduct {
-    _id?: string,
-    name: string,
-    description: string,
-    short_description: string,
-    category: string,
-    images?: string[],
-    thumbnail: string,
-    reviews?: Types.ObjectId[] | IReview[],
-    productType: 'variable_product',
-    tags: string[],
-    attributes: TProductAttribute[],
-    status: 'published' | 'unpublished',
+export interface IVariableProduct extends IProduct {
     variableProducts: TVariableProductAttribute[],
-    createdAt?: Date,
-    updatedAt?: Date
 }
 
 
@@ -76,7 +46,7 @@ export type TVariableAttr = {
 }
 export type TVariableProductAttribute = {
     image: string,
-    price: number,
+    price: string,
     stock: number,
     attributes: TVariableAttr[],
     discount: TDiscount

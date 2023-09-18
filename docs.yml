@@ -1122,7 +1122,7 @@ components:
           example: 'simple_product'
         price:
           type: string
-          example: 1020
+          example: '1020'
         discount:
           type: object
           properties:
@@ -1179,9 +1179,8 @@ components:
               _id:
                 type: string
               price:
-                type: integer
-                format: init32
-                example: 30
+                type: string
+                example: '30'
               discount:
                 type: object
                 properties:
@@ -1218,6 +1217,15 @@ components:
             example:
               - 'flash_sale'
               - 'popular'
+        metadata:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "Iphone 15pro max in Bangladesh."
+            description:
+              type: string
+              example: "This is meta description for the product page"
     Single_Product:
       type: object
       properties:
@@ -1234,9 +1242,8 @@ components:
             - 'variable_product'
           example: 'simple_product'
         price:
-          type: integer
-          format: init32
-          example: 2500
+          type: string
+          example: '2500'
         discount:
           type: object
           properties:
@@ -1292,6 +1299,15 @@ components:
             type: string
           example:
             - 'black_friday'
+        metadata:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "Iphone 15pro max in Bangladesh."
+            description:
+              type: string
+              example: "This is meta description for the product page"
       required:
         - name
         - category
@@ -1299,6 +1315,7 @@ components:
         - images
         - thumbnail
         - description
+        - metadata
     Variable_Product:
       type: object
       properties:
@@ -1315,8 +1332,8 @@ components:
             - 'variable_product'
           example: 'variable_product'
         price:
-          type: number
-          example: 21000
+          type: string
+          example: '21000'
         description:
           type: string
           example: 'product description'
@@ -1360,8 +1377,8 @@ components:
                 type: string
                 example: 'image.jpg'
               price:
-                type: integer
-                example: 20000
+                type: string
+                example: '20000'
               stock:
                 type: integer
                 example: 100
@@ -1383,6 +1400,15 @@ components:
             example:
               - 'flash_sale'
               - 'hot_deals'
+        metadata:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "Iphone 15pro max in Bangladesh."
+            description:
+              type: string
+              example: "This is meta description for the product page"
       required:
         - name
         - category
@@ -1392,6 +1418,7 @@ components:
         - description
         - attributes
         - variations
+        - metadata
     Category:
       type: object
       properties:

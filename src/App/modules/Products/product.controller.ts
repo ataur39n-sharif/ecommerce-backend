@@ -39,10 +39,10 @@ const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunc
 
     if (payload.productType === 'variable_product') {
         const validateVariablePd = ProductValidation.variableProduct.parse(payload)
-        data = await ProductServices.addVariableProduct(validateVariablePd)
+        data = await ProductServices.addProduct(validateVariablePd)
     } else {
         const validateSinglePd = ProductValidation.singleProduct.parse(payload)
-        data = await ProductServices.addSingleProduct(validateSinglePd)
+        data = await ProductServices.addProduct(validateSinglePd)
     }
 
     sendResponse.success(res, {

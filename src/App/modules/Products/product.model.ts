@@ -1,11 +1,14 @@
 import {model, Schema} from "mongoose";
 import {
     IProduct,
+    ISingleProduct,
+    IVariableProduct,
     TDiscount,
     TProductAttribute,
     TVariableAttr,
     TVariableProductAttribute
 } from "@/App/modules/Products/product.types";
+import {MetaDataSchema} from "@/Utils/schema/meta.schema";
 
 
 const productAttributeSchema = new Schema<TProductAttribute>({
@@ -39,7 +42,7 @@ const variableProductAttributeSchema = new Schema<TVariableProductAttribute>({
         default: null
     },
     price: {
-        type: Number,
+        type: String,
         required: true
     },
     stock: {
@@ -70,7 +73,7 @@ const discountSchema = new Schema<TDiscount>({
     versionKey: false
 })
 
-const dataSchema = new Schema<IProduct>({
+const dataSchema = new Schema<ISingleProduct | IVariableProduct>({
     name: {
         type: String,
         required: true
@@ -88,7 +91,7 @@ const dataSchema = new Schema<IProduct>({
         required: true
     },
     price: {
-        type: Number,
+        type: String,
         default: null
     },
     stock: {
@@ -133,6 +136,10 @@ const dataSchema = new Schema<IProduct>({
         type: [variableProductAttributeSchema],
         default: null
     },
+    metadata: {
+        type: MetaDataSchema,
+        required: true
+    }
 }, {
     timestamps: true,
     versionKey: false

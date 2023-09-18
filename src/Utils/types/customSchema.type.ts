@@ -9,3 +9,8 @@ export type TAddress = {
     state: string;
     zipCode: number;
 }
+
+export type TMetadata = {
+    title: string;
+    description: string;
+}

@@ -71,18 +71,24 @@ const getSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> =>
     return ProductModel.findOne({_id: id}).lean()
 }
 
-const addSingleProduct = async (payload: Partial<ISingleProduct>): Promise<IProduct> => {
-    const validateProduct = ProductValidation.productZodSchema.parse(payload)
-    return await ProductModel.create(validateProduct)
-}
+// const addSingleProduct = async (payload: Partial<ISingleProduct>): Promise<IProduct> => {
+//     const validateProduct = ProductValidation.productZodSchema.parse(payload)
+//     return await ProductModel.create(validateProduct)
+// }
+//
+// const addVariableProduct = async (payload: Partial<IVariableProduct>): Promise<IProduct> => {
+//     const validateProduct = ProductValidation.productZodSchema.parse(payload)
+//     return await ProductModel.create(validateProduct)
+// }
 
-const addVariableProduct = async (payload: Partial<IVariableProduct>): Promise<IProduct> => {
+const addProduct = async (payload: Partial<ISingleProduct | IVariableProduct>): Promise<IProduct> => {
     const validateProduct = ProductValidation.productZodSchema.parse(payload)
     return await ProductModel.create(validateProduct)
 }
 
 const updateProduct = async (_id: Types.ObjectId, payload: Partial<ISingleProduct | IVariableProduct>): Promise<IProduct | null> => {
     const validateProduct = ProductValidation.productZodSchema.partial().parse(payload)
+
     return ProductModel.findOneAndUpdate({_id}, validateProduct, {
         new: true
     }).lean()
@@ -106,8 +112,9 @@ const deleteBulkProducts = async (ids: Types.ObjectId[]) => {
 export const ProductServices = {
     getProducts,
     getSingleProduct,
-    addSingleProduct,
-    addVariableProduct,
+    // addSingleProduct,
+    // addVariableProduct,
+    addProduct,
     updateProduct,
     updateBulkProducts,
     deleteSingleProduct,
