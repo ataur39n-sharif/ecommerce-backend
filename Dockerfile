@@ -21,6 +21,15 @@ WORKDIR /app/src
 # for typescript
 RUN npm run build
 
+ENV PORT=9000
+ENV MONGO_URI='mongodb+srv://dev:dev-ataur@cluster0.6959uav.mongodb.net/ecom-db?retryWrites=true&w=majority'
+ENV NODE_ENV='production'
+ENV BCRYPT_SALTROUND=12
+ENV JWT_ACCESSTOKEN_SECRET='JWT_ACCESSTOKEN_SECRET'
+ENV JWT_ACCESSTOKEN_EXP='12h'
+ENV JWT_REFRESHTOKEN_SECRET='JWT_REFRESHTOKEN_SECRET'
+ENV JWT_REFRESHTOKEN_EXP='48h'
+ENV LOGIN_LINK='http://localhost:3000/login'
 
 WORKDIR /app
 
