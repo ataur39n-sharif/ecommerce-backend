@@ -33,5 +33,5 @@ ENV LOGIN_LINK='http://localhost:3000/login'
 
 WORKDIR /app
 
-EXPOSE 5000
+EXPOSE 9000
 CMD ["node" ,"dist/index.js"]
