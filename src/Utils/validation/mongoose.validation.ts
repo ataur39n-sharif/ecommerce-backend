@@ -2,7 +2,6 @@ import {Error, Types} from 'mongoose'
 import {TCustomErrorResponse} from "@/Utils/types/response.type";
 
 export const processMongooseValidationError = (err: Error.ValidationError | Error.CastError): TCustomErrorResponse => {
-    console.log('============>> mongo error')
     let errorMessages;
     if ((err instanceof Error.ValidationError)) {
         errorMessages = Object.values(err.errors).map((each: Error.ValidatorError | Error.CastError) => {
