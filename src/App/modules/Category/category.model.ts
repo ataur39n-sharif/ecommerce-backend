@@ -14,9 +14,10 @@ export const dataSchema = new Schema<TCategory>({
         type: String,
         required: true
     },
-    parent: {
+    parentId: {
         type: Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'Category',
+        default: null,
     },
     tags: {
         type: [String],
@@ -27,6 +28,9 @@ export const dataSchema = new Schema<TCategory>({
         enum: ['active', 'inactive'],
         default: 'active'
     }
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 export const CategoryModel = model('category', dataSchema)

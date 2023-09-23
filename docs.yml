@@ -7,7 +7,7 @@ servers:
   - description: live
     url: "https://site-api.trelyt.store/api/v1"
   - description: localhost
-    url: "http://localhost:5000/api/v1"
+    url: "http://localhost:9000/api/v1"
 tags:
   - name: Authentication
     description: Access Control of website secure content
@@ -441,7 +441,7 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
-  "/categories":
+  "/category":
     get:
       tags:
         - Category
@@ -699,7 +699,7 @@ paths:
       security:
         - Authorization: [ ]
       parameters:
-        - in: query
+        - in: path
           name: id
           required: true
           schema:

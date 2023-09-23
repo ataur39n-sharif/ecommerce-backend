@@ -14,7 +14,7 @@ type TConvertObjectIdResponse = {
 //     return modifyPayload
 // }
 
-const convertToObjectId = (id: string): Types.ObjectId => {
+const convertToObjectId = (id: string | Types.ObjectId): Types.ObjectId => {
     return new Types.ObjectId(id)
 }
 

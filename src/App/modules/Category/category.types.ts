@@ -5,7 +5,7 @@ export type TCategory = {
     name: string,
     slug: string,
     icon: string,
-    parent?: Types.ObjectId,
-    tags?: [string],
+    parentId?: Types.ObjectId | null,
+    tags?: string[],
     status: 'active' | 'inactive'
 }
