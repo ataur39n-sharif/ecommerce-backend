@@ -1,4 +1,4 @@
-import {pickFunction} from "@/Utils/helper/pickFunction";
+import {pickFunction} from "../../../src/Utils/helper/pickFunction";
 
 describe('pickFunction', () => {
     it('should pick specified keys from an object', () => {

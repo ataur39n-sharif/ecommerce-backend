@@ -1,5 +1,5 @@
 import {Types} from 'mongoose';
-import {MongoHelper} from "@/Utils/helper/mongoHelper";
+import {MongoHelper} from "../../../src/Utils/helper/mongoHelper";
 
 describe('convertToObjectId', () => {
     it('should convert a valid string to ObjectId', () => {

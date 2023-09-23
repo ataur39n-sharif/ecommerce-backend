@@ -1,4 +1,4 @@
-import {HashHelper} from "@/Utils/helper/hashHelper";
+import {HashHelper} from "../../../src/Utils/helper/hashHelper";
 
 describe('HashHelper', () => {
     describe('comparePassword', () => {
@@ -25,7 +25,7 @@ describe('HashHelper', () => {
     describe('generateHashPassword', () => {
         it('should generate a valid hash', async () => {
             const password = 'mypassword';
-            
+
             const hash = await HashHelper.generateHashPassword(password);
 
             expect(hash).toBeDefined();

@@ -1,4 +1,4 @@
-import {calculatePagination, manageSorting} from "@/Utils/helper/queryOptimize";
+import {calculatePagination, manageSorting} from "../../../src/Utils/helper/queryOptimize";
 
 // calculating pagination
 

@@ -1,7 +1,7 @@
-import config from '@/Config';
-import jwt from "jsonwebtoken";
-import {generateToken} from "@/Utils/helper/generateToken";
-import {IJWTConfirmAccountPayload} from "@/App/modules/Mail/mail.types";
+import config from "../../..//src/Config";
+import * as jwt from "jsonwebtoken";
+import {generateToken} from "../../../src/Utils/helper/generateToken";
+import {IJWTConfirmAccountPayload} from "../../../src/App/modules/Mail/mail.types";
 
 describe('generateToken', () => {
     describe('accessToken', () => {
