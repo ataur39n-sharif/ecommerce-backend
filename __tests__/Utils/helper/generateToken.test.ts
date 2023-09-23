@@ -1,4 +1,4 @@
-import config from "../../..//src/Config";
+import config from "../../../src/Config";
 import * as jwt from "jsonwebtoken";
 import {generateToken} from "../../../src/Utils/helper/generateToken";
 import {IJWTConfirmAccountPayload} from "../../../src/App/modules/Mail/mail.types";

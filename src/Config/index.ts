@@ -13,12 +13,12 @@ export default {
     login: process.env.LOGIN_LINK,
     jwt: {
         accessToken: {
-            secret: process.env.JWT_ACCESSTOKEN_SECRET,
-            exp: process.env.JWT_ACCESSTOKEN_EXP
+            secret: process.env.JWT_ACCESSTOKEN_SECRET || 'JWT_ACCESSTOKEN_SECRET',
+            exp: process.env.JWT_ACCESSTOKEN_EXP || '12h'
         },
         refreshToken: {
-            secret: process.env.JWT_REFRESHTOKEN_SECRET,
-            exp: process.env.JWT_REFRESHTOKEN_EXP
+            secret: process.env.JWT_REFRESHTOKEN_SECRET || 'JWT_REFRESHTOKEN_SECRET',
+            exp: process.env.JWT_REFRESHTOKEN_EXP || '48h'
         },
         common: process.env.JWT
     }
