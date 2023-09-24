@@ -38,8 +38,9 @@ const updateInfo = catchAsync(async (req, res, next) => {
     const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params.id))
 
     const payload = pickFunction(req.body, Object.keys(CategoryModel.schema.obj))
+    console.log({id, payload})
     const validateData = CategoryValidation.categoryZodSchema.partial().parse(payload)
-
+    console.log({validateData})
     const modifiedData = await CategoryService.updateCategory(id, validateData)
 
     sendResponse.success(res, {

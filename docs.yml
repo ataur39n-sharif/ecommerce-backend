@@ -346,7 +346,7 @@ paths:
           application/json:
             schema:
               oneOf:
-                - $ref: "#/components/schemas/Single_Product"
+                - $ref: "#/components/schemas/Simple_Product"
                 - $ref: "#/components/schemas/Variable_Product"
       responses:
         201:
@@ -509,7 +509,7 @@ paths:
                 parentId:
                   type: string
                   default: null
-                  example: "1234567890123456"
+                  example: "64fc35281bb369f5fb148389"
               required:
                 - name
                 - icon
@@ -644,7 +644,7 @@ paths:
       security:
         - Authorization: [ ]
       parameters:
-        - in: query
+        - in: path
           name: id
           required: true
           schema:
@@ -668,7 +668,7 @@ paths:
                 parentId:
                   type: string
                   default: null
-                  example: "1234567890123456"
+                  example: "64fc35281bb369f5fb148389"
       responses:
         200:
           description: Success
@@ -1226,7 +1226,7 @@ components:
             description:
               type: string
               example: "This is meta description for the product page"
-    Single_Product:
+    Simple_Product:
       type: object
       properties:
         name:
@@ -1239,7 +1239,6 @@ components:
           type: string
           enum:
             - 'simple_product'
-            - 'variable_product'
           example: 'simple_product'
         price:
           type: string
@@ -1328,7 +1327,6 @@ components:
         productType:
           type: string
           enum:
-            - 'simple_product'
             - 'variable_product'
           example: 'variable_product'
         price:
@@ -1366,13 +1364,11 @@ components:
                   - 2
                   - 4
                   - 6
-        variations:
+        variableProducts:
           type: array
           items:
             type: object
             properties:
-              _id:
-                type: string
               image:
                 type: string
                 example: 'image.jpg'
@@ -1417,7 +1413,7 @@ components:
         - thumbnail
         - description
         - attributes
-        - variations
+        - variableProducts
         - metadata
     Category:
       type: object
@@ -1430,7 +1426,7 @@ components:
           type: string
         icon:
           type: string
-        parent:
+        parentId:
           type: string
           example: 5f7a2db4a5e093001f076f5c
           default: null
