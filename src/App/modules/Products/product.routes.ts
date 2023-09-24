@@ -5,6 +5,7 @@ const ProductRoutes = Router()
 
 ProductRoutes
     .get('/', ProductController.allProducts)
+    .get('/:id', ProductController.singleProduct)
     .post('/', ProductController.newProduct)
     .patch('/', ProductController.newProduct)
 

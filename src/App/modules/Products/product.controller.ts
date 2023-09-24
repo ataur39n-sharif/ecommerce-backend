@@ -31,6 +31,19 @@ const allProducts = catchAsync(async (req: Request, res: Response, next: NextFun
     })
 })
 
+const singleProduct = catchAsync(async (req, res, next) => {
+
+    const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params.id))
+
+    const data = await ProductServices.getSingleProduct(id)
+
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'Product fetched successfully',
+        data
+    })
+})
+
 const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const data = pickFunction<IProduct>(req.body, Object.keys(ProductModel.schema.obj))
     const payload = pickFunction<IProduct, keyof IProduct>(req.body, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
@@ -76,6 +89,7 @@ const updateProduct = catchAsync(async (req: Request, res: Response, next: NextF
 
 export const ProductController = {
     allProducts,
+    singleProduct,
     newProduct,
     updateProduct
 }

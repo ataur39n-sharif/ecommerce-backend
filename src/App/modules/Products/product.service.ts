@@ -71,16 +71,6 @@ const getSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> =>
     return ProductModel.findOne({_id: id}).lean()
 }
 
-// const addSingleProduct = async (payload: Partial<ISingleProduct>): Promise<IProduct> => {
-//     const validateProduct = ProductValidation.productZodSchema.parse(payload)
-//     return await ProductModel.create(validateProduct)
-// }
-//
-// const addVariableProduct = async (payload: Partial<IVariableProduct>): Promise<IProduct> => {
-//     const validateProduct = ProductValidation.productZodSchema.parse(payload)
-//     return await ProductModel.create(validateProduct)
-// }
-
 const addProduct = async (payload: Partial<ISingleProduct | IVariableProduct>): Promise<IProduct> => {
     const validateProduct = ProductValidation.productZodSchema.parse(payload)
     return await ProductModel.create(validateProduct)
@@ -112,8 +102,6 @@ const deleteBulkProducts = async (ids: Types.ObjectId[]) => {
 export const ProductServices = {
     getProducts,
     getSingleProduct,
-    // addSingleProduct,
-    // addVariableProduct,
     addProduct,
     updateProduct,
     updateBulkProducts,

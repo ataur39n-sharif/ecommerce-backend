@@ -47,8 +47,22 @@ const updateInfo = catchAsync(async (req, res, next) => {
 
     sendResponse.success(res, {
         statusCode: 200,
-        message: 'Data inserted successfully.',
+        message: 'Data updated successfully.',
         data: modifiedData
+    })
+})
+
+const bulkUpdateCategories = catchAsync(async (req, res, next) => {
+    const payload = pickFunction(req.body, ['categoryIds', 'status', 'tags'])
+    const validation = CategoryValidation.bulkUpdateSchema.parse(payload)
+
+    const updatedData = await CategoryService.bulkUpdate(validation.categoryIds, {...validation})
+
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'Data updated successfully',
+        data: updatedData
+
     })
 })
 
@@ -59,13 +73,18 @@ const deleteCategory = catchAsync(async (req, res, next) => {
 
     sendResponse.success(res, {
         statusCode: 200,
-        message: 'Data inserted successfully.',
+        message: 'Data Deleted successfully.',
     })
+})
+
+const bulkDelete = catchAsync(async (req, res, next) => {
+
 })
 
 export const CategoryController = {
     getAll,
     addNew,
     updateInfo,
+    bulkUpdateCategories,
     deleteCategory
 }

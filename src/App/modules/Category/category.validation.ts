@@ -10,6 +10,13 @@ const categoryZodSchema = z.object({
     tags: z.array(z.string()).optional()
 })
 
+const bulkUpdateSchema = z.object({
+    categoryIds: z.array(z.instanceof(Types.ObjectId)),
+    status: z.enum(['active', 'inactive']).optional(),
+    tags: z.array(z.string()).optional()
+})
+
 export const CategoryValidation = {
-    categoryZodSchema
+    categoryZodSchema,
+    bulkUpdateSchema
 }

@@ -378,7 +378,7 @@ paths:
           $ref: "#/components/responses/403"
         500:
           $ref: "#/components/responses/500"
-  "/product/{id}":
+  "/products/{id}":
     get:
       tags:
         - Product

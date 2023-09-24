@@ -9,3 +9,8 @@ export type TCategory = {
     tags?: string[],
     status: 'active' | 'inactive'
 }
+
+export type TBulkUpdatePayload = {
+    status: 'active' | 'inactive',
+    tags: string[],
+}
