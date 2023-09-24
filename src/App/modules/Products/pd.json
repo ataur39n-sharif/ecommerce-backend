@@ -750,7 +750,7 @@
     "updatedAt": "2023-09-07T14:30:00Z"
   },
   {
-    "name": "Variable Product 27",
+    "name": "Variable Product 271",
     "description": "Description for Variable Product 27",
     "category": "Health & Wellness",
     "images": [
@@ -785,7 +785,26 @@
     "variableProducts": [
       {
         "image": "variable-image27.jpg",
-        "price": 89.99,
+        "price": "89.99",
+        "stock": 25,
+        "attributes": [
+          {
+            "label": "Weight",
+            "value": "Medium"
+          },
+          {
+            "label": "Size",
+            "value": "Medium"
+          }
+        ],
+        "discount": {
+          "type": "percentage",
+          "value": 15
+        }
+      },
+      {
+        "image": "variable-image27.jpg",
+        "price": "89.99",
         "stock": 25,
         "attributes": [
           {
@@ -802,6 +821,10 @@
           "value": 15
         }
       }
-    ]
+    ],
+    "metadata": {
+      "title": "this is title",
+      "description": "this is description"
+    }
   }
 ]
