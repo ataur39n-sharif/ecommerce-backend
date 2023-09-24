@@ -38,14 +38,14 @@ const variableProductAttr = z.object({
 })
 
 const variableProductAttributeZodSchema = z.object({
-    image: z.string(),
+    image: z.string().optional(),
     price: z.string(),
-    stock: z.number(),
+    stock: z.number().optional(),
     attributes: z.array(variableProductAttr),
     discount: z.object({
         type: z.enum(["percentage", "fixed"]),
         value: z.number(),
-    }),
+    }).optional(),
 });
 
 const variableProduct = z.object({
