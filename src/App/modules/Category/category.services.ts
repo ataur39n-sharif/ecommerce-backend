@@ -1,6 +1,7 @@
 import {TCategory} from "@/App/modules/Category/category.types";
 import {CategoryModel} from "@/App/modules/Category/category.model";
 import {Types} from "mongoose";
+import {pickFunction} from "@/Utils/helper/pickFunction";
 
 const loadCategories = async (): Promise<TCategory[]> => {
     return CategoryModel.find()
@@ -10,10 +11,11 @@ const createNew = async (payload: Partial<TCategory>): Promise<TCategory> => {
 }
 
 const updateCategory = async (_id: Types.ObjectId, payload: Partial<TCategory>): Promise<TCategory | null> => {
-    console.log('from update category', payload)
+    const modifiedData = pickFunction(payload as TCategory, ['name', 'slug', 'icon', 'parentId', 'tags', 'status'])
+
     return CategoryModel.findOneAndUpdate({
         _id
-    }, payload, {
+    }, modifiedData, {
         new: true
     })
 }

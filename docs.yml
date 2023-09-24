@@ -658,17 +658,24 @@ paths:
               properties:
                 name:
                   type: string
-                  example: Cloths
                 slug:
                   type: string
-                  example: cloths
                 icon:
                   type: string
-                  example: "www.svg-icon.com"
                 parentId:
                   type: string
+                  example: 5f7a2db4a5e093001f076f5c
                   default: null
-                  example: "64fc35281bb369f5fb148389"
+                status:
+                  type: string
+                  enum:
+                    - active
+                    - inactive
+                  default: active
+                tags:
+                  type: array
+                  items:
+                    type: string
       responses:
         200:
           description: Success

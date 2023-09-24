@@ -6,6 +6,8 @@ const categoryZodSchema = z.object({
     slug: z.string(),
     icon: z.string(),
     parentId: z.instanceof(Types.ObjectId).optional(),
+    status: z.enum(['active', 'inactive']).optional(),
+    tags: z.array(z.string()).optional()
 })
 
 export const CategoryValidation = {
