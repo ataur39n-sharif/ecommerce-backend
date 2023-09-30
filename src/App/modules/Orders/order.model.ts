@@ -1,5 +1,5 @@
 import {model, Schema} from "mongoose";
-import {IOrder, TOrderActivities} from "@/App/modules/Orders/order.types";
+import {IOrder, TOrderActivities, TOrderLineItems} from "@/App/modules/Orders/order.types";
 import {AddressSchema} from "@/Utils/schema/address.schema";
 
 const orderActivitySchema = new Schema<TOrderActivities>({
@@ -19,15 +19,37 @@ const orderActivitySchema = new Schema<TOrderActivities>({
     versionKey: false
 })
 
+const OrderLineItemSchema = new Schema<TOrderLineItems>({
+    product: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
+        required: true,
+    },
+    variation: {
+        type: Schema.Types.ObjectId,
+        default: null,
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    }
+}, {
+    versionKey: false,
+    _id: false
+})
+
 const dataSchema = new Schema<IOrder>({
     uid: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    products: {
-        type: [Schema.Types.ObjectId],
-        ref: 'Product',
+    lineItems: {
+        type: [OrderLineItemSchema],
         required: true
     },
     shippingAddress: {
@@ -48,7 +70,8 @@ const dataSchema = new Schema<IOrder>({
     },
     status: {
         type: String,
-        enum: ['pending', 'hold', 'paid', 'delivered', 'shipped'],
+        enum: ['pending', 'hold', 'paid', 'shipped', 'delivered'],
+        default: 'pending',
         required: true
     },
     activities: {

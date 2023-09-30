@@ -13,6 +13,7 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
 
     //create verify url
     const link = `${callbackUrl}?token=${token}`
+    console.log({link})
 
     const report = await mailTransporter.sendMail({
         from: '"Support"<sharif@dreamtouch-bd.com>',
@@ -29,7 +30,7 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
         `
     })
 
-    console.log(report.envelope)
+    console.log(report)
 
     if (report.messageId) {
         return {

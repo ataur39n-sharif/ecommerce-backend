@@ -726,14 +726,21 @@ paths:
         - Order
       parameters:
         - in: query
+          name: orderId
+          schema:
+            type: string
+            example: 6517c22a1394cbab02092c51
+        - in: query
           name: email
           schema:
             type: string
             format: email
+            example: user@example.com
         - in: query
           name: status
           schema:
             type: string
+            example: paid
             enum:
               - pending
               - paid
@@ -744,6 +751,7 @@ paths:
           name: sortOrder
           schema:
             type: string
+            example: asc
             enum:
               - asc
               - desc
@@ -777,28 +785,55 @@ paths:
               properties:
                 uid:
                   type: string
-                  example: 1234567890123456
-                products:
+                  example: 6517c22a1394cbab02092c51
+                lineItems:
                   type: array
-                  description: Array of products
+                  description: Product's information
                   items:
-                    type: string
-                shipping_info:
+                    type: object
+                    properties:
+                      product:
+                        type: string
+                        example: '6517c22a1394cbab02092c51'
+                      variation:
+                        type: string
+                        default: null
+                        example: '6517c22a1394cbab02092c51'
+                      quantity:
+                        type: integer
+                        format: int32
+                        example: 4
+                      price:
+                        type: integer
+                        format: float
+                        example: 187.5
+                    required:
+                      - product
+                      - quantity
+                      - price
+                shippingAddress:
                   type: object
                   properties:
                     name:
                       type: string
-                      example: <NAME>
-                    address:
+                      example: Jhon Devin
+                    streetAddress:
                       type: string
                       example: 123 Main Street
-                    zip_code:
+                    city:
+                      type: string
+                      example: Mohammadpur
+                    state:
+                      type: string
+                      example: Dhaka
+                    zipCode:
                       type: integer
                       format: init32
+                      example: 1600
               required:
                 - uid
-                - products
-                - shipping_info
+                - lineItems
+                - shippingAddress
       responses:
         201:
           description: Success
@@ -813,11 +848,7 @@ paths:
                     type: string
                     example: Successfully order placed.
                   data:
-                    type: object
-                    properties:
-                      orderId:
-                        type: string
-                        example: 1234567890123456
+                    $ref: '#/components/schemas/Order'
         400:
           $ref: "#/components/responses/400"
         500:
@@ -1495,33 +1526,64 @@ components:
     Order:
       type: object
       properties:
+        _id:
+          type: string
+          example: 6517c22a1394cbab02092c51
         uid:
           type: string
-        products:
+          example: 6517c22a1394cbab02092c51
+        lineItems:
           type: array
-          description: Array of product's
+          description: Product's information
           items:
-            $ref: "#/components/schemas/Product"
-        shipping_information:
+            type: object
+            properties:
+              product:
+                type: string
+                example: '6517c22a1394cbab02092c51'
+              variation:
+                type: string
+                default: null
+                example: '6517c22a1394cbab02092c51'
+              quantity:
+                type: integer
+                format: int32
+                example: 4
+              price:
+                type: integer
+                format: float
+                example: 187.5
+        shippingAddress:
           type: object
           properties:
             name:
               type: string
-            address:
+              example: Jhon Devin
+            streetAddress:
               type: string
-            zip_code:
+              example: 123 Main Street
+            city:
+              type: string
+              example: Mohammadpur
+            state:
+              type: string
+              example: Dhaka
+            zipCode:
               type: integer
               format: init32
+              example: 1120
         subtotal:
           type: integer
           format: init32
-        shipping_cost:
+          example: 750
+        shippingCharge:
           type: integer
           format: init32
+          example: 50
         total:
           type: integer
           format: init32
-
+          example: 800
   parameters:
     productSearch:
       in: query

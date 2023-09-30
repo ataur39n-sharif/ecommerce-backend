@@ -4,14 +4,14 @@ import config from "@/Config";
 const connectDB = async () => {
     try {
         if (config.mongo_uri !== undefined) {
-            await mongoose.connect(config.mongo_uri)
+            const uri = config.node_env === 'development' ? 'mongodb://localhost:27017/backend-template' : config.mongo_uri
+            await mongoose.connect(uri)
             console.log("Database connection established.")
         } else {
             console.log('retrying to establish connection')
             connectDB();
         }
     } catch (e) {
-        // errLogger.error(e instanceof Error && e.message)
         console.log(" from config ====>", e instanceof Error && e.message)
     }
 }

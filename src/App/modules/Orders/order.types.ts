@@ -7,16 +7,29 @@ export type TOrderActivities = {
     actionBy: Types.ObjectId
 }
 
+export type TOrderLineItems = {
+    product: Types.ObjectId,
+    variation?: Types.ObjectId,
+    quantity: number,
+    price: number,
+}
+
+export type TOrderPayload = {
+    uid: Types.ObjectId | string,
+    lineItems: TOrderLineItems[],
+    shippingAddress: TAddress,
+}
+
 export interface IOrder {
     _id?: string,
-    uid: Types.ObjectId,
-    products: [Types.ObjectId],
+    uid: Types.ObjectId | string,
+    lineItems: TOrderLineItems[],
     shippingAddress: TAddress,
     subTotal: number,
     shippingCost: number,
     total: number,
-    status: 'pending' | 'hold' | 'paid' | 'delivered' | 'shipped',
-    activities: [TOrderActivities]
-    createdAt: Date,
-    updatedAt: Date
+    status: 'pending' | 'hold' | 'paid' | 'shipped' | 'delivered',
+    activities?: [TOrderActivities]
+    createdAt?: Date,
+    updatedAt?: Date
 }

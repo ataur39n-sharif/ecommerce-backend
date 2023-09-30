@@ -22,9 +22,17 @@ const loginPayload: ZodType<TLogin> = z.object({
     password: z.string(),
 })
 
+const addressPayload = z.object({
+    streetAddress: z.string(),
+    city: z.string(),
+    state: z.string(),
+    zipCode: z.number(),
+})
+
 export const processZodValidation = {
     errorValidation
 }
-export const ValidationSchema = {
-    loginPayload
+export const ZodValidationSchema = {
+    loginPayload,
+    addressPayload
 }
