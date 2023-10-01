@@ -6,6 +6,11 @@ import {pickFunction} from "@/Utils/helper/pickFunction";
 const loadCategories = async (): Promise<TCategory[]> => {
     return CategoryModel.find()
 }
+
+const singleCategory = async (_id: Types.ObjectId): Promise<TCategory | null> => {
+    return CategoryModel.findOne({_id}).lean()
+}
+
 const createNew = async (payload: Partial<TCategory>): Promise<TCategory> => {
     return await CategoryModel.create(payload)
 }
@@ -40,6 +45,7 @@ const deleteCategory = async (_id: Types.ObjectId) => {
 
 export const CategoryService = {
     loadCategories,
+    singleCategory,
     createNew,
     updateCategory,
     bulkUpdate,

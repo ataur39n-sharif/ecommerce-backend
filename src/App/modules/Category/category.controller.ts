@@ -17,6 +17,20 @@ const getAll = catchAsync(async (req, res, next) => {
     })
 })
 
+const getSingleCategory = catchAsync(async (req, res, next) => {
+
+    const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params.id))
+
+    const data = await CategoryService.singleCategory(id)
+
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'Single category fetch successfully',
+        data
+    })
+})
+
+
 const addNew = catchAsync(async (req, res, next) => {
     const payload = pickFunction(req.body, Object.keys(CategoryModel.schema.obj))
 
@@ -83,6 +97,7 @@ const bulkDelete = catchAsync(async (req, res, next) => {
 
 export const CategoryController = {
     getAll,
+    getSingleCategory,
     addNew,
     updateInfo,
     bulkUpdateCategories,
