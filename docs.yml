@@ -423,6 +423,146 @@ paths:
                     example: Product not found
         500:
           $ref: "#/components/responses/500"
+    patch:
+      tags:
+        - Product
+      security:
+        - Authorization: [ ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 'keyboard and mouse combo'
+                category:
+                  type: string
+                  example: 'electronics'
+                productType:
+                  type: string
+                  enum:
+                    - 'simple_product'
+                    - 'variable_product'
+                  example: 'simple_product'
+                price:
+                  type: string
+                  example: '1020'
+                discount:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: 'fixed'
+                      enum:
+                        - percentage
+                        - fixed
+                    value:
+                      type: integer
+                      example: 300
+                      format: init32
+                description:
+                  type: string
+                  example: 'Details for product'
+                short_description:
+                  type: string
+                  example: 'key features for product'
+                images:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - 'image1.jpg'
+                    - 'image2.jpg'
+                thumbnail:
+                  type: string
+                  example: 'thumbnail27.jpg'
+                stock:
+                  type: integer
+                  format: init32
+                  example: 30
+                attributes: &common_attribute
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      label:
+                        type: string
+                        example: 'Weight'
+                      values:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                          - 'light'
+                          - 'medium'
+                variableProducts:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      price:
+                        type: string
+                        example: '30'
+                      discount:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            example: 'percentage'
+                            enum:
+                              - percentage
+                              - fixed
+                          value:
+                            type: integer
+                            format: init32
+                            example: 30
+                      stock:
+                        type: integer
+                        format: init32
+                        example: 123
+
+                      attributes:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: 'color'
+                            value:
+                              type: string
+                              example: 'red'
+                tags:
+                  type: array
+                  items:
+                    type: string
+                    example:
+                      - 'flash_sale'
+                      - 'popular'
+                metadata:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      example: "Iphone 15pro max in Bangladesh."
+                    description:
+                      type: string
+                      example: "This is meta description for the product page"
+              required:
+                - productType
+      responses:
+        200:
+          $ref: "#/components/responses/200"
     delete:
       tags:
         - Product
