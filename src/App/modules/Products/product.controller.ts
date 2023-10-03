@@ -66,11 +66,12 @@ const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunc
 })
 
 const updateProduct = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
     const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params?.id))
-    const requiredPayload = z.object({
-        productType: z.enum(['simple_product', 'variable_product'])
-    }).parse({
-        productType: req.body.productType
+
+    const requiredPayload = ProductValidation.requiredUpdatePayload.parse({
+        productType: req.body.productType,
+        variableProducts: req.body.productType === 'variable_product' ? req.body.variableProducts : undefined
     })
 
     const payload = pickFunction<IProduct, keyof IProduct>(req.body, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);

@@ -52,6 +52,7 @@ export const MongoQueryHelper = (fieldType: string, fieldName: string, searchVal
         if (!isNaN(Number(searchValue))) {
             switch (fieldName) {
                 case "min_price":
+                    console.log({searchValue})
                     return {
                         price: {
                             $gte: Number(searchValue)

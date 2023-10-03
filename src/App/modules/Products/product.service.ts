@@ -44,6 +44,7 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
                     const {
                         fieldType
                     } = ProductUtils.getProductExtraKeys('specific', key) as TExtraProductKeys
+                    console.log('extra keys', MongoQueryHelper(fieldType, key, value as string))
                     return MongoQueryHelper(fieldType, key, value as string)
                 }
                 return MongoQueryHelper('String', '', '')
@@ -71,7 +72,7 @@ const getSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> =>
     return ProductModel.findOne({_id: id}).lean()
 }
 
-const addProduct = async (payload: Partial<ISingleProduct | IVariableProduct>): Promise<IProduct> => {
+const addProduct = async (payload: Partial<ISingleProduct | IVariableProduct>): Promise<IProduct | null> => {
     const validateProduct = ProductValidation.productZodSchema.parse(payload)
     return await ProductModel.create(validateProduct)
 }

@@ -40,8 +40,9 @@ const variableProductAttributeSchema = new Schema<TVariableProductAttribute>({
         default: null
     },
     price: {
-        type: String,
-        required: true
+        type: Number,
+        required: true,
+        default: 0
     },
     stock: {
         type: Number,
@@ -89,7 +90,7 @@ const dataSchema = new Schema({
         required: true
     },
     price: {
-        type: String,
+        type: Number,
         default: null
     },
     stock: {

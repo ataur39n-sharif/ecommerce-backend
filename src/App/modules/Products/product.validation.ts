@@ -20,7 +20,7 @@ const singleProduct = z.object({
     name: z.string(),
     description: z.string(),
     short_description: z.string().optional(),
-    price: z.string(),
+    price: z.number(),
     stock: z.number(),
     category: z.string(),
     images: z.array(z.string()),
@@ -39,7 +39,7 @@ const variableProductAttr = z.object({
 
 const variableProductAttributeZodSchema = z.object({
     image: z.string().optional(),
-    price: z.string(),
+    price: z.number(),
     stock: z.number().optional(),
     attributes: z.array(variableProductAttr),
     discount: z.object({
@@ -67,7 +67,7 @@ const productZodSchema = z.object({
     name: z.string(),
     description: z.string(),
     short_description: z.string().optional(),
-    price: z.optional(z.string()),
+    price: z.optional(z.number()),
     stock: z.optional(z.number()),
     category: z.string(),
     images: z.array(z.string()),
@@ -84,9 +84,20 @@ const productZodSchema = z.object({
     updatedAt: z.date().optional(),
 });
 
+const requiredUpdatePayload = z.object({
+    productType: z.enum(['simple_product', 'variable_product']),
+    variableProducts: z.optional(
+        z.array(variableProductAttributeZodSchema)
+    )
+}).refine((data) => data.productType === 'variable_product' ? data.variableProducts : true, {
+    message: 'variableProducts is required when productType is variable_product',
+    path: ['variableProducts'],
+})
+
 
 export const ProductValidation = {
     productZodSchema,
     singleProduct,
-    variableProduct
+    variableProduct,
+    requiredUpdatePayload
 }

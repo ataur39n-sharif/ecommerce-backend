@@ -177,7 +177,7 @@ npm install
 
 - [bcrypt](https://www.npmjs.com/package/bcrypt): Password hashing library.
 - [cors](https://www.npmjs.com/package/cors): Cross-origin resource sharing middleware.
-- [dotenv](https://www.npmjs.com/package/dotenv): Environment variable management.
+- [dotenv](https://www.npmjs.com/package/dotenv): Environment variableList management.
 - [express](https://www.npmjs.com/package/express): Web framework for Node.js.
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken): JSON Web Token (JWT) library.
 - [mongoose](https://www.npmjs.com/package/mongoose): MongoDB object modeling for Node.js.

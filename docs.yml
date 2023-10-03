@@ -453,8 +453,8 @@ paths:
                     - 'variable_product'
                   example: 'simple_product'
                 price:
-                  type: string
-                  example: '1020'
+                  type: number
+                  example: 1020
                 discount:
                   type: object
                   properties:
@@ -511,8 +511,8 @@ paths:
                       _id:
                         type: string
                       price:
-                        type: string
-                        example: '30'
+                        type: number
+                        example: 30
                       discount:
                         type: object
                         properties:
@@ -1299,8 +1299,8 @@ components:
             - 'variable_product'
           example: 'simple_product'
         price:
-          type: string
-          example: '1020'
+          type: number
+          example: 1020
         discount:
           type: object
           properties:
@@ -1357,8 +1357,8 @@ components:
               _id:
                 type: string
               price:
-                type: string
-                example: '30'
+                type: number
+                example: 30
               discount:
                 type: object
                 properties:
@@ -1419,8 +1419,8 @@ components:
             - 'simple_product'
           example: 'simple_product'
         price:
-          type: string
-          example: '2500'
+          type: number
+          example: 2500
         discount:
           type: object
           properties:
@@ -1508,8 +1508,8 @@ components:
             - 'variable_product'
           example: 'variable_product'
         price:
-          type: string
-          example: '21000'
+          type: number
+          example: 21000
         description:
           type: string
           example: 'product description'
@@ -1551,8 +1551,8 @@ components:
                 type: string
                 example: 'image.jpg'
               price:
-                type: string
-                example: '20000'
+                type: number
+                example: 20000
               stock:
                 type: integer
                 example: 100

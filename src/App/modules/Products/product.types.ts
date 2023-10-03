@@ -21,7 +21,7 @@ export interface IProduct {
 }
 
 export interface ISingleProduct extends IProduct {
-    price: string,
+    price: number,
     stock: number,
     discount?: TDiscount,
 }
@@ -46,7 +46,7 @@ export type TVariableAttr = {
 }
 export type TVariableProductAttribute = {
     image: string,
-    price: string,
+    price: number,
     stock: number,
     attributes: TVariableAttr[],
     discount: TDiscount

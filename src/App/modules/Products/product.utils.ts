@@ -13,9 +13,9 @@ const ProductExtraKeys: TExtraProductKeys[] = [
 const getProductExtraKeys = (type: TExtraProductKeysType = 'keys', keyName?: string) => {
     switch (type) {
         case 'keys':
-            return ProductExtraKeys.map((eachField) => eachField.fieldName)
+            return ProductExtraKeys.map((eachField) => eachField.fieldName) //returning all extra keys
         case "specific":
-            return ProductExtraKeys.find((field) => field.fieldName === keyName) || {}
+            return ProductExtraKeys.find((field) => field.fieldName === keyName) || {} //returning specific a key
         default :
             return []
     }

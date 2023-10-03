@@ -1,0 +1,363 @@
+[
+  {
+    "name": "Smart watch",
+    "category": "Electronics",
+    "productType": "simple_product",
+    "price": "2500",
+    "discount": {
+      "type": "fixed",
+      "value": 300
+    },
+    "images": [
+      "image1.jpg",
+      "image2.jpg",
+      "image3.jpg"
+    ],
+    "thumbnail": "thumbnail.jpg",
+    "stock": 100,
+    "description": "Product details description",
+    "short_description": "Product short description",
+    "attributes": [
+      {
+        "label": "color",
+        "values": [
+          "black",
+          "white",
+          "red"
+        ]
+      }
+    ],
+    "tags": [
+      "black_friday"
+    ],
+    "metadata": {
+      "title": "Iphone 15pro max in Bangladesh.",
+      "description": "This is meta description for the product page"
+    }
+  },
+  {
+    "name": "Laptop",
+    "category": "Electronics",
+    "productType": "simple_product",
+    "price": "1200",
+    "discount": {
+      "type": "percentage",
+      "value": 10
+    },
+    "images": [
+      "laptop_image1.jpg",
+      "laptop_image2.jpg",
+      "laptop_image3.jpg"
+    ],
+    "thumbnail": "laptop_thumbnail.jpg",
+    "stock": 50,
+    "description": "High-performance laptop with advanced features.",
+    "short_description": "Powerful laptop for work and entertainment.",
+    "attributes": [
+      {
+        "label": "color",
+        "values": [
+          "silver",
+          "black",
+          "gray"
+        ]
+      }
+    ],
+    "tags": [
+      "electronics",
+      "laptop_deals"
+    ],
+    "metadata": {
+      "title": "High-performance Laptop",
+      "description": "A laptop designed for speed and efficiency."
+    }
+  },
+  {
+    "name": "Headphones",
+    "category": "Electronics",
+    "productType": "simple_product",
+    "price": "150",
+    "discount": {
+      "type": "fixed",
+      "value": 20
+    },
+    "images": [
+      "headphones_image1.jpg",
+      "headphones_image2.jpg"
+    ],
+    "thumbnail": "headphones_thumbnail.jpg",
+    "stock": 200,
+    "description": "High-quality over-ear headphones for immersive audio experience.",
+    "short_description": "Immerse yourself in music with these headphones.",
+    "attributes": [
+      {
+        "label": "color",
+        "values": [
+          "black",
+          "white",
+          "blue"
+        ]
+      }
+    ],
+    "tags": [
+      "audio",
+      "headphones"
+    ],
+    "metadata": {
+      "title": "Premium Over-Ear Headphones",
+      "description": "Enjoy music like never before with these premium headphones."
+    }
+  },
+  {
+    "name": "Camera",
+    "category": "Electronics",
+    "productType": "simple_product",
+    "price": "800",
+    "discount": {
+      "type": "percentage",
+      "value": 15
+    },
+    "images": [
+      "camera_image1.jpg",
+      "camera_image2.jpg"
+    ],
+    "thumbnail": "camera_thumbnail.jpg",
+    "stock": 30,
+    "description": "High-resolution DSLR camera for professional photography.",
+    "short_description": "Capture stunning moments with this DSLR camera.",
+    "attributes": [
+      {
+        "label": "color",
+        "values": [
+          "black",
+          "silver"
+        ]
+      }
+    ],
+    "tags": [
+      "photography",
+      "camera_deals"
+    ],
+    "metadata": {
+      "title": "Professional DSLR Camera",
+      "description": "Elevate your photography game with this professional camera."
+    }
+  },
+  {
+    "name": "Smartphone",
+    "category": "Electronics",
+    "productType": "simple_product",
+    "price": "600",
+    "discount": {
+      "type": "fixed",
+      "value": 50
+    },
+    "images": [
+      "smartphone_image1.jpg",
+      "smartphone_image2.jpg",
+      "smartphone_image3.jpg"
+    ],
+    "thumbnail": "smartphone_thumbnail.jpg",
+    "stock": 80,
+    "description": "Feature-packed smartphone with a high-resolution display.",
+    "short_description": "Stay connected with this powerful smartphone.",
+    "attributes": [
+      {
+        "label": "color",
+        "values": [
+          "black",
+          "gold",
+          "silver"
+        ]
+      }
+    ],
+    "tags": [
+      "electronics",
+      "smartphone_deals"
+    ],
+    "metadata": {
+      "title": "Advanced Smartphone",
+      "description": "Experience the future of communication with this advanced smartphone."
+    }
+  },
+  {
+    "name": "Tablet",
+    "category": "Electronics",
+    "productType": "simple_product",
+    "price": "350",
+    "discount": {
+      "type": "percentage",
+      "value": 10
+    },
+    "images": [
+      "tablet_image1.jpg",
+      "tablet_image2.jpg"
+    ],
+    "thumbnail": "tablet_thumbnail.jpg",
+    "stock": 60,
+    "description": "Versatile tablet with a high-resolution touchscreen.",
+    "short_description": "Work and play on the go with this tablet.",
+    "attributes": [
+      {
+        "label": "color",
+        "values": [
+          "black",
+          "silver",
+          "blue"
+        ]
+      }
+    ],
+    "tags": [
+      "electronics",
+      "tablet_deals"
+    ],
+    "metadata": {
+      "title": "Versatile Tablet",
+      "description": "A tablet that adapts to your needs for work and entertainment."
+    }
+  },
+  {
+    "name": "Wireless Earbuds",
+    "category": "Electronics",
+    "productType": "simple_product",
+    "price": "80",
+    "discount": {
+      "type": "fixed",
+      "value": 10
+    },
+    "images": [
+      "earbuds_image1.jpg",
+      "earbuds_image2.jpg"
+    ],
+    "thumbnail": "earbuds_thumbnail.jpg",
+    "stock": 150,
+    "description": "Compact and stylish wireless earbuds for on-the-go audio.",
+    "short_description": "Enjoy wireless freedom with these earbuds.",
+    "attributes": [
+      {
+        "label": "color",
+        "values": [
+          "black",
+          "white",
+          "red"
+        ]
+      }
+    ],
+    "tags": [
+      "audio",
+      "earbuds"
+    ],
+    "metadata": {
+      "title": "Stylish Wireless Earbuds",
+      "description": "Experience music without wires with these stylish earbuds."
+    }
+  },
+  {
+    "name": "Fitness Tracker",
+    "category": "Electronics",
+    "productType": "simple_product",
+    "price": "40",
+    "discount": {
+      "type": "percentage",
+      "value": 5
+    },
+    "images": [
+      "tracker_image1.jpg",
+      "tracker_image2.jpg"
+    ],
+    "thumbnail": "tracker_thumbnail.jpg",
+    "stock": 100,
+    "description": "Track your fitness goals with this compact fitness tracker.",
+    "short_description": "Stay active and healthy with this fitness tracker.",
+    "attributes": [
+      {
+        "label": "color",
+        "values": [
+          "black",
+          "blue",
+          "pink"
+        ]
+      }
+    ],
+    "tags": [
+      "fitness",
+      "tracker"
+    ],
+    "metadata": {
+      "title": "Compact Fitness Tracker",
+      "description": "Monitor your fitness progress with this compact tracker."
+    }
+  },
+  {
+    "name": "Coffee Maker",
+    "category": "Appliances",
+    "productType": "simple_product",
+    "price": "120",
+    "discount": {
+      "type": "fixed",
+      "value": 15
+    },
+    "images": [
+      "coffeemaker_image1.jpg",
+      "coffeemaker_image2.jpg"
+    ],
+    "thumbnail": "coffeemaker_thumbnail.jpg",
+    "stock": 50,
+    "description": "Make delicious coffee at home with this coffee maker.",
+    "short_description": "Start your day with a perfect cup of coffee.",
+    "attributes": [
+      {
+        "label": "color",
+        "values": [
+          "black",
+          "silver",
+          "red"
+        ]
+      }
+    ],
+    "tags": [
+      "appliances",
+      "coffee"
+    ],
+    "metadata": {
+      "title": "Home Coffee Maker",
+      "description": "Brew coffee just the way you like it with this home coffee maker."
+    }
+  },
+  {
+    "name": "Gaming Mouse",
+    "category": "Gaming",
+    "productType": "simple_product",
+    "price": 60,
+    "discount": {
+      "type": "percentage",
+      "value": 10
+    },
+    "images": [
+      "mouse_image1.jpg",
+      "mouse_image2.jpg"
+    ],
+    "thumbnail": "mouse_thumbnail.jpg",
+    "stock": 75,
+    "description": "Enhance your gaming experience with this high-precision gaming mouse.",
+    "short_description": "Dominate the game with this gaming mouse.",
+    "attributes": [
+      {
+        "label": "color",
+        "values": [
+          "black",
+          "red",
+          "green"
+        ]
+      }
+    ],
+    "tags": [
+      "gaming",
+      "mouse"
+    ],
+    "metadata": {
+      "title": "High-Precision Gaming Mouse",
+      "description": "Achieve victory in every game with this high-precision gaming mouse."
+    }
+  }
+]
