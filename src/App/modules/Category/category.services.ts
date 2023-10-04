@@ -1,22 +1,27 @@
-import {TBulkUpdatePayload, TCategory} from "@/App/modules/Category/category.types";
+import {ICategory, TBulkUpdatePayload} from "@/App/modules/Category/category.types";
 import {CategoryModel} from "@/App/modules/Category/category.model";
 import {Types} from "mongoose";
 import {pickFunction} from "@/Utils/helper/pickFunction";
+import {CategoryUtils} from "@/App/modules/Category/category.utils";
 
-const loadCategories = async (): Promise<TCategory[]> => {
-    return CategoryModel.find()
+const loadCategories = async (): Promise<ICategory[]> => {
+    console.log('hit category')
+    const result: ICategory[] = await CategoryModel.find().populate('parentId').lean()
+    const groupResult = CategoryUtils.groupByParentId(result)
+    // console.log({groupResult})
+    return groupResult
 }
 
-const singleCategory = async (_id: Types.ObjectId): Promise<TCategory | null> => {
+const singleCategory = async (_id: Types.ObjectId): Promise<ICategory | null> => {
     return CategoryModel.findOne({_id}).lean()
 }
 
-const createNew = async (payload: Partial<TCategory>): Promise<TCategory> => {
+const createNew = async (payload: Partial<ICategory>): Promise<ICategory> => {
     return await CategoryModel.create(payload)
 }
 
-const updateCategory = async (_id: Types.ObjectId, payload: Partial<TCategory>): Promise<TCategory | null> => {
-    const modifiedData = pickFunction(payload as TCategory, ['name', 'slug', 'icon', 'parentId', 'tags', 'status'])
+const updateCategory = async (_id: Types.ObjectId, payload: Partial<ICategory>): Promise<ICategory | null> => {
+    const modifiedData = pickFunction(payload as ICategory, ['name', 'slug', 'icon', 'parentId', 'tags', 'status'])
 
     return CategoryModel.findOneAndUpdate({
         _id

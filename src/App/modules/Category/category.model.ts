@@ -1,7 +1,7 @@
 import {model, Schema} from "mongoose";
-import {TCategory} from "@/App/modules/Category/category.types";
+import {ICategory} from "@/App/modules/Category/category.types";
 
-export const dataSchema = new Schema<TCategory>({
+export const dataSchema = new Schema<ICategory>({
     name: {
         type: String,
         required: true
@@ -16,7 +16,7 @@ export const dataSchema = new Schema<TCategory>({
     },
     parentId: {
         type: Schema.Types.ObjectId,
-        ref: 'Category',
+        ref: 'category',
         default: null,
     },
     tags: {
