@@ -5,6 +5,7 @@ import {TMetadata} from "@/Utils/types/customSchema.type";
 export interface IProduct {
     _id?: Types.ObjectId | string,
     name: string,
+    slug: string,
     description: string,
     short_description?: string,
     category: string,

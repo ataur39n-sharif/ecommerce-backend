@@ -65,6 +65,7 @@ const variableProduct = z.object({
 
 const productZodSchema = z.object({
     name: z.string(),
+    slug: z.string(),
     description: z.string(),
     short_description: z.string().optional(),
     price: z.optional(z.number()),

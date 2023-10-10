@@ -77,6 +77,19 @@ const dataSchema = new Schema({
         type: String,
         required: true
     },
+    slug: {
+        type: String,
+        required: true,
+        validate: {
+            validator: async (value: string): Promise<boolean> => {
+                const result = await ProductModel.countDocuments({
+                    slug: value
+                })
+                return result === 0
+            },
+            message: "This slug is already taken. ",
+        }
+    },
     description: {
         type: String,
         required: true
