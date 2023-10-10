@@ -59,7 +59,7 @@ const loadCategories = async (payload:IQueryItems<ICategory>) => {
     // console.log({groupResult})
     const total = await CategoryModel.countDocuments()
     return {
-        categories:(payload.filterFields as any).grouped ? groupResult: categories,
+        categories:(payload.filterFields as any).grouped === 'true' ? groupResult: categories,
         meta: {
             page,
             limit,
