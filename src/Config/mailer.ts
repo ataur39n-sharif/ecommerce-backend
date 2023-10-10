@@ -9,7 +9,6 @@ import nodemailer from 'nodemailer';
 //         pass: "}ul).59k*S*m",
 //     },
 // });
-
 const mailTransporter = nodemailer.createTransport({
     host: "email-smtp.us-east-1.amazonaws.com",
     port: 465,
@@ -19,5 +18,6 @@ const mailTransporter = nodemailer.createTransport({
         pass: "BKHmHq8zdn5c27UlQGoual3ni1LvdujZmS9Ac2ddKnse",
     },
 });
+
 
 export default mailTransporter

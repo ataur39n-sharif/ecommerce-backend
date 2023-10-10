@@ -31,7 +31,7 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
 
     //filter conditions
     if (Object.entries(payload.filterFields).length > 0) {
-        ProductUtils.manageFilterFields(payload.filterFields)
+        // ProductUtils.manageFilterFields(payload.filterFields)
         queryConditions.push({
             $and: Object.entries(payload.filterFields).map(([key, value]) => {
 
