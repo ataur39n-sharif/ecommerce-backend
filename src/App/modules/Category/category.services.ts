@@ -64,8 +64,7 @@ const loadCategories = async (payload:IQueryItems<ICategory>) => {
             page,
             limit,
             total
-        },
-        query
+        }
     }
 }
 
