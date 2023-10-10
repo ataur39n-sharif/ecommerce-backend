@@ -7,9 +7,14 @@ import {CategoryValidation} from "@/App/modules/Category/category.validation";
 import {z} from "zod";
 import {Types} from "mongoose";
 import {MongoHelper} from "@/Utils/helper/mongoHelper";
+import {queryOptimization} from "@/Utils/helper/queryOptimize";
+import {ICategory} from "@/App/modules/Category/category.types";
 
 const getAll = catchAsync(async (req, res, next) => {
-    const data = await CategoryService.loadCategories()
+    const payload = queryOptimization<ICategory>(req, ['name','slug','status','tags'],['grouped'])
+
+
+    const data = await CategoryService.loadCategories(payload)
     sendResponse.success(res, {
         statusCode: 200,
         message: 'All categories fetch successfully',

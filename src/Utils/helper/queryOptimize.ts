@@ -95,6 +95,13 @@ export const MongoQueryHelper = (fieldType: string, fieldName: string, searchVal
                 $exists: false,
             }
         }
+    }else if (fieldType === 'Boolean') {
+        /*
+        *  validate if you need to query by Date
+        * */
+        return {
+            [fieldName]: Boolean(searchValue)
+        }
     } else {
         //default for string search
         return {

@@ -3,13 +3,70 @@ import {CategoryModel} from "@/App/modules/Category/category.model";
 import {Types} from "mongoose";
 import {pickFunction} from "@/Utils/helper/pickFunction";
 import {CategoryUtils} from "@/App/modules/Category/category.utils";
+import {IQueryItems} from "@/Utils/types/query.type";
+import {calculatePagination, manageSorting, MongoQueryHelper} from "@/Utils/helper/queryOptimize";
 
-const loadCategories = async (): Promise<ICategory[]> => {
-    console.log('hit category')
-    const result: ICategory[] = await CategoryModel.find().populate('parentId').lean()
-    const groupResult = CategoryUtils.groupByParentId(result)
+const loadCategories = async (payload:IQueryItems<ICategory>) => {
+    const {search} = payload.searchFields
+    const {page, limit, skip} = calculatePagination(payload.paginationFields)
+    const {sortBy, sortOrder} = manageSorting(payload.sortFields)
+
+    const queryConditions = []
+
+    //search condition
+    if (search) {
+        queryConditions.push({
+            $or: ['name', 'slug','status'].map((field) => {
+                const fieldType = CategoryModel.schema.path(field).instance
+                return MongoQueryHelper(fieldType, field, search)
+            })
+        })
+    }
+
+    //filter condition
+    if (Object.entries(payload.filterFields).length > 0) {
+        let tempConditions:{}[] =[];
+        Object.entries(payload.filterFields).map(([key, value]) => {
+            if (Object.keys(CategoryModel.schema.obj).includes(key)) {
+                // mongoose schema keys
+                const fieldType = CategoryModel.schema.path(key).instance
+                // return
+                tempConditions.push(MongoQueryHelper(fieldType, key, value as string))
+            }else if(key ==='tags'){
+                tempConditions.push( {
+                    tags: {
+                        $in:value
+                    }
+                })
+            }
+        })
+        tempConditions.length && queryConditions.push({
+            $and: tempConditions.map((condition)=>condition)
+        })
+    }
+
+    const query = queryConditions.length ? {$and: queryConditions} : {}
+
+    const categories: ICategory[] = await CategoryModel.find(query)
+        .populate('parentId')
+        .sort({[sortBy]: sortOrder})
+        .skip(skip)
+        .limit(limit)
+        .lean()
+
+    // console.log({categories})
+    const groupResult = CategoryUtils.groupByParentId(categories)
     // console.log({groupResult})
-    return groupResult
+    const total = await CategoryModel.countDocuments()
+    return {
+        categories:(payload.filterFields as any).grouped ? groupResult: categories,
+        meta: {
+            page,
+            limit,
+            total
+        },
+        query
+    }
 }
 
 const singleCategory = async (_id: Types.ObjectId): Promise<ICategory | null> => {

@@ -587,6 +587,10 @@ paths:
         - Category
       parameters:
         - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
           name: name
           schema:
             type: string
@@ -595,16 +599,36 @@ paths:
           schema:
             type: string
         - in: query
+          name: status
+          schema:
+            type: string
+            enum:
+              - active
+              - inactive
+        - in: query
+          name: tags
+          schema:
+            type: string
+        - in: query
           name: grouped
           schema:
             type: boolean
         - in: query
           name: sortOrder
+          description: based on Created time
           schema:
             type: string
             enum:
               - asc
               - desc
+        - in: query
+          name: page
+          schema:
+            type: number
+        - in: query
+          name: limit
+          schema:
+            type: number
       responses:
         200:
           description: Success Response

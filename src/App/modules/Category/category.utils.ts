@@ -2,6 +2,7 @@ import {ICategory, ICategoryWithSub} from "@/App/modules/Category/category.types
 import {Types} from "mongoose";
 
 const groupByParentId = (data: ICategory[] | ICategoryWithSub[]) => {
+    // console.log({data})
     // @ts-ignore
     let tempList: ICategoryWithSub[] = [];
     //parent category listing
