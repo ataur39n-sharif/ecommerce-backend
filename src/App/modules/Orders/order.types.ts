@@ -8,8 +8,8 @@ export type TOrderActivities = {
 }
 
 export type TOrderLineItems = {
-    product: Types.ObjectId,
-    variation?: Types.ObjectId,
+    product: Types.ObjectId | string,
+    variation?: Types.ObjectId | string,
     quantity: number,
     price: number,
 }
