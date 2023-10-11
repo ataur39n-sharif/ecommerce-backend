@@ -5,6 +5,31 @@ import {OrderValidation} from "@/App/modules/Orders/order.validation";
 import {OrderService} from "@/App/modules/Orders/order.services";
 import {TOrderPayload} from "@/App/modules/Orders/order.types";
 import {sendResponse} from "@/Utils/helper/sendResponse";
+import {z} from "zod";
+
+
+const getOrders=catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
+  const data = await OrderService.allOrders()
+  sendResponse.success(res,{
+      statusCode:200,
+      message:'All orders fetched successfully',
+      data
+  })
+})
+
+const getSingleOrder = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const id = z.string({
+        required_error:'Id is required.'
+    }).parse(req.params.id)
+
+    const data = await OrderService.singleOrder(id)
+
+    sendResponse.success(res,{
+        statusCode:200,
+        message:'Fetched successful.',
+        data
+    })
+})
 
 const placeOrder = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const payload = pickFunction(req.body, ['uid', 'lineItems', 'shippingAddress'])
@@ -18,9 +43,28 @@ const placeOrder = catchAsync(async (req: Request, res: Response, next: NextFunc
     })
 })
 
+const deleteOrder = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const id = z.string({
+        required_error:'Id is required.'
+    }).parse(req.params.id)
+
+    await OrderService.deleteOrder(id)
+
+    sendResponse.success(res,{
+        statusCode:200,
+        message:'Deleted successfully.'
+    })
+
+})
+
+
 // const placeOrder = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 // })
 
 export const OrderController = {
-    placeOrder
+    getOrders,
+    getSingleOrder,
+    placeOrder,
+    deleteOrder
 }
