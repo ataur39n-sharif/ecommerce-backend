@@ -1313,6 +1313,9 @@ components:
         name:
           type: string
           example: 'keyboard and mouse combo'
+        slug:
+          type: string
+          example: 'slug_for_this_product'
         category:
           type: string
           example: 'electronics'
@@ -1434,6 +1437,9 @@ components:
         name:
           type: string
           example: 'Smart watch'
+        slug:
+          type: string
+          example: 'slug_for_this_product'
         category:
           type: string
           example: 'Electronics'
@@ -1523,6 +1529,9 @@ components:
         name:
           type: string
           example: 'Xiaomi M12'
+        slug:
+          type: string
+          example: 'slug_for_this_product'
         category:
           type: string
           example: 'Electronics'

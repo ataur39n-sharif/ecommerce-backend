@@ -39,7 +39,6 @@ describe('Product api tests',  () => {
     });
 
     it('should update simple product tags', async function () {
-        console.log({productId})
         await request(app)
             .patch(`/api/v1/products/${productId}`)
             .send(TestData.updateProductsTag)
