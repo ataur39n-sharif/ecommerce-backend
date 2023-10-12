@@ -8,7 +8,6 @@ import globalErrorHandler from "@/Middlewares/Errors/globalErrorHandler";
 import notFoundHandler from "@/Middlewares/Errors/notFoundHandler";
 import configRoutes from './Routes/config';
 import mailTransporter from "@/Config/mailer";
-import { MailService } from './App/modules/Mail/mail.service';
 
 const app: Application = express()
 app.use(express.json())
@@ -22,7 +21,7 @@ mailTransporter.verify(function (error, success) {
     if (error) {
         console.log(error.message);
     } else {
-        console.log("Mail server - ok!");
+        // console.log("Mail server - ok!");
     }
 });
 

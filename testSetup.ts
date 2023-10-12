@@ -2,7 +2,7 @@
 
 import mongoose from "mongoose";
 
-const testDBUri = "mongodb+srv://dev:dev-ataur@cluster0.6959uav.mongodb.net/ecom-db?retryWrites=true&w=majority"; // Replace with your test database URI
+const testDBUri = "mongodb://localhost:27017/ecommerce-backend"; // Replace with your test database URI
 
 beforeAll(async () => {
     // Connect to the test database before running the tests

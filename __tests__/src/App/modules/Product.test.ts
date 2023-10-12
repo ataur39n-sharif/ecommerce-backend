@@ -7,7 +7,21 @@ import {TestData} from "../../../../testData";
 describe('Product api tests',  () => {
     
     let productId:string='';
-    
+
+    it('should fetch all products with pagination', async function () {
+        const queryPayload = {
+            page: 1,
+            limit: 10
+        }
+        const data = await request(app)
+            .get('/api/v1/products')
+            .query(queryPayload)
+            .expect(200)
+
+        expect(data.body.data.meta.page).toBe(1)
+        expect(data.body.data.meta.limit).toBe(10)
+    });
+
     it('should create single product', async () =>{
         const singlePd = await request(app)
             .post('/api/v1/products')
