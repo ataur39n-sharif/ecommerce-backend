@@ -120,6 +120,8 @@
     /* Skip type checking all .d.ts files. */
   },
   "exclude": [
-    "__tests__/**/*.ts"
-  ]
+    "__tests__/**/*.ts",
+    "testData.ts",
+    "testSetup.ts"
+  ],
 }
