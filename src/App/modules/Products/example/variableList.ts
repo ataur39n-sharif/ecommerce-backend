@@ -672,6 +672,7 @@ export const variableList = [
         "name": "Sony Playstation 5",
         "description": "Next-gen gaming console",
         "category": "gaming",
+        "slug": "",
         "images": ["sony-ps5-black.jpg", "sony-ps5-white.jpg"],
         "thumbnail": "sony-ps5-thumbnail.jpg",
         "productType": "variable_product",

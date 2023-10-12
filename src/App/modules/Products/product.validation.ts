@@ -19,6 +19,7 @@ const discountZodSchema = z.object({
 const singleProduct = z.object({
     name: z.string(),
     description: z.string(),
+    slug: z.string(),
     short_description: z.string().optional(),
     price: z.number(),
     stock: z.number(),
@@ -51,6 +52,7 @@ const variableProductAttributeZodSchema = z.object({
 const variableProduct = z.object({
     name: z.string(),
     description: z.string(),
+    slug: z.string(),
     short_description: z.string().optional(),
     category: z.string(),
     images: z.array(z.string()),
