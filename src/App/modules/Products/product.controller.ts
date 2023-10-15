@@ -33,9 +33,9 @@ const allProducts = catchAsync(async (req: Request, res: Response, next: NextFun
 
 const singleProduct = catchAsync(async (req, res, next) => {
 
-    const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params.id))
+    const slug = z.string().parse(req.params.slug)
 
-    const data = await ProductServices.getSingleProduct(id)
+    const data = await ProductServices.getSingleProduct(slug)
 
     sendResponse.success(res, {
         statusCode: 200,

@@ -68,8 +68,10 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
         },
     }
 }
-const getSingleProduct = async (id: Types.ObjectId): Promise<IProduct | null> => {
-    return ProductModel.findOne({_id: id}).lean()
+const getSingleProduct = async (slug:string): Promise<IProduct | null> => {
+    return ProductModel.findOne({
+        slug
+    }).lean()
 }
 
 const addProduct = async (payload: Partial<ISingleProduct | IVariableProduct>): Promise<IProduct | null> => {

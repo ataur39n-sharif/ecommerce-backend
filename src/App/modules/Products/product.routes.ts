@@ -5,7 +5,7 @@ const ProductRoutes = Router()
 
 ProductRoutes
     .get('/', ProductController.allProducts)
-    .get('/:id', ProductController.singleProduct)
+    .get('/:slug', ProductController.singleProduct)
     .post('/', ProductController.newProduct)
     .patch('/:id', ProductController.updateProduct)
     .delete('/', ProductController.deleteBulkProducts)
