@@ -31,24 +31,28 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
 
     //filter conditions
     if (Object.entries(payload.filterFields).length > 0) {
-        // ProductUtils.manageFilterFields(payload.filterFields)
-        queryConditions.push({
-            $and: Object.entries(payload.filterFields).map(([key, value]) => {
-
-                if (Object.keys(ProductModel.schema.obj).includes(key)) {
-                    // mongoose schema keys
-                    const fieldType = ProductModel.schema.path(key).instance
-                    return MongoQueryHelper(fieldType, key, value as string)
-                } else if ((ProductUtils.getProductExtraKeys('keys') as string[]).includes(key)) {
-                    //extra keys
-                    const {
-                        fieldType
-                    } = ProductUtils.getProductExtraKeys('specific', key) as TExtraProductKeys
-                    console.log('extra keys', MongoQueryHelper(fieldType, key, value as string))
-                    return MongoQueryHelper(fieldType, key, value as string)
-                }
-                return MongoQueryHelper('String', '', '')
-            })
+        let tempConditions: {}[] = [];
+        Object.entries(payload.filterFields).map(([key, value]) => {
+            if (Object.keys(ProductModel.schema.obj).includes(key)) {
+                // mongoose schema keys
+                const fieldType = ProductModel.schema.path(key).instance
+                // return
+                tempConditions.push(MongoQueryHelper(fieldType, key, value as string))
+            } else if ((ProductUtils.getProductExtraKeys('keys') as string[]).includes(key)) {
+                //extra keys
+                const {fieldType} = ProductUtils.getProductExtraKeys('specific', key) as TExtraProductKeys
+                console.log('extra keys', MongoQueryHelper(fieldType, key, value as string))
+                tempConditions.push(MongoQueryHelper(fieldType, key, value as string))
+            } else if (key === 'tags') {
+                tempConditions.push({
+                    tags: {
+                        $in: value
+                    }
+                })
+            }
+        })
+        tempConditions.length && queryConditions.push({
+            $and: tempConditions.map((condition) => condition)
         })
     }
 
@@ -68,7 +72,7 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
         },
     }
 }
-const getSingleProduct = async (slug:string): Promise<IProduct | null> => {
+const getSingleProduct = async (slug: string): Promise<IProduct | null> => {
     return ProductModel.findOne({
         slug
     }).lean()

@@ -299,6 +299,7 @@ paths:
         - $ref: "#/components/parameters/category"
         - $ref: "#/components/parameters/productMinPriceFilter"
         - $ref: "#/components/parameters/productMaxPriceFilter"
+        - $ref: "#/components/parameters/tags"
         - $ref: "#/components/parameters/sortOrder"
         - $ref: "#/components/parameters/sortBy"
         - $ref: "#/components/parameters/status"
@@ -1778,6 +1779,12 @@ components:
       in: query
       name: category
       description: filter by category
+      schema:
+        type: string
+    tags:
+      in: query
+      name: tags
+      description: filter by tags
       schema:
         type: string
     page:
