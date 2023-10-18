@@ -51,10 +51,16 @@ const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunc
     let data: IProduct | null = null;
 
     if (payload.productType === 'variable_product') {
-        const validateVariablePd = ProductValidation.variableProduct.parse(payload)
+        const validateVariablePd = ProductValidation.variableProduct.parse({
+            ...payload,
+            category:MongoHelper.convertToObjectId(payload.category as string)
+        })
         data = await ProductServices.addProduct(validateVariablePd)
     } else {
-        const validateSinglePd = ProductValidation.singleProduct.parse(payload)
+        const validateSinglePd = ProductValidation.singleProduct.parse({
+            ...payload,
+            category:MongoHelper.convertToObjectId(payload.category as string)
+        })
         data = await ProductServices.addProduct(validateSinglePd)
     }
 

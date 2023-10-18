@@ -1,5 +1,6 @@
 import {z} from 'zod';
 import {ReviewValidation} from "@/App/modules/Reviews/review.validation";
+import {Types} from "mongoose";
 
 const metaDataZodSchema = z.object({
     title: z.string(),
@@ -23,7 +24,7 @@ const singleProduct = z.object({
     short_description: z.string().optional(),
     price: z.number(),
     stock: z.number(),
-    category: z.string(),
+    category: z.instanceof(Types.ObjectId),
     images: z.array(z.string()),
     thumbnail: z.string(),
     productType: z.enum(['simple_product']),
@@ -54,7 +55,7 @@ const variableProduct = z.object({
     description: z.string(),
     slug: z.string(),
     short_description: z.string().optional(),
-    category: z.string(),
+    category: z.instanceof(Types.ObjectId),
     images: z.array(z.string()),
     thumbnail: z.string(),
     productType: z.enum(['variable_product']),
@@ -72,7 +73,7 @@ const productZodSchema = z.object({
     short_description: z.string().optional(),
     price: z.optional(z.number()),
     stock: z.optional(z.number()),
-    category: z.string(),
+    category: z.instanceof(Types.ObjectId),
     images: z.array(z.string()),
     thumbnail: z.string(),
     reviews: z.array(ReviewValidation.reviewZodSchema).optional(),

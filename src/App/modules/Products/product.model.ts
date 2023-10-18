@@ -99,7 +99,8 @@ const dataSchema = new Schema({
         default: null
     },
     category: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'category',
         required: true
     },
     price: {

@@ -58,6 +58,7 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
 
     const query = queryConditions.length ? {$and: queryConditions} : {}
     const products: IProduct[] = await ProductModel.find(query)
+        .populate('category')
         .sort({[sortBy]: sortOrder})
         .skip(skip)
         .limit(limit)
@@ -75,7 +76,7 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
 const getSingleProduct = async (slug: string): Promise<IProduct | null> => {
     return ProductModel.findOne({
         slug
-    }).lean()
+    }).populate('category').lean()
 }
 
 const addProduct = async (payload: Partial<ISingleProduct | IVariableProduct>): Promise<IProduct | null> => {

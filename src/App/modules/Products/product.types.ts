@@ -8,7 +8,7 @@ export interface IProduct {
     slug: string,
     description: string,
     short_description?: string,
-    category: string,
+    category: string | Types.ObjectId,
     images: string[],
     thumbnail: string,
     reviews: Types.ObjectId[] | IReview[],
