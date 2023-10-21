@@ -61,6 +61,7 @@ const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunc
             ...payload,
             category:MongoHelper.convertToObjectId(payload.category as string)
         })
+
         data = await ProductServices.addProduct(validateSinglePd)
     }
 

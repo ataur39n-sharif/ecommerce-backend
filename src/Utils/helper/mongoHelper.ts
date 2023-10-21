@@ -1,4 +1,5 @@
 import {Types} from "mongoose";
+import CustomError from "@/Utils/errors/customErrror.class";
 
 type _TPayload = {
     [key: string]: string | Types.ObjectId
@@ -15,7 +16,11 @@ type TConvertObjectIdResponse = {
 // }
 
 const convertToObjectId = (id: string | Types.ObjectId): Types.ObjectId => {
-    return new Types.ObjectId(id)
+    try {
+        return new Types.ObjectId(id)
+    }catch (e) {
+        throw new CustomError('Invalid id. ',400)
+    }
 }
 
 export const MongoHelper = {

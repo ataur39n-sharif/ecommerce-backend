@@ -447,7 +447,7 @@ paths:
                   example: 'keyboard and mouse combo'
                 category:
                   type: string
-                  example: 'electronics'
+                  example: '652a55aadb12dbc7b7cfb303'
                 productType:
                   type: string
                   enum:
@@ -1320,7 +1320,7 @@ components:
           example: 'slug_for_this_product'
         category:
           type: string
-          example: 'electronics'
+          example: '652a55aadb12dbc7b7cfb303'
         productType:
           type: string
           enum:
@@ -1444,7 +1444,7 @@ components:
           example: 'slug_for_this_product'
         category:
           type: string
-          example: 'Electronics'
+          example: '652a55aadb12dbc7b7cfb303'
         productType:
           type: string
           enum:
@@ -1536,7 +1536,7 @@ components:
           example: 'slug_for_this_product'
         category:
           type: string
-          example: 'Electronics'
+          example: '652a55aadb12dbc7b7cfb303'
         productType:
           type: string
           enum:

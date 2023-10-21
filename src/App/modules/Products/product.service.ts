@@ -34,10 +34,12 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
         let tempConditions: {}[] = [];
         Object.entries(payload.filterFields).map(([key, value]) => {
             if (Object.keys(ProductModel.schema.obj).includes(key)) {
-                // mongoose schema keys
-                const fieldType = ProductModel.schema.path(key).instance
-                // return
-                tempConditions.push(MongoQueryHelper(fieldType, key, value as string))
+                if (key !== 'category') {
+                    // mongoose schema keys
+                    const fieldType = ProductModel.schema.path(key).instance
+                    // return
+                    tempConditions.push(MongoQueryHelper(fieldType, key, value as string))
+                }
             } else if ((ProductUtils.getProductExtraKeys('keys') as string[]).includes(key)) {
                 //extra keys
                 const {fieldType} = ProductUtils.getProductExtraKeys('specific', key) as TExtraProductKeys
@@ -58,14 +60,17 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
 
     const query = queryConditions.length ? {$and: queryConditions} : {}
     const products: IProduct[] = await ProductModel.find(query)
-        .populate('category')
+        .populate('category', '_id name slug')
         .sort({[sortBy]: sortOrder})
         .skip(skip)
         .limit(limit)
         .lean()
+
+
+    const filteredByCategory = products?.filter((product) => (product.category as any)?.name?.toLowerCase().trim() == (payload.filterFields?.category as string)?.toLowerCase().trim())
     const total = await ProductModel.countDocuments()
     return {
-        data: products,
+        data: payload.filterFields?.category ? filteredByCategory : products,
         meta: {
             page,
             limit,
@@ -76,7 +81,7 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
 const getSingleProduct = async (slug: string): Promise<IProduct | null> => {
     return ProductModel.findOne({
         slug
-    }).populate('category').lean()
+    }).populate('category', '_id name slug').lean()
 }
 
 const addProduct = async (payload: Partial<ISingleProduct | IVariableProduct>): Promise<IProduct | null> => {
