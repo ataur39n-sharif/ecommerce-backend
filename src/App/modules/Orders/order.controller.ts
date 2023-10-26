@@ -8,25 +8,32 @@ import {sendResponse} from "@/Utils/helper/sendResponse";
 import {z} from "zod";
 
 
-const getOrders=catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
-  const data = await OrderService.allOrders()
-  sendResponse.success(res,{
-      statusCode:200,
-      message:'All orders fetched successfully',
-      data
-  })
+const getOrders = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const data = await OrderService.allOrders()
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'All orders fetched successfully',
+        data
+    })
+})
+
+const getSingleUserOrders = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'All orders fetched successfully',
+    })
 })
 
 const getSingleOrder = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const id = z.string({
-        required_error:'Id is required.'
+        required_error: 'Id is required.'
     }).parse(req.params.id)
 
     const data = await OrderService.singleOrder(id)
 
-    sendResponse.success(res,{
-        statusCode:200,
-        message:'Fetched successful.',
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'Fetched successful.',
         data
     })
 })
@@ -36,7 +43,7 @@ const placeOrder = catchAsync(async (req: Request, res: Response, next: NextFunc
     const validation: TOrderPayload = OrderValidation.orderPayloadZodSchema.parse(payload)
     const data = await OrderService.createOrder(validation)
 
-    sendResponse.success(res,{
+    sendResponse.success(res, {
         statusCode: 200,
         message: 'Order created successfully',
         data
@@ -46,14 +53,14 @@ const placeOrder = catchAsync(async (req: Request, res: Response, next: NextFunc
 const deleteOrder = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
     const id = z.string({
-        required_error:'Id is required.'
+        required_error: 'Id is required.'
     }).parse(req.params.id)
 
     await OrderService.deleteOrder(id)
 
-    sendResponse.success(res,{
-        statusCode:200,
-        message:'Deleted successfully.'
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'Deleted successfully.'
     })
 
 })

@@ -21,5 +21,14 @@ export default {
             exp: process.env.JWT_REFRESHTOKEN_EXP || '48h'
         },
         common: process.env.JWT
+    },
+    mail: {
+        hostName: process.env.HOST || 'mail.dreamtouch-bd.com',
+        port: process.env.PORT || 587,
+        secure: process.env.SECURE,
+        auth: {
+            user: process.env.SMTPUSERNAME,
+            password: process.env.SMTPPASSWORD
+        }
     }
 }

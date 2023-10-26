@@ -22,6 +22,7 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.1",
     "mailersend": "^2.2.0",
+    "mailgun.js": "^9.3.0",
     "mongoose": "^7.3.4",
     "nodemailer": "^6.9.5",
     "swagger-ui-express": "^5.0.0",

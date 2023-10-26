@@ -21,12 +21,13 @@ mailTransporter.verify(function (error, success) {
     if (error) {
         console.log(error.message);
     } else {
-        // console.log("Mail server - ok!");
+        console.log("Mail server - ok!");
     }
 });
 
-//  mailTransporter.sendMail({
-//     from: 'Contact<sharif@dreamtouch-bd.com>',
+
+// mailTransporter.sendMail({
+//     from: 'sharif@sandbox1bd7d59e5b9945889b12dfc942a145b1.mailgun.org',
 //     to: 'ciwak13167@klanze.com',
 //     replyTo: "sharif@dreamtouch-bd.com",
 //     subject: "Verify your email .",
@@ -39,14 +40,9 @@ mailTransporter.verify(function (error, success) {
 //     </div>
 //     `
 // }).then((res) => {
-//     console.log('res',{res});
-    
+//     console.log('res', {res});
 // }).catch((err) => {
 //     console.log({err});
-    
 // })
-
-
-
 
 export default app
