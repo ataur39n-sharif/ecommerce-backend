@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: DTAL Furniture - Backend API
-  description: DTAL Furniture api documentation
+  title: Ecommerce - Backend API
+  description: Ecommerce backend api documentation
   version: 1.0.0
 servers:
   - description: live
