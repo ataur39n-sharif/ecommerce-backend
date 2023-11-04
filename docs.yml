@@ -548,9 +548,7 @@ paths:
                   type: array
                   items:
                     type: string
-                    example:
-                      - 'flash_sale'
-                      - 'popular'
+                    example: 'flash_sale'
                 metadata:
                   type: object
                   properties:

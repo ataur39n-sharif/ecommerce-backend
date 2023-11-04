@@ -72,6 +72,7 @@ const deleteOrder = catchAsync(async (req: Request, res: Response, next: NextFun
 export const OrderController = {
     getOrders,
     getSingleOrder,
+    getSingleUserOrders,
     placeOrder,
     deleteOrder
 }
