@@ -70,9 +70,10 @@ const restPassword = catchAsync(async (req: Request, res: Response, next: NextFu
 
 const confirmAccount = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = pickFunction(req.query, ['token'])
+    console.log(token)
     const validate = z.object({
         token: z.string(),
-    }).parse({token})
+    }).parse(token)
 
     await AuthServices.confirmAccount(validate.token)
 

@@ -1,16 +1,27 @@
 import nodemailer from 'nodemailer';
-import Config from "@/Config/index";
+import config from "@/Config/index";
+
+// const mailTransporter = nodemailer.createTransport({
+//     host: Config.mail.hostName,
+//     port: Number(Config.mail.port),
+//     secure: Config.mail.secure === 'true',
+//     auth: {
+//         user: Config.mail.auth.user,
+//         pass: Config.mail.auth.password,
+//     },
+// });
 
 const mailTransporter = nodemailer.createTransport({
-    host: Config.mail.hostName,
-    port: Number(Config.mail.port),
-    secure: Config.mail.secure === 'true',
+    service: 'gmail',
+    port: 576,
     auth: {
-        user: Config.mail.auth.user,
-        pass: Config.mail.auth.password,
+        user: 'hello.ataur39n@gmail.com',
+        pass: config.mail.auth.password,
     },
+    tls: {
+        rejectUnauthorized: true
+    }
 });
-
 
 /*
 * HOST=mail.dreamtouch-bd.com

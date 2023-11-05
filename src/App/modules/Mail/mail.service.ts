@@ -3,7 +3,7 @@ import config from "@/Config";
 import mailTransporter from "@/Config/mailer";
 import {TConfirmAccountPayload, TForgetPassPayload} from "@/App/modules/Mail/mail.types";
 
-const callbackUrl = config.login ?? 'http://localhost:3000/login'
+const callbackUrl = config.node_env === 'prod' ? config.login : 'http://localhost:9000/api/v1/auth/confirm-account'
 const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
 
     //create a token
@@ -16,9 +16,9 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
     console.log({link})
 
     const report = await mailTransporter.sendMail({
-        from: '"Support"<sharif@dreamtouch-bd.com>',
+        from: '"Support"<hello.ataur39n@gmail.com>',
         to: userEmail,
-        replyTo: "sharif@dreamtouch-bd.com",
+        replyTo: "hello.ataur39n@gmail.com",
         subject: "Verify your email .",
         html: `
         <div>
@@ -52,9 +52,9 @@ const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
     const link = `${callbackUrl}?token=${token}`
 
     const report = await mailTransporter.sendMail({
-        from: 'Support <sharif@dreamtouch-bd.com>',
+        from: 'Support <hello.ataur39n@gmail.com>',
         to: userEmail,
-        replyTo: "sharif@dreamtouch-bd.com",
+        replyTo: "hello.ataur39n@gmail.com",
         subject: "Account recovery request .",
         html: `
         <div>

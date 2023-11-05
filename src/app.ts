@@ -27,9 +27,9 @@ mailTransporter.verify(function (error, success) {
 
 
 // mailTransporter.sendMail({
-//     from: 'sharif@sandbox1bd7d59e5b9945889b12dfc942a145b1.mailgun.org',
-//     to: 'ciwak13167@klanze.com',
-//     replyTo: "sharif@dreamtouch-bd.com",
+//     from: 'Support<hello.ataur39n@gmail.com>',
+//     to: 'gewega3640@newnime.com',
+//     replyTo: "gewega3640@newnime.com",
 //     subject: "Verify your email .",
 //     html: `
 //     <div>

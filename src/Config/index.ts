@@ -27,8 +27,8 @@ export default {
         port: process.env.PORT || 587,
         secure: process.env.SECURE,
         auth: {
-            user: process.env.SMTPUSERNAME,
-            password: process.env.SMTPPASSWORD
+            user: String(process.env.SMTPUSERNAME),
+            password: String(process.env.SMTPPASSWORD)
         }
     }
 }

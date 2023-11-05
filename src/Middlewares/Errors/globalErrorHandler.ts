@@ -7,6 +7,7 @@ import {ZodError} from "zod";
 import {processZodValidation} from "@/Utils/validation/zod.validation";
 import {sendResponse} from "@/Utils/helper/sendResponse";
 import config from "@/Config";
+import {JsonWebTokenError, TokenExpiredError} from "jsonwebtoken";
 
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
@@ -31,6 +32,14 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
         defaultError.statusCode = handler.statusCode
         defaultError.message = handler.message
         defaultError.errorMessages = handler.errorMessages
+    } else if (err instanceof TokenExpiredError || err instanceof JsonWebTokenError) {
+        defaultError.statusCode = 400
+        defaultError.message = err.message
+        defaultError.stack = err.stack
+        defaultError.errorMessages = [{
+            path: err.name,
+            message: err.message
+        }]
     }
     sendResponse.error(res, defaultError)
 }
