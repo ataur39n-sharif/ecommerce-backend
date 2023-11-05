@@ -9,6 +9,7 @@ import mongoose from 'mongoose';
 import jwt from "jsonwebtoken";
 import Config from "@/Config";
 import {IJWTConfirmAccountPayload} from "@/App/modules/Mail/mail.types";
+import {MailService} from "@/App/modules/Mail/mail.service";
 
 const CreateNewAccount = async (data: Partial<IAuthWithName>): Promise<IAuthProperty> => {
     const session = await mongoose.startSession()
@@ -68,6 +69,16 @@ const logIntoAccount = async (data: Partial<IAuthProperty>) => {
     }
 }
 
+const resendConfirmationMail = async (email: string) => {
+    const user = await AuthModel.findOne({email}).lean()
+    if (!user) throw new CustomError('Invalid user request.', 400)
+    if (!(user.status === 'pending')) throw new CustomError('Unable to send new confirmation email.', 400)
+    await MailService.confirmAccount({
+        name: '',
+        userEmail: email
+    })
+}
+
 const confirmAccount = async (token: string): Promise<boolean> => {
     const validate = jwt.verify(token, String(Config.jwt))
 
@@ -96,6 +107,7 @@ const resetPassword = async (email: string, password: string) => {
 export const AuthServices = {
     CreateNewAccount,
     logIntoAccount,
+    resendConfirmationMail,
     confirmAccount,
     resetPassword
 }

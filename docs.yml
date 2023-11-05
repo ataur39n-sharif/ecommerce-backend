@@ -212,6 +212,30 @@ paths:
                           example: not found
         500:
           $ref: "#/components/responses/500"
+  "/auth/resend-confirmation-mail":
+    post:
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "user@example.com"
+
+              required:
+                - email
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
   "/auth/reset-password":
     patch:
       tags:

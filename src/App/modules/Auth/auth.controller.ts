@@ -37,6 +37,21 @@ const login = catchAsync(async (req: Request, res: Response, next: NextFunction)
     })
 })
 
+const resendConfirmationMail = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const data = pickFunction(req.body, ['email'])
+    const validate = z.object({
+        email: z.string(),
+    }).parse(data)
+
+    await AuthServices.resendConfirmationMail(validate.email)
+
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'We send a new confirmation email. The confirmation email is valid for 5 minutes.',
+    })
+})
+
+
 const forgetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const {email} = pickFunction(req.body, ['email'])
     const validate = z.object({
@@ -88,6 +103,7 @@ const confirmAccount = catchAsync(async (req: Request, res: Response, next: Next
 export const AuthController = {
     singUp,
     login,
+    resendConfirmationMail,
     forgetPassword,
     restPassword,
     confirmAccount

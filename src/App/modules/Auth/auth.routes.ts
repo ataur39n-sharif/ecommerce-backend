@@ -10,6 +10,7 @@ AuthRoutes
         AuthMiddleware.userExists,
         AuthController.login
     )
+    .post('/resend-confirmation-mail', AuthController.resendConfirmationMail)
     // .post('/logout', AuthMiddleware)
     .post('/forget-password', AuthController.forgetPassword)
     .patch('/reset-password', AuthController.restPassword)

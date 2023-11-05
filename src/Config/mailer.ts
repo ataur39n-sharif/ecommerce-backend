@@ -23,13 +23,6 @@ const mailTransporter = nodemailer.createTransport({
     }
 });
 
-/*
-* HOST=mail.dreamtouch-bd.com
-SECURE=true
-SMTPUSER=sharif@dreamtouch-bd.com
-SMTPPASSWORD=}ul).59k*S*m
-* */
-
 // const mailTransporter = nodemailer.createTransport({
 //     host: "email-smtp.us-east-1.amazonaws.com",
 //     port: 465,

@@ -22,9 +22,9 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
         subject: "Verify your email .",
         html: `
         <div>
-            <h3>Congratulation - Account successfully Created .</h3>
+            <h3>Confirmation Mail</h3>
             <p>Here is the last step - <b>Verify your email</b> .</p>
-            <p>To verify your email click this confirm link - <a href=${link}>Confirm</a></p>
+            <p>To verify your email click this confirm link - <a target="_blank" href=${link}>Confirm</a></p>
             <p>Note : This email is only valid for 5min.</p>
         </div>
         `
@@ -60,7 +60,7 @@ const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
         <div>
             <h5>Thank's for your request .</h5>
             <p>Follow this mail instruction for - <b> recover your account</b> .</p>
-            <p>To recover your account click this link - <a href=${link}>Go next</a></p>
+            <p>To recover your account click this link - <a target="_blank" href=${link}>Go next</a></p>
             <strong>Note : This email is only valid for 5min.</strong>
         </div>
         `
