@@ -7,7 +7,7 @@ const callbackUrl = config.node_env === 'prod' ? config.login : 'http://localhos
 const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
 
     //create a token
-    const token = jwt.sign({email: userEmail, name}, String(config.jwt), {
+    const token = jwt.sign({userEmail, name}, String(config.jwt), {
         expiresIn: "5m"
     })
 
@@ -44,7 +44,7 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
 const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
 
     //create a token
-    const token = jwt.sign({email: userEmail}, String(config.jwt), {
+    const token = jwt.sign({userEmail}, String(config.jwt), {
         expiresIn: "5m"
     })
 

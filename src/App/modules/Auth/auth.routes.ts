@@ -16,5 +16,4 @@ AuthRoutes
     .patch('/reset-password', AuthController.restPassword)
     .post('/confirm-account', AuthController.confirmAccount)
 
-
 export default AuthRoutes

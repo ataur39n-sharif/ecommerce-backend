@@ -82,11 +82,17 @@ const resendConfirmationMail = async (email: string) => {
 const confirmAccount = async (token: string): Promise<boolean> => {
     const validate = jwt.verify(token, String(Config.jwt))
 
+    //user information
+    const user = await AuthModel.findOne({email: (validate as IJWTConfirmAccountPayload).userEmail}).lean()
+    console.log({user})
+    if (!user || !(user.status === 'pending')) throw new CustomError('Invalid request', 400)
+    
     //update user account status pending to active
-    const user = await AuthModel.findOne({email: (validate as IJWTConfirmAccountPayload).userEmail})
-    if (!user) throw new CustomError('Invalid request', 400)
-    user.status = EAccountStatus.active
-    await user.save()
+    await AuthModel.findOneAndUpdate({email: (validate as IJWTConfirmAccountPayload).userEmail}, {
+        status: EAccountStatus.active
+    }, {
+        new: true
+    }).lean()
 
     return true
 }
