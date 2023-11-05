@@ -13,7 +13,7 @@ AuthRoutes
     .post('/resend-confirmation-mail', AuthController.resendConfirmationMail)
     // .post('/logout', AuthMiddleware)
     .post('/forget-password', AuthController.forgetPassword)
-    .patch('/reset-password', AuthController.restPassword)
+    .patch('/reset-password', AuthController.resetPassword)
     .post('/confirm-account', AuthController.confirmAccount)
 
 export default AuthRoutes

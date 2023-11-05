@@ -6,6 +6,8 @@ import {sendResponse} from "@/Utils/helper/sendResponse";
 import {AuthValidation} from "@/App/modules/Auth/auth.validation";
 import {z} from "zod";
 import {MailService} from "@/App/modules/Mail/mail.service";
+import jwt from "jsonwebtoken";
+import config from "@/Config";
 
 const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -53,7 +55,10 @@ const resendConfirmationMail = catchAsync(async (req: Request, res: Response, ne
 
 
 const forgetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const {email} = pickFunction(req.body, ['email'])
+    const {email} = pickFunction(req.body, ['email', 'phoneNumber'])
+
+    //todo: when user input phone number , they will get sms.
+
     const validate = z.object({
         email: z.string().email()
     }).parse({email})
@@ -68,12 +73,20 @@ const forgetPassword = catchAsync(async (req: Request, res: Response, next: Next
     })
 })
 
-const restPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const data = pickFunction(req.body, ['password', 'email'])
+const resetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const data = pickFunction({...req.body, ...req.headers}, ['newPassword', 'token'])
+    const token = z.string().parse(data.token)
+    const validateToken = jwt.verify(token, String(config.jwt.common)) as { userEmail: string }
+
     const validate = z.object({
         email: z.string(),
         password: z.string()
-    }).parse(data)
+    }).parse({
+        email: validateToken.userEmail,
+        password: data.newPassword
+    })
+
+    console.log({validate})
 
     await AuthServices.resetPassword(validate.email, validate.password)
 
@@ -105,6 +118,6 @@ export const AuthController = {
     login,
     resendConfirmationMail,
     forgetPassword,
-    restPassword,
+    resetPassword,
     confirmAccount
 }

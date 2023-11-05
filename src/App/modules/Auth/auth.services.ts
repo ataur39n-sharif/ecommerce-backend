@@ -86,7 +86,7 @@ const confirmAccount = async (token: string): Promise<boolean> => {
     const user = await AuthModel.findOne({email: (validate as IJWTConfirmAccountPayload).userEmail}).lean()
     console.log({user})
     if (!user || !(user.status === 'pending')) throw new CustomError('Invalid request', 400)
-    
+
     //update user account status pending to active
     await AuthModel.findOneAndUpdate({email: (validate as IJWTConfirmAccountPayload).userEmail}, {
         status: EAccountStatus.active
@@ -99,12 +99,13 @@ const confirmAccount = async (token: string): Promise<boolean> => {
 
 const resetPassword = async (email: string, password: string) => {
     //find user
-    const user = await AuthModel.findOne({email: email})
+    const user = await AuthModel.findOne({email: email}).lean()
     if (!user) throw new CustomError('Invalid request', 400)
     //update password
     const newPassword = await HashHelper.generateHashPassword(password)
-    user.password = newPassword
-    await user.save()
+    await AuthModel.findOneAndUpdate({email: email}, {
+        password: newPassword
+    }).lean()
 
     return true
 }

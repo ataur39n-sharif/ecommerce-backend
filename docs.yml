@@ -249,7 +249,7 @@ paths:
         - Authentication
       parameters:
         - in: header
-          name: Request token
+          name: token
           required: true
           schema:
             type: string

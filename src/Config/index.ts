@@ -23,7 +23,7 @@ export default {
         common: process.env.JWT
     },
     mail: {
-        hostName: process.env.HOST || 'mail.dreamtouch-bd.com',
+        hostName: process.env.HOST,
         port: process.env.PORT || 587,
         secure: process.env.SECURE,
         auth: {
