@@ -174,12 +174,19 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email/phoneNumber:
-                  type: string
-              required:
-                - email/phoneNumber
+              oneOf:
+                - type: object
+                  properties:
+                    email:
+                      type: string
+                  required:
+                    - email
+                - type: object
+                  properties:
+                    phoneNumber:
+                      type: string
+                  required:
+                    - phoneNumber
       responses:
         200:
           $ref: "#/components/responses/200"
