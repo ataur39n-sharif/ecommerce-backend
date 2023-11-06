@@ -14,7 +14,7 @@ export enum EAccountStatus {
 }
 
 export interface IAuthProperty {
-    _id?: string
+    _id?: string | Types.ObjectId
     email: string
     phone: string
     password: string

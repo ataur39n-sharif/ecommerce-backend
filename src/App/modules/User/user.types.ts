@@ -1,4 +1,4 @@
-import {Model} from "mongoose";
+import {Model, Types} from "mongoose";
 import {TAddress} from "@/Utils/types/customSchema.type";
 
 export type TName = {
@@ -19,6 +19,8 @@ export interface IUser {
 export interface IUserModel extends Model<IUser> {
 }
 
-export type TokenPayload={
-    uid:string
+export type TokenPayload = {
+    uid: string | Types.ObjectId
+    role: string
+    email: string
 }

@@ -10,6 +10,7 @@ import jwt from "jsonwebtoken";
 import Config from "@/Config";
 import {IJWTConfirmAccountPayload} from "@/App/modules/Mail/mail.types";
 import {MailService} from "@/App/modules/Mail/mail.service";
+import {TokenPayload} from "@/App/modules/User/user.types";
 
 const CreateNewAccount = async (data: Partial<IAuthWithName>): Promise<IAuthProperty> => {
     const session = await mongoose.startSession()
@@ -55,9 +56,10 @@ const logIntoAccount = async (data: Partial<IAuthProperty>) => {
     const validPassword = user && await HashHelper.comparePassword(data.password as string, user.password)
     if (!validPassword || !user) throw new CustomError('Invalid email or password', 401)
 
-    const tokenData = {
-        id: user._id,
-        role: user.role
+    const tokenData: TokenPayload = {
+        uid: user._id as string,
+        role: user.role,
+        email: user.email
     }
 
     const accessToken = generateToken.accessToken(tokenData)
@@ -80,7 +82,7 @@ const resendConfirmationMail = async (email: string) => {
 }
 
 const confirmAccount = async (token: string): Promise<boolean> => {
-    const validate = jwt.verify(token, String(Config.jwt))
+    const validate = jwt.verify(token, String(Config.jwt.common))
 
     //user information
     const user = await AuthModel.findOne({email: (validate as IJWTConfirmAccountPayload).userEmail}).lean()
@@ -110,11 +112,28 @@ const resetPassword = async (email: string, password: string) => {
     return true
 }
 
+const changePassword = async (email: string, oldPassword: string, newPassword: string) => {
+    //find user
+    const user = await AuthModel.findOne({email: email}).lean()
+    if (!user) throw new CustomError('Invalid request', 400)
+    //compare password
+    const matchOldPassword = await HashHelper.comparePassword(oldPassword, user.password)
+    if (!matchOldPassword) throw new CustomError('Invalid request', 401)
+    //update password
+    const latestPassword = await HashHelper.generateHashPassword(newPassword)
+    await AuthModel.findOneAndUpdate({email: email}, {
+        password: latestPassword
+    }).lean()
+
+    return true
+}
+
 
 export const AuthServices = {
     CreateNewAccount,
     logIntoAccount,
     resendConfirmationMail,
     confirmAccount,
-    resetPassword
+    resetPassword,
+    changePassword
 }

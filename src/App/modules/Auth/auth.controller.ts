@@ -53,11 +53,10 @@ const resendConfirmationMail = catchAsync(async (req: Request, res: Response, ne
     })
 })
 
-
 const forgetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const {email} = pickFunction(req.body, ['email', 'phoneNumber'])
 
-    //todo: when user input phone number , they will get sms.
+    //todo: when user input phone number , action will perform by sms.
 
     const validate = z.object({
         email: z.string().email()
@@ -112,6 +111,17 @@ const confirmAccount = catchAsync(async (req: Request, res: Response, next: Next
 
 })
 
+const changePassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const data = pickFunction(req.body, ['oldPassword', 'newPassword', 'email'])
+    const {email, newPassword, oldPassword} = AuthValidation.changePassword.parse(data)
+
+    await AuthServices.changePassword(email, oldPassword, newPassword)
+
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'Password changed successfully.',
+    })
+})
 
 export const AuthController = {
     singUp,
@@ -119,5 +129,6 @@ export const AuthController = {
     resendConfirmationMail,
     forgetPassword,
     resetPassword,
+    changePassword,
     confirmAccount
 }

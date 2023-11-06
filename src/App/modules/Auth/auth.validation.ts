@@ -38,8 +38,15 @@ const singIn: ZodType<Partial<IAuthProperty>> = z.object({
     path: ["email", "phone"],
 })
 
+const changePassword = z.object({
+    email: z.string(),
+    oldPassword: z.string(),
+    newPassword: z.string()
+})
+
 export const AuthValidation = {
     authPayload,
     createAccount,
-    singIn
+    singIn,
+    changePassword
 }

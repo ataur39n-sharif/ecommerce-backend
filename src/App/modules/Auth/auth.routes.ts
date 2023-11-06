@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {AuthController} from "@/App/modules/Auth/auth.controller";
 import {AuthMiddleware} from "@/App/modules/Auth/auth.middlewares";
+import {UserMiddlewares} from "@/App/modules/User/user.middlewares";
 
 const AuthRoutes = Router()
 
@@ -15,5 +16,10 @@ AuthRoutes
     .post('/forget-password', AuthController.forgetPassword)
     .patch('/reset-password', AuthController.resetPassword)
     .post('/confirm-account', AuthController.confirmAccount)
+    .patch(
+        '/change-password',
+        UserMiddlewares.validateAccess,
+        AuthController.changePassword
+    )
 
 export default AuthRoutes
