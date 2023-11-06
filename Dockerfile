@@ -8,7 +8,7 @@ WORKDIR /app
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm install pm2@latest -g
+#RUN npm install pm2@latest -g
 RUN npm install
 # If you are building your code for production
 # RUN npm install --only=production
@@ -26,6 +26,4 @@ RUN npm run build
 WORKDIR /app
 
 EXPOSE 9000
-#CMD ["node" ,"dist/index.js"]
-# Start your application using pm2
-CMD ["pm2-runtime", "pm2-config.json"]
+CMD ["node" ,"dist/index.js"]
