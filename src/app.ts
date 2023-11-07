@@ -27,9 +27,8 @@ mailTransporter.verify(function (error, success) {
 
 
 // mailTransporter.sendMail({
-//     from: 'Support<hello.ataur39n@gmail.com>',
-//     to: 'gewega3640@newnime.com',
-//     replyTo: "gewega3640@newnime.com",
+//     from: 'Support<suppot@trelyt.store>',
+//     to: 'amead@mailto.plus',
 //     subject: "Verify your email .",
 //     html: `
 //     <div>

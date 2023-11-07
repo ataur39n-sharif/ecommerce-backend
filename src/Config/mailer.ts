@@ -12,26 +12,12 @@ import config from "@/Config/index";
 // });
 
 const mailTransporter = nodemailer.createTransport({
-    service: 'gmail',
-    port: 576,
+    host: "live.smtp.mailtrap.io",
+    port: 587,
     auth: {
-        user: 'hello.ataur39n@gmail.com',
-        pass: config.mail.auth.password,
-    },
-    tls: {
-        rejectUnauthorized: true
+        user: 'api',
+        pass: config.mail.auth.password
     }
 });
-
-// const mailTransporter = nodemailer.createTransport({
-//     host: "email-smtp.us-east-1.amazonaws.com",
-//     port: 465,
-//     secure: true,
-//     auth: {
-//         user: "AKIATXQSEZ6OWA7CCSH5",
-//         pass: "BKHmHq8zdn5c27UlQGoual3ni1LvdujZmS9Ac2ddKnse",
-//     },
-// });
-
 
 export default mailTransporter

@@ -16,9 +16,9 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
     console.log({link})
 
     const report = await mailTransporter.sendMail({
-        from: '"Support"<hello.ataur39n@gmail.com>',
+        from: '"Support"<support@trelyt.store>',
         to: userEmail,
-        replyTo: "hello.ataur39n@gmail.com",
+        replyTo: "support@trelyt.store",
         subject: "Verify your email .",
         html: `
         <div>
@@ -30,7 +30,7 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
         `
     })
 
-    console.log(report)
+    // console.log(report)
 
     if (report.messageId) {
         return {
@@ -52,9 +52,9 @@ const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
     const link = `${callbackUrl}?token=${token}`
 
     const report = await mailTransporter.sendMail({
-        from: 'Support <hello.ataur39n@gmail.com>',
+        from: 'Support <support@trelyt.store>',
         to: userEmail,
-        replyTo: "hello.ataur39n@gmail.com",
+        replyTo: "support@trelyt.store",
         subject: "Account recovery request .",
         html: `
         <div>
