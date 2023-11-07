@@ -2,7 +2,7 @@ import {ErrorRequestHandler} from "express";
 import {TCustomErrorResponse} from "@/Utils/types/response.type";
 import {Error} from "mongoose";
 import {processMongooseValidationError} from "@/Utils/validation/mongoose.validation";
-import CustomError from "@/Utils/errors/customErrror.class";
+import CustomError from "@/Utils/errors/customError.class";
 import {ZodError} from "zod";
 import {processZodValidation} from "@/Utils/validation/zod.validation";
 import {sendResponse} from "@/Utils/helper/sendResponse";

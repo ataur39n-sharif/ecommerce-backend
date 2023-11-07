@@ -8,6 +8,7 @@ import {z} from "zod";
 import {MailService} from "@/App/modules/Mail/mail.service";
 import jwt from "jsonwebtoken";
 import config from "@/Config";
+import {ERole} from "@/App/modules/Auth/auth.types";
 
 const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -25,6 +26,26 @@ const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction
         message: "An confirmation email was sent to your mail. Please follow that instructions."
     })
 })
+
+const createAccountByAdmin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const data = pickFunction(req.body, ['name', 'email', 'password', 'phone', 'role'])
+    const validate = AuthValidation.authPayload.extend({
+        role: z.enum([ERole.admin, ERole.customer, ERole.administration, ERole.editor]),
+    }).parse(data)
+    await AuthServices.CreateNewAccount(validate)
+
+    await MailService.confirmAccount({
+        name: validate.name.firstName,
+        userEmail: validate.email
+    })
+
+    sendResponse.success(res, {
+        statusCode: 201,
+        message: "An confirmation email was sent to your mail. Please follow that instructions."
+    })
+})
+
 
 const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data = pickFunction(req.body, ["email", "phone", 'password'])
@@ -130,5 +151,6 @@ export const AuthController = {
     forgetPassword,
     resetPassword,
     changePassword,
-    confirmAccount
+    confirmAccount,
+    createAccountByAdmin
 }

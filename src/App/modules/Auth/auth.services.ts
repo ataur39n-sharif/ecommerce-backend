@@ -1,5 +1,5 @@
 import {AuthValidation, IAuthWithName} from './auth.validation';
-import CustomError from "@/Utils/errors/customErrror.class";
+import CustomError from "@/Utils/errors/customError.class";
 import {HashHelper} from "@/Utils/helper/hashHelper";
 import {generateToken} from "@/Utils/helper/generateToken";
 import {EAccountStatus, ERole, IAuthProperty} from "./auth.types";
@@ -53,8 +53,13 @@ const logIntoAccount = async (data: Partial<IAuthProperty>) => {
         user = await AuthModel.findOne({email: data.email})
     }
 
+    //valid password
     const validPassword = user && await HashHelper.comparePassword(data.password as string, user.password)
     if (!validPassword || !user) throw new CustomError('Invalid email or password', 401)
+
+    //check email confirmed
+    if (data.status === 'pending') throw new CustomError('Email not verified', 401)
+    if (data.status === 'blocked') throw new CustomError('Something went wrong. Please contact the support.', 401)
 
     const tokenData: TokenPayload = {
         uid: user._id as string,

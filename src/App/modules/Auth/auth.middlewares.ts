@@ -1,7 +1,7 @@
 import catchAsync from "@/Utils/helper/catchAsync";
 import {NextFunction, Request, Response} from "express";
 import {pickFunction} from "@/Utils/helper/pickFunction";
-import CustomError from "@/Utils/errors/customErrror.class";
+import CustomError from "@/Utils/errors/customError.class";
 import {AuthModel} from "./auth.model";
 
 const userExists = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
