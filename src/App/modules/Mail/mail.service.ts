@@ -1,26 +1,21 @@
 import jwt from "jsonwebtoken";
 import config from "@/Config";
-import mailTransporter from "@/Config/mailer";
+import {sendAMail} from "@/Config/mailer";
 import {TConfirmAccountPayload, TForgetPassPayload} from "@/App/modules/Mail/mail.types";
+import CustomError from "@/Utils/errors/customError.class";
 
 const callbackUrl = config.node_env === 'prod' ? config.login : 'http://localhost:9000/api/v1/auth/confirm-account'
 const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
+    try {
 
-    //create a token
-    const token = jwt.sign({userEmail, name}, String(config.jwt.common), {
-        expiresIn: "5m"
-    })
+        //create a token
+        const token = jwt.sign({userEmail, name}, String(config.jwt.common), {
+            expiresIn: "5m"
+        })
 
-    //create verify url
-    const link = `${callbackUrl}?token=${token}`
-    console.log({link})
-
-    const report = await mailTransporter.sendMail({
-        from: '"Support"<support@trelyt.store>',
-        to: userEmail,
-        replyTo: "support@trelyt.store",
-        subject: "Verify your email .",
-        html: `
+        //create verify url
+        const link = `${callbackUrl}?token=${token}`
+        const html = `
         <div>
             <h3>Confirmation Mail</h3>
             <p>Here is the last step - <b>Verify your email</b> .</p>
@@ -28,15 +23,21 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
             <p>Note : This email is only valid for 5min.</p>
         </div>
         `
-    })
 
-    // console.log(report)
-
-    if (report.messageId) {
-        return {
-            success: true,
+        const res = await sendAMail({
+            receiverEmail: userEmail,
+            subject: "Verify your email",
+            html,
+            category: 'verify-email'
+        })
+        if (res.messageId) {
+            return true
+        } else {
+            throw new CustomError('Please contact to support', 500)
         }
-    } else {
+
+    } catch (e) {
+        console.log((e as Error).message)
         throw Error()
     }
 }
@@ -51,12 +52,7 @@ const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
     //create verify url
     const link = `${callbackUrl}?token=${token}`
 
-    const report = await mailTransporter.sendMail({
-        from: 'Support <support@trelyt.store>',
-        to: userEmail,
-        replyTo: "support@trelyt.store",
-        subject: "Account recovery request .",
-        html: `
+    const html = `
         <div>
             <h5>Thank's for your request .</h5>
             <p>Follow this mail instruction for - <b> recover your account</b> .</p>
@@ -64,14 +60,17 @@ const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
             <strong>Note : This email is only valid for 5min.</strong>
         </div>
         `
-    })
 
-    if (report.messageId) {
-        return {
-            success: true,
-        }
+    const res = await sendAMail({
+        receiverEmail: userEmail,
+        subject: "Account recovery request",
+        html,
+        category: 'account-recovery'
+    })
+    if (res.messageId) {
+        return true
     } else {
-        throw Error()
+        throw new CustomError('Please contact to support', 500)
     }
 }
 

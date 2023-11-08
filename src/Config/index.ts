@@ -29,6 +29,8 @@ export default {
         auth: {
             user: String(process.env.SMTPUSERNAME),
             password: String(process.env.SMTPPASSWORD)
-        }
+        },
+        token: process.env.MAILTOKEN as string,
+        endpoint: process.env.MAILENDPOINT as string
     }
 }
