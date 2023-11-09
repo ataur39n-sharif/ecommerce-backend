@@ -17,7 +17,8 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
         errorMessages: [],
         stack: config.node_env === "development" && err.stack ? err.stack : undefined
     }
-    config.node_env === 'development' && console.log({err})
+    // config.node_env === 'development' &&
+    console.log({err})
 
     if (err instanceof Error.ValidationError || err instanceof Error.CastError) {
         const handler = processMongooseValidationError(err)
