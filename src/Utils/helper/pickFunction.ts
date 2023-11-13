@@ -13,4 +13,3 @@ export const pickFunction = <T extends object, k extends keyof T>(data: T, keys:
     }
     return result;
 }
-

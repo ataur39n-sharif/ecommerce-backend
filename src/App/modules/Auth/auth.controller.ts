@@ -16,7 +16,7 @@ const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction
     const validate = AuthValidation.authPayload.parse(data)
     await AuthServices.CreateNewAccount(validate)
 
-    await MailService.confirmAccount({
+    MailService.confirmAccount({
         name: validate.name.firstName,
         userEmail: validate.email
     })
@@ -35,7 +35,7 @@ const createAccountByAdmin = catchAsync(async (req: Request, res: Response, next
     }).parse(data)
     await AuthServices.CreateNewAccount(validate)
 
-    await MailService.confirmAccount({
+    MailService.confirmAccount({
         name: validate.name.firstName,
         userEmail: validate.email
     })

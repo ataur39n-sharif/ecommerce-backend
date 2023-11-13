@@ -17,8 +17,8 @@ tags:
     description: Category manage path's
   - name: Order
     description: Order manage path's
-  - name: Review
-    description: Reviews manage path's
+  - name: Blog
+    description: Blog's manage path's
   - name: Admin
     description: Admin manage path's
 paths:
@@ -1246,6 +1246,97 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/500"
+  /blogs:
+    get:
+      tags:
+        - Blog
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully fetched data
+                  data:
+                    type: object
+                    properties:
+                      blogs:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Blog"
+                      meta:
+                        type: object
+                        properties:
+                          page:
+                            type: integer
+                            example: 1
+                          limit:
+                            type: integer
+                            example: 10
+                          total:
+                            type: integer
+                            example: 100
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - Blog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: This is blog title
+                images:
+                  type: array
+                  items:
+                    type: string
+                    example: www.example.com
+                thumbnail:
+                  type: string
+                  example: www.example.com
+                content:
+                  type: string
+                  example: this is the description area of the blog.
+                slug:
+                  type: string
+                  example: this-is-blog-slug
+              required:
+                - title
+                - thumbnail
+                - slug
+                - content
+      responses:
+        201:
+          description: Success response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully new blog created
 
 components:
   responses:
@@ -1805,6 +1896,33 @@ components:
           type: integer
           format: init32
           example: 800
+    Blog:
+      type: object
+      properties:
+        title:
+          type: string
+          example: This is blog title
+        images:
+          type: array
+          items:
+            type: string
+            example: www.example.com
+        thumbnail:
+          type: string
+          example: www.example.com
+        content:
+          type: string
+          example: this is the description area of the blog.
+        slug:
+          type: string
+          example: this-is-blog-slug
+        status:
+          type: string
+          enum:
+            - pending
+            - published
+            - draft
+          example: pending
   parameters:
     productSearch:
       in: query

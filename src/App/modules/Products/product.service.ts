@@ -59,6 +59,7 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
     }
 
     const query = queryConditions.length ? {$and: queryConditions} : {}
+
     const products: IProduct[] = await ProductModel.find(query)
         .populate('category', '_id name slug')
         .sort({[sortBy]: sortOrder})

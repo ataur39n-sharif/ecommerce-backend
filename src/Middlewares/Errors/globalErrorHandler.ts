@@ -8,6 +8,7 @@ import {processZodValidation} from "@/Utils/validation/zod.validation";
 import {sendResponse} from "@/Utils/helper/sendResponse";
 import config from "@/Config";
 import {JsonWebTokenError, TokenExpiredError} from "jsonwebtoken";
+import multer from "multer";
 
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
@@ -17,8 +18,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
         errorMessages: [],
         stack: config.node_env === "development" && err.stack ? err.stack : undefined
     }
-    // config.node_env === 'development' &&
-    console.log({err})
+    config.node_env === 'development' && console.log({err})
 
     if (err instanceof Error.ValidationError || err instanceof Error.CastError) {
         const handler = processMongooseValidationError(err)
@@ -40,6 +40,14 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
         defaultError.errorMessages = [{
             path: err.name,
             message: err.message
+        }]
+    } else if (err instanceof multer.MulterError) {
+        defaultError.statusCode = 400
+        defaultError.message = err.message
+        defaultError.stack = err.stack
+        defaultError.errorMessages = [{
+            path: err.field || '',
+            message: err.code
         }]
     }
     sendResponse.error(res, defaultError)

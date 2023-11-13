@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import config from "@/Config";
 import {sendAMail} from "@/Config/mailer";
 import {TConfirmAccountPayload, TForgetPassPayload} from "@/App/modules/Mail/mail.types";
-import CustomError from "@/Utils/errors/customError.class";
 
 const callbackUrl = config.node_env === 'prod' ? config.login : 'http://localhost:9000/api/v1/auth/confirm-account'
 const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
@@ -30,11 +29,11 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
             html,
             category: 'verify-email'
         })
-        if (res.messageId) {
-            return true
-        } else {
-            throw new CustomError('Please contact to support', 500)
-        }
+        // if (res.messageId) {
+        //     return true
+        // } else {
+        //     throw new CustomError('Please contact to support', 500)
+        // }
 
     } catch (e) {
         console.log((e as Error).message)
@@ -67,11 +66,11 @@ const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
         html,
         category: 'account-recovery'
     })
-    if (res.messageId) {
-        return true
-    } else {
-        throw new CustomError('Please contact to support', 500)
-    }
+    // if (res.messageId) {
+    //     return true
+    // } else {
+    //     throw new CustomError('Please contact to support', 500)
+    // }
 }
 
 

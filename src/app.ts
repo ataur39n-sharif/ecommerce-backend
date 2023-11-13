@@ -4,10 +4,12 @@
 
 import express, {Application} from 'express'
 import cors from 'cors'
+import {v2 as cloudinary} from 'cloudinary';
 import globalErrorHandler from "@/Middlewares/Errors/globalErrorHandler";
 import notFoundHandler from "@/Middlewares/Errors/notFoundHandler";
 import configRoutes from './Routes/config';
-import mailTransporter from "@/Config/mailer";
+import {MailtrapClient} from "mailtrap";
+import config from "@/Config";
 
 const app: Application = express()
 app.use(express.json())
@@ -16,14 +18,19 @@ app.use('/', configRoutes)
 app.use(globalErrorHandler)
 app.use(notFoundHandler)
 
-
-mailTransporter.verify(function (error, success) {
-    if (error) {
-        console.log(error.message);
-    } else {
-        console.log("Mail server - ok!");
-    }
+cloudinary.config({
+    cloud_name: 'dycvd4936',
+    api_key: '623246772371727',
+    api_secret: 'UfcM6iWxFtSZD5reNLvaBmYzgNU'
 });
+
+// mailTransporter.verify(function (error, success) {
+//     if (error) {
+//         console.log(error.message);
+//     } else {
+//         console.log("Mail server - ok!");
+//     }
+// });
 
 
 // mailTransporter.sendMail({
@@ -44,5 +51,22 @@ mailTransporter.verify(function (error, success) {
 //     console.log({err});
 // })
 
+const TOKEN = config.mail.token;
+const SENDER_EMAIL = "hello@trelyt.store";
+const RECIPIENT_EMAIL = "contact@ataur.dev";
+
+const client = new MailtrapClient({token: TOKEN});
+
+const sender = {name: "Mailtrap Test", email: SENDER_EMAIL};
+
+client
+    .send({
+        from: sender,
+        to: [{email: RECIPIENT_EMAIL}],
+        subject: "Hello from Mailtrap!",
+        text: "Welcome to Mailtrap Sending!",
+    })
+    .then(console.log)
+    .catch(console.error);
 
 export default app
