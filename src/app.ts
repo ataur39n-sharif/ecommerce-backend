@@ -52,12 +52,17 @@ cloudinary.config({
 // })
 
 const TOKEN = config.mail.token;
-const SENDER_EMAIL = "hello@trelyt.store";
 const RECIPIENT_EMAIL = "contact@ataur.dev";
 
 const client = new MailtrapClient({token: TOKEN});
 
-const sender = {name: "Mailtrap Test", email: SENDER_EMAIL};
+const sender = config.node_env === 'development' ? {
+    email: "hello@trelyt.store",
+    name: "Trelyt Support",
+} : {
+    email: "hello@dreamfurniturebd.com",
+    name: "Dream Furniture Support",
+};
 
 client
     .send({

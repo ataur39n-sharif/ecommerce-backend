@@ -5,29 +5,20 @@ type TMailPayload = {
     receiverEmail: string, subject: string, html: string, category: string
 }
 
-// const mailTransporter = nodemailer.createTransport({
-//     host: "mail.privateemail.com",
-//     port: 587,
-//     secure: false,
-//     auth: {
-//         user: 'support@trelyt.store',
-//         pass: config.mail.auth.password
-//     }
-// });
-
-// export default mailTransporter
-
-
 export const sendAMail = async ({
                                     receiverEmail, category, subject, html
                                 }: TMailPayload) => {
 
-    const {token, endpoint} = config.mail
+    const {token} = config.mail
 
-    const sender = {
-        email: "support@trelyt.store",
+    const sender = config.node_env === 'development' ? {
+        email: "hello@trelyt.store",
         name: "Trelyt Support",
+    } : {
+        email: "hello@dreamfurniturebd.com",
+        name: "Dream Furniture Support",
     };
+
     const recipients = [
         {
             email: receiverEmail,
@@ -46,14 +37,4 @@ export const sendAMail = async ({
         })
         .then(console.log)
         .catch(console.error);
-
-
-    // const report = await mailTransporter.sendMail({
-    //     from: '"Support"<support@trelyt.store>',
-    //     to: receiverEmail,
-    //     subject,
-    //     html
-    // })
-
-    // return report
 }
