@@ -30,7 +30,7 @@ export default {
             user: String(process.env.SMTPUSERNAME),
             password: String(process.env.SMTPPASSWORD)
         },
-        token: process.env.MAILTOKEN as string,
+        token: process.env.NODE_ENV === 'development' ? process.env.MAILTOKEN as string : process.env.DREAM_MAILTOKEN as string,
         endpoint: process.env.MAILENDPOINT as string
     }
 }
