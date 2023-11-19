@@ -66,11 +66,6 @@ const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
         html,
         category: 'account-recovery'
     })
-    // if (res.messageId) {
-    //     return true
-    // } else {
-    //     throw new CustomError('Please contact to support', 500)
-    // }
 }
 
 

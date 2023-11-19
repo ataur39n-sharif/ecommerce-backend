@@ -1,5 +1,6 @@
 import config from "@/Config/index";
 import {MailtrapClient} from "mailtrap";
+import CustomError from "@/Utils/errors/customError.class";
 
 type TMailPayload = {
     receiverEmail: string, subject: string, html: string, category: string
@@ -35,6 +36,12 @@ export const sendAMail = async ({
             html,
             category
         })
-        .then(console.log)
-        .catch(console.error);
+        .then((res => {
+            console.log(res)
+            return res.success
+        }))
+        .catch(err => {
+            console.error(err)
+            throw new CustomError(err.message, 500)
+        });
 }
