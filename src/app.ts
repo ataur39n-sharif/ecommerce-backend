@@ -64,14 +64,14 @@ const sender = config.node_env === 'development' ? {
     name: "Dream Furniture Support",
 };
 
-client
-    .send({
-        from: sender,
-        to: [{email: RECIPIENT_EMAIL}],
-        subject: "Hello from Mailtrap!",
-        text: "Welcome to Mailtrap Sending!",
-    })
-    .then(console.log)
-    .catch(console.error);
+// client
+//     .send({
+//         from: sender,
+//         to: [{email: RECIPIENT_EMAIL}],
+//         subject: "Hello from Mailtrap!",
+//         text: "Welcome to Mailtrap Sending!",
+//     })
+//     .then(console.log)
+//     .catch(console.error);
 
 export default app

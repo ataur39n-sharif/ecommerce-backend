@@ -4,10 +4,13 @@ info:
   description: Ecommerce backend api documentation
   version: 1.0.0
 servers:
-  - description: live
-    url: "https://site-api.trelyt.store/api/v1"
   - description: localhost
     url: "http://localhost:9000/api/v1"
+  - description: DTAL
+    url: "https://api.dreamfurniturebd.com/api/v1"
+  - description: live demo
+    url: "https://site-api.trelyt.store/api/v1"
+
 tags:
   - name: Authentication
     description: Access Control of website secure content
