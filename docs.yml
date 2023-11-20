@@ -825,13 +825,13 @@ paths:
           $ref: "#/components/responses/403"
         500:
           $ref: "#/components/responses/500"
-  "/category/{id}":
+  "/category/{slug}":
     get:
       tags:
         - Category
       parameters:
         - in: path
-          name: id
+          name: slug
           required: true
           schema:
             type: string

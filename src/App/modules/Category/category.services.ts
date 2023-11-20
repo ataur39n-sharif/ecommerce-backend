@@ -68,11 +68,12 @@ const loadCategories = async (payload: IQueryItems<ICategory>) => {
     }
 }
 
-const singleCategory = async (_id: Types.ObjectId, showChildren: boolean) => {
+const singleCategory = async (slug: string, showChildren: boolean) => {
 
-    const category = await CategoryModel.findOne({_id}).lean()
+    const category: ICategory | null = await CategoryModel.findOne({slug}).lean()
 
-    const childrenList = showChildren && await CategoryModel.find({parentId: _id}).lean()
+
+    const childrenList = showChildren && await CategoryModel.find({parentId: category?._id}).lean()
 
     return !showChildren ? category : {...category, subCategories: childrenList}
 }

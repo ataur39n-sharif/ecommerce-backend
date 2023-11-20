@@ -24,10 +24,10 @@ const getAll = catchAsync(async (req, res, next) => {
 
 const getSingleCategory = catchAsync(async (req, res, next) => {
 
-    const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params.id))
+    const slug = z.string().parse(req.params.slug)
     const showChildren = Boolean(req.query.children) || false
 
-    const data = await CategoryService.singleCategory(id, showChildren)
+    const data = await CategoryService.singleCategory(slug, showChildren)
 
     sendResponse.success(res, {
         statusCode: 200,

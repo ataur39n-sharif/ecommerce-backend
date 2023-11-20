@@ -5,7 +5,7 @@ const CategoryRoutes = Router()
 
 CategoryRoutes
     .get('/', CategoryController.getAll)
-    .get('/:id', CategoryController.getSingleCategory)
+    .get('/:slug', CategoryController.getSingleCategory)
     .post('/', CategoryController.addNew)
     .patch('/:id', CategoryController.updateInfo)
     .delete('/:id', CategoryController.deleteCategory)
