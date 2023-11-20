@@ -68,7 +68,7 @@ const getProducts = async (payload: IQueryItems<IProduct>): Promise<TDataWithMet
         .lean()
 
 
-    const filteredByCategory = products?.filter((product) => (product.category as any)?.name?.toLowerCase().trim() == (payload.filterFields?.category as string)?.toLowerCase().trim())
+    const filteredByCategory = products?.filter((product) => (product.category as any)?.slug?.toLowerCase().trim() == (payload.filterFields?.category as string)?.toLowerCase().trim())
     const total = await ProductModel.countDocuments()
     return {
         data: payload.filterFields?.category ? filteredByCategory : products,

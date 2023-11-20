@@ -1945,7 +1945,7 @@ components:
     category:
       in: query
       name: category
-      description: filter by category
+      description: filter by category slug
       schema:
         type: string
     tags:
