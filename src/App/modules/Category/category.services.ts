@@ -6,7 +6,7 @@ import {CategoryUtils} from "@/App/modules/Category/category.utils";
 import {IQueryItems} from "@/Utils/types/query.type";
 import {calculatePagination, manageSorting, MongoQueryHelper} from "@/Utils/helper/queryOptimize";
 
-const loadCategories = async (payload:IQueryItems<ICategory>) => {
+const loadCategories = async (payload: IQueryItems<ICategory>) => {
     const {search} = payload.searchFields
     const {page, limit, skip} = calculatePagination(payload.paginationFields)
     const {sortBy, sortOrder} = manageSorting(payload.sortFields)
@@ -16,7 +16,7 @@ const loadCategories = async (payload:IQueryItems<ICategory>) => {
     //search condition
     if (search) {
         queryConditions.push({
-            $or: ['name', 'slug','status'].map((field) => {
+            $or: ['name', 'slug', 'status'].map((field) => {
                 const fieldType = CategoryModel.schema.path(field).instance
                 return MongoQueryHelper(fieldType, field, search)
             })
@@ -25,23 +25,23 @@ const loadCategories = async (payload:IQueryItems<ICategory>) => {
 
     //filter condition
     if (Object.entries(payload.filterFields).length > 0) {
-        let tempConditions:{}[] =[];
+        let tempConditions: {}[] = [];
         Object.entries(payload.filterFields).map(([key, value]) => {
             if (Object.keys(CategoryModel.schema.obj).includes(key)) {
                 // mongoose schema keys
                 const fieldType = CategoryModel.schema.path(key).instance
                 // return
                 tempConditions.push(MongoQueryHelper(fieldType, key, value as string))
-            }else if(key ==='tags'){
-                tempConditions.push( {
+            } else if (key === 'tags') {
+                tempConditions.push({
                     tags: {
-                        $in:value
+                        $in: value
                     }
                 })
             }
         })
         tempConditions.length && queryConditions.push({
-            $and: tempConditions.map((condition)=>condition)
+            $and: tempConditions.map((condition) => condition)
         })
     }
 
@@ -59,7 +59,7 @@ const loadCategories = async (payload:IQueryItems<ICategory>) => {
     // console.log({groupResult})
     const total = await CategoryModel.countDocuments()
     return {
-        categories:(payload.filterFields as any).grouped === 'true' ? groupResult: categories,
+        categories: (payload.filterFields as any).grouped === 'true' ? groupResult : categories,
         meta: {
             page,
             limit,
@@ -68,8 +68,13 @@ const loadCategories = async (payload:IQueryItems<ICategory>) => {
     }
 }
 
-const singleCategory = async (_id: Types.ObjectId): Promise<ICategory | null> => {
-    return CategoryModel.findOne({_id}).lean()
+const singleCategory = async (_id: Types.ObjectId, showChildren: boolean) => {
+
+    const category = await CategoryModel.findOne({_id}).lean()
+
+    const childrenList = showChildren && await CategoryModel.find({parentId: _id}).lean()
+
+    return !showChildren ? category : {...category, subCategories: childrenList}
 }
 
 const createNew = async (payload: Partial<ICategory>): Promise<ICategory> => {

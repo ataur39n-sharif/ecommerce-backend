@@ -11,7 +11,7 @@ import {queryOptimization} from "@/Utils/helper/queryOptimize";
 import {ICategory} from "@/App/modules/Category/category.types";
 
 const getAll = catchAsync(async (req, res, next) => {
-    const payload = queryOptimization<ICategory>(req, ['name','slug','status','tags'],['grouped'])
+    const payload = queryOptimization<ICategory>(req, ['name', 'slug', 'status', 'tags'], ['grouped'])
 
 
     const data = await CategoryService.loadCategories(payload)
@@ -25,8 +25,9 @@ const getAll = catchAsync(async (req, res, next) => {
 const getSingleCategory = catchAsync(async (req, res, next) => {
 
     const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params.id))
+    const showChildren = Boolean(req.query.children) || false
 
-    const data = await CategoryService.singleCategory(id)
+    const data = await CategoryService.singleCategory(id, showChildren)
 
     sendResponse.success(res, {
         statusCode: 200,

@@ -74,7 +74,6 @@ const singleBlog = async (slug: string) => {
 
 // create blog
 const createBlog = async (payload: IBlog) => {
-    
     const newBlog = await BlogModel.create(payload)
     return newBlog
 }
