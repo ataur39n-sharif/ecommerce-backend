@@ -28,13 +28,13 @@ export const sendAMail = async ({
 
     const client = new MailtrapClient({token});
 
-    console.log('pre mail', {
-        from: sender,
-        to: recipients,
-        subject,
-        html,
-        category
-    })
+    // console.log('pre mail', {
+    //     from: sender,
+    //     to: recipients,
+    //     subject,
+    //     html,
+    //     category
+    // })
     client
         .send({
             from: sender,

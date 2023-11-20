@@ -3,7 +3,12 @@ export interface IBlog {
     slug: string
     content: string
     thumbnail: string
-    images: string[]
+    images?: string[]
     createdAt: string
     updatedAt: string
+}
+
+export interface IBlogImages {
+    thumbnail?: Express.Multer.File[],
+    images?: Express.Multer.File[],
 }

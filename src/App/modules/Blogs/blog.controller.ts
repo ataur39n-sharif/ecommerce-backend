@@ -2,7 +2,7 @@ import catchAsync from "@/Utils/helper/catchAsync";
 import {NextFunction, Request, Response} from "express";
 import {queryOptimization} from "@/Utils/helper/queryOptimize";
 import {sendResponse} from "@/Utils/helper/sendResponse";
-import {IBlog} from "@/App/modules/Blogs/blog.type";
+import {IBlog, IBlogImages} from "@/App/modules/Blogs/blog.type";
 import {BlogService} from "@/App/modules/Blogs/blog.services";
 import {z} from "zod";
 import {Types} from "mongoose";
@@ -45,25 +45,29 @@ const singleBlog = catchAsync(async (req: Request, res: Response, next: NextFunc
 })
 
 const addNewBlog = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const allImages = req.files as IBlogImages
 
-    // console.log({
-    //     thumbnail: req.files
-    // })
-    // console.log({
-    //     images: req.files
-    // })
-    // console.log(req.body)
-    if ((req.files as any)?.thumbnail.length) {
-        // (req.files as any).images.map(async (image: any) => await FileUploadHandler.uploadToCloudinary(image))
+    console.log({
+        thumbnail: allImages?.thumbnail,
+        images: allImages?.images
+    })
 
-        (req.files as any).thumbnail.map(async (image: any) => await FileUploadHandler.uploadToCloudinary(image))
+    if (allImages.thumbnail?.length) {
+        const data = await FileUploadHandler.uploadToCloudinary(allImages.thumbnail[0], '/blogs/' + 'blog2')
+        console.log({data})
+    }
 
+    if (allImages.images?.length) {
+        for (const image of allImages.images) {
+            const data = await FileUploadHandler.uploadToCloudinary(image, '/blogs/' + 'blog2')
+            console.log({data})
+        }
     }
 
     sendResponse.success(res, {
         statusCode: 201,
         message: 'Blog added successfully',
-        data: req.files
+        data: req?.files
     })
 
 })

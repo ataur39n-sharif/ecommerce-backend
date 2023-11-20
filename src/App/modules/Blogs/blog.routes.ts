@@ -9,11 +9,9 @@ BlogRoutes
     .get('/', BlogController.allBlogs)
     .post(
         '/new',
-        // FileUploadHandler.upload.single('file'),
-        // FileUploadHandler.upload.array('files', 5),
         FileUploadHandler.upload.fields([
             {name: 'thumbnail', maxCount: 1},
-            {name: 'images', maxCount: 4}
+            {name: 'images', maxCount: 5,}
         ]),
         BlogController.addNewBlog
     )
