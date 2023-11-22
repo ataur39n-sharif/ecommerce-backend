@@ -11,6 +11,8 @@ import {ProductValidation} from "@/App/modules/Products/product.validation";
 import {z} from "zod";
 import {Types} from "mongoose";
 import {MongoHelper} from "@/Utils/helper/mongoHelper";
+import {FileUploadHandler} from "@/Utils/fileUploadHandler/fileUpload";
+import {IBlogImages} from "@/App/modules/Blogs/blog.type";
 
 const allProducts = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const {
@@ -18,7 +20,7 @@ const allProducts = catchAsync(async (req: Request, res: Response, next: NextFun
         filterFields,
         sortFields,
         paginationFields
-    } = queryOptimization<IProduct>(req, ['category', 'status','tags'], ProductUtils.getProductExtraKeys() as string[])
+    } = queryOptimization<IProduct>(req, ['category', 'status', 'tags'], ProductUtils.getProductExtraKeys() as string[])
 
     const data = await ProductServices.getProducts({
         searchFields, filterFields, sortFields, paginationFields
@@ -46,20 +48,55 @@ const singleProduct = catchAsync(async (req, res, next) => {
 
 const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const data = pickFunction<IProduct>(req.body, Object.keys(ProductModel.schema.obj))
-    const payload = pickFunction<IProduct, keyof IProduct>(req.body, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
+
+    // console.log({
+    //     body: req.body,
+    //     files: req.files
+    // })
+
+    const payload = pickFunction<IProduct, keyof IProduct>(JSON.parse(req.body.productData) ?? {}, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
+
+    console.log({payload})
+
+    const allImages = req.files as IBlogImages
+    console.log({allImages})
 
     let data: IProduct | null = null;
+    let images: string[] = [];
+    let thumbnail: string = '';
+
+    if (allImages?.thumbnail?.length) {
+        console.log(allImages.thumbnail[0])
+        const data = await FileUploadHandler.uploadToCloudinary(allImages.thumbnail[0], '/products/' + payload.slug)
+        thumbnail = data ? data.url : ''
+    }
+
+    if (allImages?.images?.length) {
+        for (const image of allImages.images) {
+            const data = await FileUploadHandler.uploadToCloudinary(image, '/products/' + payload.slug)
+            data && images.push(data.url)
+        }
+    }
+
+    console.log({
+        thumbnail,
+        images
+    })
 
     if (payload.productType === 'variable_product') {
         const validateVariablePd = ProductValidation.variableProduct.parse({
             ...payload,
-            category:MongoHelper.convertToObjectId(payload.category as string)
+            category: MongoHelper.convertToObjectId(payload.category as string),
+            images,
+            thumbnail
         })
         data = await ProductServices.addProduct(validateVariablePd)
     } else {
         const validateSinglePd = ProductValidation.singleProduct.parse({
             ...payload,
-            category:MongoHelper.convertToObjectId(payload.category as string)
+            category: MongoHelper.convertToObjectId(payload.category as string),
+            images,
+            thumbnail
         })
 
         data = await ProductServices.addProduct(validateSinglePd)

@@ -397,9 +397,23 @@ paths:
         content:
           application/json:
             schema:
-              oneOf:
-                - $ref: "#/components/schemas/Simple_Product"
-                - $ref: "#/components/schemas/Variable_Product"
+              type: object
+              properties:
+                images:
+                  type: array
+                  description: Array of raw images file
+                  items:
+                    type: object
+                    description: Raw image file
+                thumbnail:
+                  type: object
+                  description: Raw image file
+                productData:
+                  oneOf:
+                    - $ref: "#/components/schemas/Simple_Product"
+                    - $ref: "#/components/schemas/Variable_Product"
+              required:
+                - thumbnail
       responses:
         201:
           $ref: "#/components/responses/200"
@@ -1606,17 +1620,6 @@ components:
               type: integer
               format: init32
               example: 300
-        images:
-          type: array
-          items:
-            type: string
-          example:
-            - 'image1.jpg'
-            - 'image2.jpg'
-            - 'image3.jpg'
-        thumbnail:
-          type: string
-          example: 'thumbnail.jpg'
         stock:
           type: integer
           format: init32
@@ -1691,17 +1694,6 @@ components:
         short_description:
           type: string
           example: 'product short description'
-        images:
-          type: array
-          items:
-            type: string
-          example:
-            - 'image1.jpg'
-            - 'image2.jpg'
-            - 'image3.jpg'
-        thumbnail:
-          type: string
-          example: 'thumbnail.jpg'
         attributes:
           type: array
           items:

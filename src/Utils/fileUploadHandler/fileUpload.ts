@@ -41,7 +41,7 @@ const uploadToCloudinary = async (file: Express.Multer.File, folderName: string 
         );
         // Remove the uploaded file from the 'uploads' folder
         fs.unlinkSync(file.path);
-        console.log({data})
+        // console.log({data})
         return {
             url: data.url,
             filename: data.original_filename
