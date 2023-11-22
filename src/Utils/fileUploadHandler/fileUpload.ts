@@ -36,16 +36,16 @@ const upload = multer({
 })
 const uploadToCloudinary = async (file: Express.Multer.File, folderName: string = 'random') => {
     try {
-        console.log({file})
         const data = await cloudinary.uploader.upload(file.path,
-            {public_id: file.filename?.split('.')[0], folder: folderName}, (err, data) => {
-                console.log({err, data})
-                return data
-            });
+            {public_id: file.filename?.split('.')[0], folder: folderName}
+        );
         // Remove the uploaded file from the 'uploads' folder
         fs.unlinkSync(file.path);
         console.log({data})
-        return data
+        return {
+            url: data.url,
+            filename: data.original_filename
+        }
     } catch (e) {
         console.log((e as Error).message)
     }

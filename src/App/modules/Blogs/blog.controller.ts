@@ -47,6 +47,8 @@ const singleBlog = catchAsync(async (req: Request, res: Response, next: NextFunc
 const addNewBlog = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const allImages = req.files as IBlogImages
 
+    let allImageUrls = []
+
     console.log({
         thumbnail: allImages?.thumbnail,
         images: allImages?.images
@@ -55,19 +57,21 @@ const addNewBlog = catchAsync(async (req: Request, res: Response, next: NextFunc
     if (allImages.thumbnail?.length) {
         const data = await FileUploadHandler.uploadToCloudinary(allImages.thumbnail[0], '/blogs/' + 'blog2')
         console.log({data})
+        allImageUrls.push({type: 'thumbnail', data})
     }
 
     if (allImages.images?.length) {
         for (const image of allImages.images) {
             const data = await FileUploadHandler.uploadToCloudinary(image, '/blogs/' + 'blog2')
             console.log({data})
+            allImageUrls.push({type: 'images', data})
         }
     }
 
     sendResponse.success(res, {
         statusCode: 201,
         message: 'Blog added successfully',
-        data: req?.files
+        data: allImageUrls
     })
 
 })

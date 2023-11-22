@@ -50,8 +50,6 @@ const loadCategories = async (payload: IQueryItems<ICategory>) => {
     const categories: ICategory[] = await CategoryModel.find(query)
         .populate('parentId')
         .sort({[sortBy]: sortOrder})
-        .skip(skip)
-        .limit(limit)
         .lean()
 
     // console.log({categories})
@@ -62,7 +60,7 @@ const loadCategories = async (payload: IQueryItems<ICategory>) => {
         categories: (payload.filterFields as any).grouped === 'true' ? groupResult : categories,
         meta: {
             page,
-            limit,
+            // limit,
             total
         }
     }
