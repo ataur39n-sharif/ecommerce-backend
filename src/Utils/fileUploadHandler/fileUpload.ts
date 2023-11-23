@@ -34,7 +34,11 @@ const upload = multer({
         cb(null, true)
     }
 })
-const uploadToCloudinary = async (file: Express.Multer.File, folderName: string = 'random') => {
+
+const uploadToCloudinary = async (file: Express.Multer.File, folderName: string = 'random'): Promise<{
+    url: string;
+    fileName: string
+}> => {
     try {
         const data = await cloudinary.uploader.upload(file.path,
             {public_id: file.filename?.split('.')[0], folder: folderName}
@@ -44,10 +48,11 @@ const uploadToCloudinary = async (file: Express.Multer.File, folderName: string 
         // console.log({data})
         return {
             url: data.url,
-            filename: data.original_filename
+            fileName: data.original_filename
         }
     } catch (e) {
         console.log((e as Error).message)
+        throw new CustomError((e as Error).message, 400)
     }
 }
 

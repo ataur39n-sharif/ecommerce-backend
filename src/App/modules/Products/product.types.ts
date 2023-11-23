@@ -63,3 +63,8 @@ export type TExtraProductKeys = {
     fieldName: string,
     fieldType: string,
 }
+
+export interface IProductImages {
+    thumbnail?: Express.Multer.File[],
+    images?: Express.Multer.File[],
+}

@@ -87,8 +87,9 @@ const bulkUpdateCategories = catchAsync(async (req, res, next) => {
 })
 
 const deleteCategory = catchAsync(async (req, res, next) => {
+
     const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params.id))
-    console.log({id})
+    
     await CategoryService.deleteCategory(id)
 
     sendResponse.success(res, {

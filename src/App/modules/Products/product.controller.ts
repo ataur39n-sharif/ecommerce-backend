@@ -48,20 +48,11 @@ const singleProduct = catchAsync(async (req, res, next) => {
 
 const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const data = pickFunction<IProduct>(req.body, Object.keys(ProductModel.schema.obj))
-
-    // console.log({
-    //     body: req.body,
-    //     files: req.files
-    // })
-
     const payload = pickFunction<IProduct, keyof IProduct>(JSON.parse(req.body.productData) ?? {}, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
 
-    console.log({payload})
+    let data: IProduct | null = null;
 
     const allImages = req.files as IBlogImages
-    console.log({allImages})
-
-    let data: IProduct | null = null;
     let images: string[] = [];
     let thumbnail: string = '';
 
@@ -77,11 +68,6 @@ const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunc
             data && images.push(data.url)
         }
     }
-
-    console.log({
-        thumbnail,
-        images
-    })
 
     if (payload.productType === 'variable_product') {
         const validateVariablePd = ProductValidation.variableProduct.parse({
@@ -113,20 +99,32 @@ const updateProduct = catchAsync(async (req: Request, res: Response, next: NextF
 
     const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params?.id))
 
-    const requiredPayload = ProductValidation.requiredUpdatePayload.parse({
-        productType: req.body.productType,
-        variableProducts: req.body.productType === 'variable_product' ? req.body.variableProducts : undefined
-    })
+    const productData = JSON.parse(req.body.productData)
 
-    const payload = pickFunction<IProduct, keyof IProduct>(req.body, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
+    const requiredPayload = ProductValidation.requiredUpdatePayload.parse({
+        productType: productData.productType,
+        variableProducts: productData.productType === 'variable_product' ? productData.variableProducts : undefined
+    })
+    const payload = pickFunction<IProduct, keyof IProduct>(productData, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
+
+    const {images, thumbnail} = await ProductUtils.manageProductImages(req, payload.slug as string)
 
     let data: IProduct | null = null;
 
+
     if (requiredPayload.productType === 'variable_product') {
-        const validateVariablePd = ProductValidation.variableProduct.partial().parse(payload)
+        const validateVariablePd = ProductValidation.variableProduct.partial().parse({
+            ...payload,
+            images,
+            thumbnail
+        })
         data = await ProductServices.updateProduct(id, validateVariablePd)
     } else {
-        const validateSinglePd = ProductValidation.singleProduct.partial().parse(payload)
+        const validateSinglePd = ProductValidation.singleProduct.partial().parse({
+            ...payload,
+            images,
+            thumbnail
+        })
         data = await ProductServices.updateProduct(id, validateSinglePd)
     }
 
