@@ -10,11 +10,11 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         const ext = path.extname(file.originalname)
-        console.log({ext})
+        // console.log({ext})
         const baseName = file.originalname.trim()?.split('.')[0]?.replace(/\s+/g, '-')
-        console.log({baseName})
+        // console.log({baseName})
         const newFileName = `${baseName}${ext}`
-        console.log({newFileName})
+        // console.log({newFileName})
         cb(null, newFileName)
     }
 })
@@ -27,10 +27,11 @@ const upload = multer({
     fileFilter: function (req, file, cb) {
         const allowedMimes = ['image/jpeg', 'image/png', 'image/webp']
 
-        if (!allowedMimes.includes(file.mimetype)) {
-            return cb(new CustomError('Invalid file type. Only image file allowed.Example - .jpeg, .png, .webp.', 400))
-        }
+        // console.log(file.originalname, file.mimetype)
 
+        if (!allowedMimes.includes(file.mimetype)) {
+            return cb(new Error('Invalid file type. Only image file allowed.Example - .jpeg, .png, .webp.'))
+        }
         cb(null, true)
     }
 })
@@ -43,15 +44,14 @@ const uploadToCloudinary = async (file: Express.Multer.File, folderName: string 
         const data = await cloudinary.uploader.upload(file.path,
             {public_id: file.filename?.split('.')[0], folder: folderName}
         );
-        // Remove the uploaded file from the 'uploads' folder
-        fs.unlinkSync(file.path);
+        data.url && fs.unlinkSync(file.path);    // Remove the uploaded file from the 'uploads' folder
         // console.log({data})
         return {
             url: data.url,
             fileName: data.original_filename
         }
     } catch (e) {
-        console.log((e as Error).message)
+        console.log({e})
         throw new CustomError((e as Error).message, 400)
     }
 }

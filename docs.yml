@@ -24,6 +24,8 @@ tags:
     description: Blog's manage path's
   - name: Admin
     description: Admin manage path's
+  - name: Files
+    description: Files manage path's'
 paths:
   "/auth/login":
     post:
@@ -397,23 +399,9 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                images:
-                  type: array
-                  description: Array of raw images file
-                  items:
-                    type: object
-                    description: Raw image file
-                thumbnail:
-                  type: object
-                  description: Raw image file
-                productData:
-                  oneOf:
-                    - $ref: "#/components/schemas/Simple_Product"
-                    - $ref: "#/components/schemas/Variable_Product"
-              required:
-                - thumbnail
+              oneOf:
+                - $ref: "#/components/schemas/Simple_Product"
+                - $ref: "#/components/schemas/Variable_Product"
       responses:
         201:
           $ref: "#/components/responses/200"
@@ -839,13 +827,13 @@ paths:
           $ref: "#/components/responses/403"
         500:
           $ref: "#/components/responses/500"
-  "/category/{slug}":
+  "/category/{id}":
     get:
       tags:
         - Category
       parameters:
         - in: path
-          name: slug
+          name: id
           required: true
           schema:
             type: string
@@ -867,89 +855,6 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/Category"
-  #    patch:
-  #      tags:
-  #        - Category
-  #      security:
-  #        - Authorization: [ ]
-  #      parameters:
-  #        - in: path
-  #          name: id
-  #          required: true
-  #          schema:
-  #            type: string
-  #      requestBody:
-  #        required: true
-  #        content:
-  #          application/json:
-  #            schema:
-  #              type: object
-  #              properties:
-  #                name:
-  #                  type: string
-  #                slug:
-  #                  type: string
-  #                icon:
-  #                  type: string
-  #                parentId:
-  #                  type: string
-  #                  example: 5f7a2db4a5e093001f076f5c
-  #                  default: null
-  #                status:
-  #                  type: string
-  #                  enum:
-  #                    - active
-  #                    - inactive
-  #                  default: active
-  #                tags:
-  #                  type: array
-  #                  items:
-  #                    type: string
-  #      responses:
-  #        200:
-  #          description: Success
-  #          content:
-  #            application/json:
-  #              schema:
-  #                type: object
-  #                properties:
-  #                  success:
-  #                    type: boolean
-  #                    example: true
-  #                  message:
-  #                    type: string
-  #                  data:
-  #                    type: object
-  #                    properties:
-  #                      category:
-  #                        $ref: "#/components/schemas/Category"
-  #        400:
-  #          $ref: "#/components/responses/400"
-  #        403:
-  #          $ref: "#/components/responses/403"
-  #        500:
-  #          $ref: "#/components/responses/500"
-  #    delete:
-  #      tags:
-  #        - Category
-  #      security:
-  #        - Authorization: [ ]
-  #      parameters:
-  #        - in: path
-  #          name: id
-  #          required: true
-  #          schema:
-  #            type: string
-  #      responses:
-  #        200:
-  #          $ref: "#/components/responses/200"
-  #        400:
-  #          $ref: "#/components/responses/400"
-  #        403:
-  #          $ref: "#/components/responses/403"
-  #        500:
-  #          $ref: "#/components/responses/500"
-  "/category/{id}":
     patch:
       tags:
         - Category
@@ -1437,6 +1342,26 @@ paths:
                   message:
                     type: string
                     example: Successfully new blog created
+  "/files/upload":
+    post:
+      tags:
+        - Files
+      description: Upload files into cloud
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                  description: Raw file data
+                - type: array
+                  items:
+                    type: object
+                    description: Raw file data
+      responses:
+        200:
+          $ref: '#/components/responses/200'
 
 components:
   responses:
@@ -1703,6 +1628,17 @@ components:
               type: integer
               format: init32
               example: 300
+        images:
+          type: array
+          items:
+            type: string
+          example:
+            - 'image1.jpg'
+            - 'image2.jpg'
+            - 'image3.jpg'
+        thumbnail:
+          type: string
+          example: 'thumbnail.jpg'
         stock:
           type: integer
           format: init32
@@ -1777,6 +1713,17 @@ components:
         short_description:
           type: string
           example: 'product short description'
+        images:
+          type: array
+          items:
+            type: string
+          example:
+            - 'image1.jpg'
+            - 'image2.jpg'
+            - 'image3.jpg'
+        thumbnail:
+          type: string
+          example: 'thumbnail.jpg'
         attributes:
           type: array
           items:
@@ -2020,7 +1967,7 @@ components:
     category:
       in: query
       name: category
-      description: filter by category slug
+      description: filter by category
       schema:
         type: string
     tags:

@@ -11,8 +11,7 @@ import {ProductValidation} from "@/App/modules/Products/product.validation";
 import {z} from "zod";
 import {Types} from "mongoose";
 import {MongoHelper} from "@/Utils/helper/mongoHelper";
-import {FileUploadHandler} from "@/Utils/fileUploadHandler/fileUpload";
-import {IBlogImages} from "@/App/modules/Blogs/blog.type";
+import CustomError from "@/Utils/errors/customError.class";
 
 const allProducts = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const {
@@ -48,41 +47,22 @@ const singleProduct = catchAsync(async (req, res, next) => {
 
 const newProduct = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const data = pickFunction<IProduct>(req.body, Object.keys(ProductModel.schema.obj))
-    const payload = pickFunction<IProduct, keyof IProduct>(JSON.parse(req.body.productData) ?? {}, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
+    const payload = pickFunction<IProduct, keyof IProduct>(req.body, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
 
     let data: IProduct | null = null;
 
-    const allImages = req.files as IBlogImages
-    let images: string[] = [];
-    let thumbnail: string = '';
-
-    if (allImages?.thumbnail?.length) {
-        console.log(allImages.thumbnail[0])
-        const data = await FileUploadHandler.uploadToCloudinary(allImages.thumbnail[0], '/products/' + payload.slug)
-        thumbnail = data ? data.url : ''
-    }
-
-    if (allImages?.images?.length) {
-        for (const image of allImages.images) {
-            const data = await FileUploadHandler.uploadToCloudinary(image, '/products/' + payload.slug)
-            data && images.push(data.url)
-        }
-    }
+    if (payload.images && payload.images.length > 5) throw new CustomError('Max 5 images allowed', 400)
 
     if (payload.productType === 'variable_product') {
         const validateVariablePd = ProductValidation.variableProduct.parse({
             ...payload,
-            category: MongoHelper.convertToObjectId(payload.category as string),
-            images,
-            thumbnail
+            category: MongoHelper.convertToObjectId(payload.category as string)
         })
         data = await ProductServices.addProduct(validateVariablePd)
     } else {
         const validateSinglePd = ProductValidation.singleProduct.parse({
             ...payload,
-            category: MongoHelper.convertToObjectId(payload.category as string),
-            images,
-            thumbnail
+            category: MongoHelper.convertToObjectId(payload.category as string)
         })
 
         data = await ProductServices.addProduct(validateSinglePd)
@@ -99,7 +79,7 @@ const updateProduct = catchAsync(async (req: Request, res: Response, next: NextF
 
     const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params?.id))
 
-    const productData = JSON.parse(req.body.productData)
+    const productData = req.body
 
     const requiredPayload = ProductValidation.requiredUpdatePayload.parse({
         productType: productData.productType,
@@ -107,23 +87,19 @@ const updateProduct = catchAsync(async (req: Request, res: Response, next: NextF
     })
     const payload = pickFunction<IProduct, keyof IProduct>(productData, Object.keys(ProductModel.schema.obj) as (keyof IProduct)[]);
 
-    const {images, thumbnail} = await ProductUtils.manageProductImages(req, payload.slug as string)
+    // const {images, thumbnail} = await ProductUtils.manageProductImages(req, payload.slug as string)
 
     let data: IProduct | null = null;
 
 
     if (requiredPayload.productType === 'variable_product') {
         const validateVariablePd = ProductValidation.variableProduct.partial().parse({
-            ...payload,
-            images,
-            thumbnail
+            ...payload
         })
         data = await ProductServices.updateProduct(id, validateVariablePd)
     } else {
         const validateSinglePd = ProductValidation.singleProduct.partial().parse({
-            ...payload,
-            images,
-            thumbnail
+            ...payload
         })
         data = await ProductServices.updateProduct(id, validateSinglePd)
     }

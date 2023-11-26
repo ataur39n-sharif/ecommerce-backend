@@ -3,18 +3,17 @@ import {NextFunction, Request, Response} from "express";
 import {sendResponse} from "@/Utils/helper/sendResponse";
 import {FileUploadHandler} from "@/Utils/fileUploadHandler/fileUpload";
 import {IGeneratedUrlPayload, IGroupedGeneratedUrlPayload} from "@/App/modules/FileUpload/fileUpload.types";
+import {z} from "zod";
 
 const addNewFile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const allImages = req.files as Express.Multer.File[]
-
-    console.log(allImages?.length)
-
+    const type = z.enum(['blogs', 'products']).optional().parse(req.body.type)
 
     let allImageUrls: IGeneratedUrlPayload[] = []
 
     if (allImages?.length) {
         for (const image of allImages) {
-            const {fileName, url} = await FileUploadHandler.uploadToCloudinary(image)
+            const {fileName, url} = await FileUploadHandler.uploadToCloudinary(image, type)
             allImageUrls.push({fileName, url, fieldName: image.fieldname})
         }
     }
