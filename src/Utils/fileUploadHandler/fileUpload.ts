@@ -25,12 +25,17 @@ const upload = multer({
         fileSize: 2 * 1024 * 1024
     },
     fileFilter: function (req, file, cb) {
-        const allowedMimes = ['image/jpeg', 'image/png', 'image/webp']
+        const allowedMimes = [
+            'image/jpeg',
+            'image/png',
+            'image/webp',
+            'image/gif'
+        ]
 
         // console.log(file.originalname, file.mimetype)
 
         if (!allowedMimes.includes(file.mimetype)) {
-            return cb(new Error('Invalid file type. Only image file allowed.Example - .jpeg, .png, .webp.'))
+            return cb(new Error('Invalid file type. Only image file allowed.Example - .jpeg, .png, .webp, .gif.'))
         }
         cb(null, true)
     }
@@ -47,7 +52,7 @@ const uploadToCloudinary = async (file: Express.Multer.File, folderName: string 
         data.url && fs.unlinkSync(file.path);    // Remove the uploaded file from the 'uploads' folder
         // console.log({data})
         return {
-            url: data.url,
+            url: data.secure_url,
             fileName: data.original_filename
         }
     } catch (e) {
