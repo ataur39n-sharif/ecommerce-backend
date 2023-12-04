@@ -42,7 +42,7 @@ const addNewFile = catchAsync(async (req: Request, res: Response, next: NextFunc
     }, []);
 
     sendResponse.success(res, {
-        statusCode: 201,
+        statusCode: 200,
         message: 'File uploaded successfully',
         data: groupedData
     })
