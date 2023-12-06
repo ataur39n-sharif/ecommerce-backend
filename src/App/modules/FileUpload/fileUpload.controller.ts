@@ -7,8 +7,6 @@ import {z} from "zod";
 
 const addNewFile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const allImages = req.files as Express.Multer.File[]
-    // console.log({allImages})
-
     const type = z.enum(['blogs', 'products']).optional().parse(req.body.type)
 
     let allImageUrls: IGeneratedUrlPayload[] = []
@@ -37,7 +35,6 @@ const addNewFile = catchAsync(async (req: Request, res: Response, next: NextFunc
                 }]
             });
         }
-
         return acc;
     }, []);
 

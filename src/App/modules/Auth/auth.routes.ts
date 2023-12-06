@@ -18,6 +18,10 @@ AuthRoutes
         AuthMiddleware.userExists,
         AuthController.login
     )
+    .post('/admin-login',
+        AuthMiddleware.userExists,
+        AuthController.adminLogin
+    )
     .post('/resend-confirmation-mail', AuthController.resendConfirmationMail)
     // .post('/logout', AuthMiddleware)
     .post('/forget-password', AuthController.forgetPassword)

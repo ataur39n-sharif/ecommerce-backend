@@ -9,6 +9,7 @@ import {MailService} from "@/App/modules/Mail/mail.service";
 import jwt from "jsonwebtoken";
 import config from "@/Config";
 import {ERole} from "@/App/modules/Auth/auth.types";
+import CustomError from "@/Utils/errors/customError.class";
 
 const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -51,14 +52,31 @@ const login = catchAsync(async (req: Request, res: Response, next: NextFunction)
     const data = pickFunction(req.body, ["email", "phone", 'password'])
     const validateData = AuthValidation.singIn.parse(data)
 
-    const {accessToken, refreshToken} = await AuthServices.logIntoAccount(validateData)
+    const {refreshToken, ...info} = await AuthServices.logIntoAccount(validateData)
     res.cookie('refreshToken', refreshToken)
     sendResponse.success(res, {
-        data: {accessToken},
+        data: {...info},
         message: "Successfully logged in",
         statusCode: 200
     })
 })
+
+const adminLogin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const data = pickFunction(req.body, ["email", 'password'])
+    const validateData = AuthValidation.singIn.parse(data)
+
+    const {refreshToken, ...info} = await AuthServices.logIntoAccount(validateData)
+    
+    if (info.role !== 'admin') throw new CustomError('Invalid credentials', 401)
+
+    res.cookie('refreshToken', refreshToken)
+    sendResponse.success(res, {
+        data: {...info},
+        message: "Successfully logged in",
+        statusCode: 200
+    })
+})
+
 
 const resendConfirmationMail = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data = pickFunction(req.body, ['email'])
@@ -147,6 +165,7 @@ const changePassword = catchAsync(async (req: Request, res: Response, next: Next
 export const AuthController = {
     singUp,
     login,
+    adminLogin,
     resendConfirmationMail,
     forgetPassword,
     resetPassword,
