@@ -52,14 +52,13 @@ const logIntoAccount = async (data: Partial<IAuthProperty>) => {
     } else {
         user = await AuthModel.findOne({email: data.email})
     }
-
+    console.log({user})
     //valid password
     const validPassword = user && await HashHelper.comparePassword(data.password as string, user.password)
-
+    console.log({validPassword})
     if (!validPassword || !user) throw new CustomError('Invalid email or password', 401)
     // if (user.status === 'pending') throw new CustomError('Email not verified', 401)     //check email confirmed
     if (user.status === 'blocked') throw new CustomError('Something went wrong. Please contact the support.', 401)
-    if (user.role !== 'customer') throw new CustomError('Invalid request', 401)
 
     const tokenData: TokenPayload = {
         uid: user._id as string,

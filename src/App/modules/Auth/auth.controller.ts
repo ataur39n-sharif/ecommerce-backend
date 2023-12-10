@@ -53,6 +53,10 @@ const login = catchAsync(async (req: Request, res: Response, next: NextFunction)
     const validateData = AuthValidation.singIn.parse(data)
 
     const {refreshToken, ...info} = await AuthServices.logIntoAccount(validateData)
+
+    if (info.role !== 'customer') throw new CustomError('Invalid request', 401)
+
+
     res.cookie('refreshToken', refreshToken)
     sendResponse.success(res, {
         data: {...info},
