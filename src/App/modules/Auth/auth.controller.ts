@@ -47,7 +47,6 @@ const createAccountByAdmin = catchAsync(async (req: Request, res: Response, next
     })
 })
 
-
 const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data = pickFunction(req.body, ["email", "phone", 'password'])
     const validateData = AuthValidation.singIn.parse(data)
@@ -55,7 +54,6 @@ const login = catchAsync(async (req: Request, res: Response, next: NextFunction)
     const {refreshToken, ...info} = await AuthServices.logIntoAccount(validateData)
 
     if (info.role !== 'customer') throw new CustomError('Invalid request', 401)
-
 
     res.cookie('refreshToken', refreshToken)
     sendResponse.success(res, {

@@ -23,7 +23,7 @@ const singleProduct = z.object({
     slug: z.string(),
     short_description: z.string().optional(),
     price: z.number(),
-    stock: z.number(),
+    stock: z.number().optional(),
     category: z.instanceof(Types.ObjectId),
     images: z.array(z.string()),
     thumbnail: z.string(),
