@@ -11,6 +11,9 @@ export default {
     node_env: process.env.NODE_ENV,
     bcrypt_saltRounds: process.env.BCRYPT_SALTROUND,
     login: process.env.LOGIN_LINK,
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
     jwt: {
         accessToken: {
             secret: process.env.JWT_ACCESSTOKEN_SECRET || 'JWT_ACCESSTOKEN_SECRET',

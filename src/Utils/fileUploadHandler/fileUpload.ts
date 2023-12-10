@@ -35,7 +35,7 @@ const upload = multer({
         // console.log(file.originalname, file.mimetype)
 
         if (!allowedMimes.includes(file.mimetype)) {
-            return cb(new Error('Invalid file type. Only image file allowed.Example - .jpeg, .png, .webp, .gif.'))
+            return cb(new Error('Invalid file type. Only image file allowed.Example - .svg, .jpeg, .png, .webp, .gif.'))
         }
         cb(null, true)
     }

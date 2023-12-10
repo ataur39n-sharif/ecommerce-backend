@@ -66,7 +66,7 @@ const adminLogin = catchAsync(async (req: Request, res: Response, next: NextFunc
     const validateData = AuthValidation.singIn.parse(data)
 
     const {refreshToken, ...info} = await AuthServices.logIntoAccount(validateData)
-    
+
     if (info.role !== 'admin') throw new CustomError('Invalid credentials', 401)
 
     res.cookie('refreshToken', refreshToken)
