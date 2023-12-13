@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import config from "@/Config";
-import {sendAMail} from "@/Config/mailer";
+import {sendAMail} from "@/Utils/helper/mailer";
 import {TConfirmAccountPayload, TForgetPassPayload} from "@/App/modules/Mail/mail.types";
 
 const callbackUrl = config.node_env === 'prod' ? config.login : 'http://localhost:9000/api/v1/auth/confirm-account'

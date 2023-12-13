@@ -13,3 +13,11 @@ export interface IJWTConfirmAccountPayload extends JwtPayload {
     name: string,
     userEmail: string,
 }
+
+export interface IContactUsPayload {
+    customerName: string,
+    customerEmail: string,
+    phone?: string,
+    subject: string,
+    message: string
+}

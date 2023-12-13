@@ -8,6 +8,7 @@ import CategoryRoutes from "@/App/modules/Category/category.routes";
 import OrderRoutes from "@/App/modules/Orders/order.routes";
 import BlogRoutes from "@/App/modules/Blogs/blog.routes";
 import FileUploadRoutes from "@/App/modules/FileUpload/fileUpload.routes";
+import MailRoutes from "@/App/modules/Mail/mail.routes";
 
 const rootRouter = Router()
 const docs = YAML.load(path.join(process.cwd(), "docs.yml"))
@@ -18,6 +19,7 @@ rootRouter
     .use('/category', CategoryRoutes)
     .use('/orders', OrderRoutes)
     .use('/blogs', BlogRoutes)
+    .use('/send-mail', MailRoutes)
     .use('/files', FileUploadRoutes)
     .use('/docs', swaggerUI.serve, swaggerUI.setup(docs))
 

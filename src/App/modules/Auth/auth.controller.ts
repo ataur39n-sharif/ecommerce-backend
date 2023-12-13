@@ -69,7 +69,7 @@ const adminLogin = catchAsync(async (req: Request, res: Response, next: NextFunc
 
     const {refreshToken, ...info} = await AuthServices.logIntoAccount(validateData)
 
-    if (info.role !== 'admin') throw new CustomError('Invalid credentials', 401)
+    if (info.role !== 'admin') throw new CustomError('Permission denied', 401)
 
     res.cookie('refreshToken', refreshToken)
     sendResponse.success(res, {
@@ -78,7 +78,6 @@ const adminLogin = catchAsync(async (req: Request, res: Response, next: NextFunc
         statusCode: 200
     })
 })
-
 
 const resendConfirmationMail = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data = pickFunction(req.body, ['email'])

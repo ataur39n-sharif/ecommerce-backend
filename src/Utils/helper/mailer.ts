@@ -1,4 +1,4 @@
-import config from "@/Config/index";
+import config from "@/Config";
 import {MailtrapClient} from "mailtrap";
 import CustomError from "@/Utils/errors/customError.class";
 
@@ -12,11 +12,8 @@ export const sendAMail = async ({
 
     const {token} = config.mail
 
-    const sender = config.node_env === 'development' ? {
-        email: "hello@trelyt.store",
-        name: "Trelyt Support",
-    } : {
-        email: "hello@dreamfurniturebd.com",
+    const sender = {
+        email: "support@dreamfurniturebd.com",
         name: "Dream Furniture Support",
     };
 
