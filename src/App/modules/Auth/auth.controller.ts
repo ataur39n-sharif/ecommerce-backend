@@ -53,7 +53,7 @@ const login = catchAsync(async (req: Request, res: Response, next: NextFunction)
 
     const {refreshToken, ...info} = await AuthServices.logIntoAccount(validateData)
 
-    if (info.role !== 'customer') throw new CustomError('Invalid request', 401)
+    // if (info.role !== 'customer') throw new CustomError('Permission ', 401)
 
     res.cookie('refreshToken', refreshToken)
     sendResponse.success(res, {

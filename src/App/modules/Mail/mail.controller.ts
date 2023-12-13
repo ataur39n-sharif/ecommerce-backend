@@ -17,8 +17,6 @@ const contactUs = catchAsync(async (req: Request, res: Response, next: NextFunct
         message: z.string()
     }).parse(payload)
 
-    //send mail
-
     const html: string = `
     <h4>A copy of User submission from Contact us:</h4>
     <p>Name : ${validation.customerName} </p>
@@ -26,7 +24,7 @@ const contactUs = catchAsync(async (req: Request, res: Response, next: NextFunct
     <p>Message : ${validation.message}</p>
     `
 
-    const a = await sendAMail({
+    const response = await sendAMail({
         receiverEmail: 'admin@dreamfurniturebd.com',
         subject: validation.subject,
         category: 'contact-us',

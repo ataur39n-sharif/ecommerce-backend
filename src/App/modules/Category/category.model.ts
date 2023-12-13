@@ -23,6 +23,10 @@ export const dataSchema = new Schema<ICategory>({
         type: [String],
         default: []
     },
+    blog: {
+        type: String,
+        default: null,
+    },
     status: {
         type: String,
         enum: ['active', 'inactive'],

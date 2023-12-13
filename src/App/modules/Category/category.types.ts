@@ -6,6 +6,7 @@ export interface ICategory {
     slug: string,
     icon: string,
     parentId?: Types.ObjectId | ICategory | null,
+    blog?: string,
     tags?: string[],
     status: 'active' | 'inactive'
 }
