@@ -9,7 +9,7 @@ import app from "@/app";
 
 const server = http.createServer(app)
 const {port} = config
- 
+
 
 const main = async () => {
     try {
@@ -24,3 +24,27 @@ const main = async () => {
 }
 
 main()
+
+
+//handle unHandleRejection errors
+process.on('unhandledRejection', (err) => {
+    if (server) {
+        server.close(() => {
+            process.exit(1)
+        })
+    } else {
+        process.exit(1)
+    }
+})
+
+//handle unCaught exceptions
+process.on('uncaughtException', (err) => {
+    if (server)
+        process.exit(1)
+})
+
+// sigterm errors
+process.on('SIGTERM', (err) => {
+    if (server)
+        server.close()
+})
