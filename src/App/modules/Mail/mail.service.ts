@@ -3,9 +3,9 @@ import config from "@/Config";
 import {sendAMail} from "@/Utils/helper/mailer";
 import {TConfirmAccountPayload, TForgetPassPayload} from "@/App/modules/Mail/mail.types";
 
-const callbackUrl = config.node_env === 'prod' ? config.login : 'http://localhost:9000/api/v1/auth/confirm-account'
 const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
     try {
+        const callbackUrl = config.node_env === 'prod' ? config.confirm_account_url : 'http://localhost:9000/api/v1/auth/confirm-account'
 
         //create a token
         const token = jwt.sign({userEmail, name}, String(config.jwt.common), {
@@ -42,6 +42,7 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
 }
 
 const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
+    const callbackUrl = config.node_env === 'prod' ? config.reset_account_url : 'http://localhost:9000/api/v1/auth/confirm-account'
 
     //create a token
     const token = jwt.sign({userEmail}, String(config.jwt.common), {
