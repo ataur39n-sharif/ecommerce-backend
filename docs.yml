@@ -723,6 +723,9 @@ paths:
                 icon:
                   type: string
                   example: "www.svg-icon.com"
+                blog:
+                  type: string
+                  example: "<p> this is content</p>"
                 parentId:
                   type: string
                   default: null
@@ -1821,6 +1824,9 @@ components:
           type: string
           example: 5f7a2db4a5e093001f076f5c
           default: null
+        blog:
+          type: string
+          example: "<p>this is content</p>"
         status:
           type: string
           enum:

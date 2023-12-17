@@ -7,7 +7,8 @@ const categoryZodSchema = z.object({
     icon: z.string(),
     parentId: z.instanceof(Types.ObjectId).optional(),
     status: z.enum(['active', 'inactive']).optional(),
-    tags: z.array(z.string()).optional()
+    tags: z.array(z.string()).optional(),
+    blog: z.string().optional(),
 })
 
 const bulkUpdateSchema = z.object({
