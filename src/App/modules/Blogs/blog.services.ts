@@ -79,7 +79,7 @@ const createBlog = async (payload: IBlog) => {
 }
 
 // update blog
-const updateBlog = async (id: string, payload: any) => {
+const updateBlog = async (id: string, payload: Partial<IBlog>) => {
     const updateInfo = await BlogModel.findOneAndUpdate({_id: id}, payload, {
         new: true
     }).lean()

@@ -12,11 +12,9 @@ const dataSchema = new Schema<IBlog>({
     },
     images: {
         type: [String],
-        required: true,
     },
     thumbnail: {
         type: String,
-        required: true,
     }
 }, {
     timestamps: true,

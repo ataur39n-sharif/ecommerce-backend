@@ -15,5 +15,6 @@ BlogRoutes
         ]),
         BlogController.addNewBlog
     )
+    .patch('/:id', BlogController.updateBlog)
 
 export default BlogRoutes
