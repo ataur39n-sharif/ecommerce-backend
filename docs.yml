@@ -882,6 +882,9 @@ paths:
                   type: string
                 icon:
                   type: string
+                blog:
+                  type: string
+                  example: "<p>this is updated content</p>"
                 parentId:
                   type: string
                   example: 5f7a2db4a5e093001f076f5c

@@ -81,7 +81,7 @@ const createNew = async (payload: Partial<ICategory>): Promise<ICategory> => {
 }
 
 const updateCategory = async (_id: Types.ObjectId, payload: Partial<ICategory>): Promise<ICategory | null> => {
-    const modifiedData = pickFunction(payload as ICategory, ['name', 'slug', 'icon', 'parentId', 'tags', 'status'])
+    const modifiedData = pickFunction(payload as ICategory, ['name', 'slug', 'icon', 'parentId', 'tags', 'status', 'blog'])
 
     return CategoryModel.findOneAndUpdate({
         _id
