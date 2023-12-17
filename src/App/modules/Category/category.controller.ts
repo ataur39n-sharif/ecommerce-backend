@@ -42,6 +42,7 @@ const addNew = catchAsync(async (req, res, next) => {
 
     const validateData = CategoryValidation.categoryZodSchema.parse({
         ...payload,
+        slug: payload.slug?.split(' ').join('-'),
         parentId: payload?.parentId && MongoHelper.convertToObjectId(payload?.parentId)
     })
 
@@ -89,7 +90,7 @@ const bulkUpdateCategories = catchAsync(async (req, res, next) => {
 const deleteCategory = catchAsync(async (req, res, next) => {
 
     const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params.id))
-    
+
     await CategoryService.deleteCategory(id)
 
     sendResponse.success(res, {
