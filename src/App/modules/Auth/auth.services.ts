@@ -95,7 +95,7 @@ const confirmAccount = async (token: string): Promise<boolean> => {
     if (!user || !(user.status === 'pending')) throw new CustomError('Invalid request', 400)
 
     //update user account status pending to active
-    await AuthModel.findOneAndUpdate({email: (validate as IJWTConfirmAccountPayload).userEmail}, {
+    const response = await AuthModel.findOneAndUpdate({email: (validate as IJWTConfirmAccountPayload).userEmail}, {
         status: EAccountStatus.active
     }, {
         new: true
