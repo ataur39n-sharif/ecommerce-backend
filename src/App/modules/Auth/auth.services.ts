@@ -100,7 +100,6 @@ const confirmAccount = async (token: string): Promise<boolean> => {
     }, {
         new: true
     }).lean()
-
     return true
 }
 

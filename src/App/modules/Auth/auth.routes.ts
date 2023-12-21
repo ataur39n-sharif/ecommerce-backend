@@ -32,5 +32,6 @@ AuthRoutes
         UserMiddlewares.validateAccess,
         AuthController.changePassword
     )
+// delete account
 
 export default AuthRoutes

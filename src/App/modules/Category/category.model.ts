@@ -1,5 +1,6 @@
 import {model, Schema} from "mongoose";
 import {ICategory} from "@/App/modules/Category/category.types";
+import {MetaDataSchema} from "@/Utils/schema/meta.schema";
 
 export const dataSchema = new Schema<ICategory>({
     name: {
@@ -26,6 +27,10 @@ export const dataSchema = new Schema<ICategory>({
     blog: {
         type: String,
         default: null,
+    },
+    metadata: {
+        type: MetaDataSchema,
+        required: true
     },
     status: {
         type: String,

@@ -1,4 +1,5 @@
 import {Types} from "mongoose";
+import {TMetadata} from "@/Utils/types/customSchema.type";
 
 export interface ICategory {
     _id?: Types.ObjectId,
@@ -8,6 +9,7 @@ export interface ICategory {
     parentId?: Types.ObjectId | ICategory | null,
     blog?: string,
     tags?: string[],
+    metadata: TMetadata,
     status: 'active' | 'inactive'
 }
 
