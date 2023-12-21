@@ -86,7 +86,10 @@ const getSingleProduct = async (slug: string): Promise<IProduct | null> => {
 }
 
 const addProduct = async (payload: Partial<ISingleProduct | IVariableProduct>): Promise<IProduct | null> => {
-    const validateProduct = ProductValidation.productZodSchema.parse(payload)
+    const validateProduct = ProductValidation.productZodSchema.parse({
+        ...payload,
+        slug: payload.slug?.split(' ').join('-'),
+    })
     return await ProductModel.create(validateProduct)
 }
 
