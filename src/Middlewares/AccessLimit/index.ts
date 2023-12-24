@@ -15,9 +15,6 @@ const AccessLimit = (accessRole: string[]) => catchAsync(async (req: Request, re
     const payload = jwt.verify(accessToken, Config.jwt.accessToken.secret as string)
     const {uid, role, email} = payload as CustomJwtPayload
 
-    console.log({
-        role, email
-    })
     if (accessRole.includes(role)) {
 
         req.body.uid = uid

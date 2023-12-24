@@ -32,7 +32,7 @@ const createAccountByAdmin = catchAsync(async (req: Request, res: Response, next
 
     const data = pickFunction(req.body, ['name', 'email', 'password', 'phone', 'role'])
     const validate = AuthValidation.authPayload.extend({
-        role: z.enum([ERole.admin, ERole.customer, ERole.administration, ERole.editor]),
+        role: z.enum([ERole.admin, ERole.customer, ERole.editor]),
     }).parse(data)
     await AuthServices.CreateNewAccount(validate)
 

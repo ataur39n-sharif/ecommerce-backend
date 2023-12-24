@@ -2,7 +2,6 @@ import {Model, Types} from "mongoose";
 
 export enum ERole {
     admin = 'admin',
-    administration = 'administration',
     editor = 'editor',
     customer = 'customer'
 }

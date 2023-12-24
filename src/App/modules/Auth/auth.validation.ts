@@ -23,7 +23,7 @@ const createAccount: ZodType<IAuthWithName> = authPayload.extend({
     uid: z.instanceof(Types.ObjectId, {
         message: 'Something is wrong. '
     }),
-    role: z.enum([ERole.admin, ERole.customer, ERole.administration, ERole.editor]),
+    role: z.enum([ERole.admin, ERole.customer, ERole.editor]),
     status: z.enum([EAccountStatus.pending, EAccountStatus.active, EAccountStatus.blocked])
 })
 

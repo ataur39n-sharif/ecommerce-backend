@@ -1,5 +1,7 @@
 import {Router} from "express";
 import {OrderController} from "@/App/modules/Orders/order.controller";
+import AccessLimit from "@/Middlewares/AccessLimit";
+import {ERole} from "@/App/modules/Auth/auth.types";
 
 const OrderRoutes = Router()
 
@@ -14,11 +16,13 @@ OrderRoutes
     )
     .post(
         '/',
+        AccessLimit([ERole.admin]),
         // UserMiddlewares.validateAccess,
         OrderController.placeOrder
     )
     .delete(
         '/:id',
+        AccessLimit([ERole.admin]),
         OrderController.deleteOrder
     )
 

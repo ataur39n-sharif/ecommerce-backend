@@ -1,13 +1,24 @@
 import {Router} from "express";
 import {CategoryController} from "@/App/modules/Category/category.controller";
+import AccessLimit from "@/Middlewares/AccessLimit";
+import {ERole} from "@/App/modules/Auth/auth.types";
 
 const CategoryRoutes = Router()
 
 CategoryRoutes
     .get('/', CategoryController.getAll)
     .get('/:slug', CategoryController.getSingleCategory)
-    .post('/', CategoryController.addNew)
-    .patch('/:id', CategoryController.updateInfo)
-    .delete('/:id', CategoryController.deleteCategory)
+    .post('/',
+        AccessLimit([ERole.admin]),
+        CategoryController.addNew
+    )
+    .patch('/:id',
+        AccessLimit([ERole.admin]),
+        CategoryController.updateInfo
+    )
+    .delete('/:id',
+        AccessLimit([ERole.admin]),
+        CategoryController.deleteCategory
+    )
 
 export default CategoryRoutes
