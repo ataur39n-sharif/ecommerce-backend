@@ -111,22 +111,22 @@ const resendConfirmationMail = catchAsync(async (req: Request, res: Response, ne
 const forgetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const {
         email,
-        redirect_confirmAccountPage_url
-    } = pickFunction(req.body, ['email', 'phoneNumber', 'redirect_confirmAccountPage_url'])
+        redirect_resetPasswordPage_url
+    } = pickFunction(req.body, ['email', 'phoneNumber', 'redirect_resetPasswordPage_url'])
 
     //todo: when user input phone number , action will perform by sms.
 
     const validate = z.object({
         email: z.string().email(),
-        redirect_confirmAccountPage_url: z.string()
+        redirect_resetPasswordPage_url: z.string()
     }).parse({
         email,
-        redirect_confirmAccountPage_url: redirect_confirmAccountPage_url || 'https://dreamfurniturebd.com/verify'
+        redirect_resetPasswordPage_url: redirect_resetPasswordPage_url || 'https://dreamfurniturebd.com/verify'
     })
 
     await MailService.forgetPassword({
         userEmail: validate.email,
-        redirect_url: validate.redirect_confirmAccountPage_url
+        redirect_url: validate.redirect_resetPasswordPage_url
     })
 
     sendResponse.success(res, {
