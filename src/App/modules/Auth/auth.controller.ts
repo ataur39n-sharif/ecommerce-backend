@@ -10,6 +10,7 @@ import jwt from "jsonwebtoken";
 import config from "@/Config";
 import {ERole} from "@/App/modules/Auth/auth.types";
 import CustomError from "@/Utils/errors/customError.class";
+import {Types} from "mongoose";
 
 const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -163,6 +164,17 @@ const changePassword = catchAsync(async (req: Request, res: Response, next: Next
     })
 })
 
+const deleteAccount = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const id = z.instanceof(Types.ObjectId).parse(new Types.ObjectId(req.params.id))
+
+    await AuthServices.deleteAccount(id)
+
+    sendResponse.success(res, {
+        statusCode: 200,
+        message: 'Account deleted successfully.',
+    })
+})
+
 export const AuthController = {
     singUp,
     login,
@@ -172,5 +184,6 @@ export const AuthController = {
     resetPassword,
     changePassword,
     confirmAccount,
-    createAccountByAdmin
+    createAccountByAdmin,
+    deleteAccount
 }

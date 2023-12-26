@@ -5,7 +5,7 @@ import {generateToken} from "@/Utils/helper/generateToken";
 import {EAccountStatus, ERole, IAuthProperty} from "./auth.types";
 import {AuthModel} from "./auth.model";
 import {UserModel} from '../User/user.model';
-import mongoose from 'mongoose';
+import mongoose, {Types} from 'mongoose';
 import jwt from "jsonwebtoken";
 import Config from "@/Config";
 import {IJWTConfirmAccountPayload} from "@/App/modules/Mail/mail.types";
@@ -132,6 +132,31 @@ const changePassword = async (email: string, oldPassword: string, newPassword: s
     return true
 }
 
+const deleteAccount = async (id: Types.ObjectId | string) => {
+    const session = await mongoose.startSession()
+    try {
+        await session.startTransaction()
+        // find user info
+        const user = await AuthModel.findOne({
+            _id: id
+        }).session(session)
+
+        if (!user) throw new CustomError('User not found.', 404)
+
+        // delete auth docs
+        const deleteAuthInfo = await AuthModel.findOneAndDelete({_id: id}).session(session)
+        // delete user
+        const deleteUser = await UserModel.findOneAndDelete({_id: user?.uid}).session(session)
+
+        await session.commitTransaction()
+        await session.endSession()
+
+    } catch (error) {
+        await session.abortTransaction()
+        await session.endSession()
+        throw error
+    }
+}
 
 export const AuthServices = {
     CreateNewAccount,
@@ -139,5 +164,6 @@ export const AuthServices = {
     resendConfirmationMail,
     confirmAccount,
     resetPassword,
-    changePassword
+    changePassword,
+    deleteAccount
 }

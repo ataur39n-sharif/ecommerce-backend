@@ -32,6 +32,10 @@ AuthRoutes
         UserMiddlewares.validateAccess,
         AuthController.changePassword
     )
+    .delete('/delete-account/:id',
+        AccessLimit([ERole.admin]),
+        AuthController.deleteAccount
+    )
 // delete account
 
 export default AuthRoutes
