@@ -16,7 +16,8 @@ const authPayload = z.object({
     }),
     email: z.string().email(),
     password: z.string(),
-    phone: z.string()
+    phone: z.string(),
+    redirect_confirmAccountPage_url: z.string().optional()
 })
 
 const createAccount: ZodType<IAuthWithName> = authPayload.extend({

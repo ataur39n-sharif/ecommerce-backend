@@ -7,7 +7,6 @@ import {BlogService} from "@/App/modules/Blogs/blog.services";
 import {z} from "zod";
 import {Types} from "mongoose";
 import {MongoHelper} from "@/Utils/helper/mongoHelper";
-import {ProductServices} from "@/App/modules/Products/product.service";
 import {BlogValidation} from "@/App/modules/Blogs/blog.validation";
 import {FileUploadHandler} from "@/Utils/fileUploadHandler/fileUpload";
 
@@ -114,12 +113,11 @@ const deleteSingleBlog = catchAsync(async (req, res, next) => {
 
     const id = z.instanceof(Types.ObjectId).parse(MongoHelper.convertToObjectId(req.params.id))
 
-    const data = await ProductServices.deleteSingleProduct(id)
+    const response = await BlogService.deleteBlog(id)
 
     sendResponse.success(res, {
         statusCode: 200,
-        message: 'Product deleted successfully',
-        data
+        message: response ? 'Blog deleted successfully' : 'No blog found!.',
     })
 })
 
@@ -130,5 +128,5 @@ const deleteSingleBlog = catchAsync(async (req, res, next) => {
 
 
 export const BlogController = {
-    allBlogs, addNewBlog, updateBlog
+    allBlogs, singleBlog, addNewBlog, updateBlog, deleteSingleBlog
 }

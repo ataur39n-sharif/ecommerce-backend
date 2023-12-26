@@ -22,5 +22,6 @@ BlogRoutes
         AccessLimit([ERole.admin]),
         BlogController.updateBlog
     )
+    .delete('/:id', AccessLimit([ERole.admin]), BlogController.updateBlog)
 
 export default BlogRoutes

@@ -3,9 +3,9 @@ import config from "@/Config";
 import {sendAMail} from "@/Utils/helper/mailer";
 import {TConfirmAccountPayload, TForgetPassPayload} from "@/App/modules/Mail/mail.types";
 
-const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
+const confirmAccount = async ({name, userEmail, redirect_confirmAccountPage_url}: TConfirmAccountPayload) => {
     try {
-        const callbackUrl = config.node_env === 'prod' ? config.confirm_account_url : 'http://localhost:9000/api/v1/auth/confirm-account'
+        // const callbackUrl = config.node_env === 'prod' ? config.confirm_account_url : 'http://localhost:9000/api/v1/auth/confirm-account'
 
         //create a token
         const token = jwt.sign({userEmail, name}, String(config.jwt.common), {
@@ -13,7 +13,7 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
         })
 
         //create verify url
-        const link = `${callbackUrl}?token=${token}`
+        const link = `${redirect_confirmAccountPage_url}?token=${token}`
         const html = `
         <div>
             <h3>Confirmation Mail</h3>
@@ -41,16 +41,14 @@ const confirmAccount = async ({name, userEmail}: TConfirmAccountPayload) => {
     }
 }
 
-const forgetPassword = async ({userEmail}: TForgetPassPayload) => {
-    const callbackUrl = config.node_env === 'prod' ? config.reset_account_url : 'http://localhost:9000/api/v1/auth/confirm-account'
-
+const forgetPassword = async ({userEmail, redirect_url}: TForgetPassPayload) => {
     //create a token
     const token = jwt.sign({userEmail}, String(config.jwt.common), {
         expiresIn: "5m"
     })
 
     //create verify url
-    const link = `${callbackUrl}?token=${token}`
+    const link = `${redirect_url}?token=${token}`
 
     const html = `
         <div>

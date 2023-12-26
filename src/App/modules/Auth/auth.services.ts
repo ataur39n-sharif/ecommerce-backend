@@ -76,13 +76,18 @@ const logIntoAccount = async (data: Partial<IAuthProperty>) => {
     }
 }
 
-const resendConfirmationMail = async (email: string) => {
+const resendConfirmationMail = async ({email, redirect_url}: {
+    email: string, redirect_url: string
+}) => {
     const user = await AuthModel.findOne({email}).lean()
+
     if (!user) throw new CustomError('Invalid user request.', 400)
     if (!(user.status === 'pending')) throw new CustomError('Unable to send new confirmation email.', 400)
+
     await MailService.confirmAccount({
         name: '',
-        userEmail: email
+        userEmail: email,
+        redirect_confirmAccountPage_url: redirect_url
     })
 }
 

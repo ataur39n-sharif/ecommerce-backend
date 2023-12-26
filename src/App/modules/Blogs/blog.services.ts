@@ -3,6 +3,7 @@ import {calculatePagination, manageSorting, MongoQueryHelper} from "@/Utils/help
 import {IQueryItems} from "@/Utils/types/query.type";
 import {IBlog} from "@/App/modules/Blogs/blog.type";
 import {BlogModel} from "@/App/modules/Blogs/blog.model";
+import {Types} from "mongoose";
 
 const allBlogs = async (payload: IQueryItems<IBlog>) => {
     const {search} = payload.searchFields
@@ -66,32 +67,31 @@ const allBlogs = async (payload: IQueryItems<IBlog>) => {
 
 // get single blog
 const singleBlog = async (slug: string) => {
-    const blogs = await BlogModel.findOne({slug}).lean()
-
-    return blogs
+    return BlogModel.findOne({slug}).lean()
 }
 
 
 // create blog
 const createBlog = async (payload: IBlog) => {
-    const newBlog = await BlogModel.create(payload)
-    return newBlog
+    return BlogModel.create(payload)
 }
 
 // update blog
 const updateBlog = async (id: string, payload: Partial<IBlog>) => {
-    const updateInfo = await BlogModel.findOneAndUpdate({_id: id}, payload, {
+    return BlogModel.findOneAndUpdate({_id: id}, payload, {
         new: true
     }).lean()
-
-    return updateInfo
 }
 
 // delete blog
-const deleteBlog = async (id: string) => {
-    const blogs = await BlogModel.deleteOne({_id: id}).lean()
+const deleteBlog = async (id: Types.ObjectId | string) => {
+    const result = await BlogModel.deleteOne({_id: id}).lean()
 
-    return blogs
+    if (result.deletedCount > 0) {
+        return true
+    } else {
+        return false
+    }
 }
 
 

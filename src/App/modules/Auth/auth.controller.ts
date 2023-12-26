@@ -14,13 +14,14 @@ import {Types} from "mongoose";
 
 const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
-    const data = pickFunction(req.body, ['name', 'email', 'password', 'phone'])
+    const data = pickFunction(req.body, ['name', 'email', 'password', 'phone', 'redirect_confirmAccountPage_url'])
     const validate = AuthValidation.authPayload.parse(data)
     await AuthServices.CreateNewAccount(validate)
 
     MailService.confirmAccount({
         name: validate.name.firstName,
-        userEmail: validate.email
+        userEmail: validate.email,
+        redirect_confirmAccountPage_url: validate.redirect_confirmAccountPage_url ?? 'https://dreamfurniturebd.com/verify'
     })
 
     sendResponse.success(res, {
@@ -31,7 +32,7 @@ const singUp = catchAsync(async (req: Request, res: Response, next: NextFunction
 
 const createAccountByAdmin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
-    const data = pickFunction(req.body, ['name', 'email', 'password', 'phone', 'role'])
+    const data = pickFunction(req.body, ['name', 'email', 'password', 'phone', 'role', 'redirect_confirmAccountPage_url'])
     const validate = AuthValidation.authPayload.extend({
         role: z.enum([ERole.admin, ERole.customer, ERole.editor]),
     }).parse(data)
@@ -39,7 +40,9 @@ const createAccountByAdmin = catchAsync(async (req: Request, res: Response, next
 
     MailService.confirmAccount({
         name: validate.name.firstName,
-        userEmail: validate.email
+        userEmail: validate.email,
+        redirect_confirmAccountPage_url: validate.redirect_confirmAccountPage_url ?? 'https://dreamfurniturebd.com/verify'
+
     })
 
     sendResponse.success(res, {
@@ -81,12 +84,23 @@ const adminLogin = catchAsync(async (req: Request, res: Response, next: NextFunc
 })
 
 const resendConfirmationMail = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const data = pickFunction(req.body, ['email'])
+    const {
+        email,
+        redirect_confirmAccountPage_url
+    } = pickFunction(req.body, ['email', 'redirect_confirmAccountPage_url'])
+
     const validate = z.object({
         email: z.string(),
-    }).parse(data)
+        redirect_confirmAccountPage_url: z.string()
+    }).parse({
+        email,
+        redirect_confirmAccountPage_url: redirect_confirmAccountPage_url ?? 'https://dreamfurniturebd.com/verify'
+    })
 
-    await AuthServices.resendConfirmationMail(validate.email)
+    await AuthServices.resendConfirmationMail({
+        email: validate.email,
+        redirect_url: validate.redirect_confirmAccountPage_url
+    })
 
     sendResponse.success(res, {
         statusCode: 200,
@@ -95,16 +109,24 @@ const resendConfirmationMail = catchAsync(async (req: Request, res: Response, ne
 })
 
 const forgetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const {email} = pickFunction(req.body, ['email', 'phoneNumber'])
+    const {
+        email,
+        redirect_confirmAccountPage_url
+    } = pickFunction(req.body, ['email', 'phoneNumber', 'redirect_confirmAccountPage_url'])
 
     //todo: when user input phone number , action will perform by sms.
 
     const validate = z.object({
-        email: z.string().email()
-    }).parse({email})
+        email: z.string().email(),
+        redirect_confirmAccountPage_url: z.string()
+    }).parse({
+        email,
+        redirect_confirmAccountPage_url: redirect_confirmAccountPage_url || 'https://dreamfurniturebd.com/verify'
+    })
 
     await MailService.forgetPassword({
-        userEmail: validate.email
+        userEmail: validate.email,
+        redirect_url: validate.redirect_confirmAccountPage_url
     })
 
     sendResponse.success(res, {
