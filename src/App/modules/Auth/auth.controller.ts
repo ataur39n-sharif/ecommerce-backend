@@ -126,7 +126,6 @@ const resetPassword = catchAsync(async (req: Request, res: Response, next: NextF
         password: data.newPassword
     })
 
-    console.log({validate})
 
     await AuthServices.resetPassword(validate.email, validate.password)
 

@@ -22,9 +22,15 @@ AuthRoutes
         AuthMiddleware.userExists,
         AuthController.adminLogin
     )
-    .post('/resend-confirmation-mail', AuthController.resendConfirmationMail)
+    .post('/resend-confirmation-mail',
+        AuthMiddleware.userExists,
+        AuthController.resendConfirmationMail
+    )
     // .post('/logout', AuthMiddleware)
-    .post('/forget-password', AuthMiddleware.userExists, AuthController.forgetPassword)
+    .post('/forget-password',
+        AuthMiddleware.userExists,
+        AuthController.forgetPassword
+    )
     .patch('/reset-password', AuthController.resetPassword)
     .post('/confirm-account', AuthController.confirmAccount)
     .patch(
