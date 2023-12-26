@@ -1,22 +1,22 @@
 import {IOrder, TOrderPayload} from "@/App/modules/Orders/order.types";
 import {OrderModel} from "@/App/modules/Orders/order.model";
 import {OrderUtils} from "@/App/modules/Orders/order.utils";
-
+import {Types} from "mongoose";
 
 const allOrders = async (): Promise<IOrder[]> => {
-    return OrderModel.find()
+    return OrderModel.find().lean()
 }
 
-const allOrdersOfUser = async (uid: string) => {
+const allOrdersOfUser = async (uid: Types.ObjectId | string) => {
     return OrderModel.find({
         uid
-    })
+    }).lean()
 }
 
 const singleOrder = async (_id: string): Promise<IOrder | null> => {
     return OrderModel.findOne({
         _id
-    })
+    }).lean()
 }
 
 const createOrder = async (payload: TOrderPayload): Promise<IOrder> => {
@@ -32,16 +32,27 @@ const createOrder = async (payload: TOrderPayload): Promise<IOrder> => {
 }
 
 //status update
-const updateStatus = async (id: string, status: 'pending' | 'hold' | 'paid' | 'shipped' | 'delivered') => {
+const updateStatus = async (id: Types.ObjectId | string, status: 'pending' | 'hold' | 'paid' | 'shipped' | 'delivered') => {
     return OrderModel.findOneAndUpdate({_id: id}, {
-        status
-    })
+        $set: {
+            status
+        }
+    }, {
+        new: true
+    }).lean()
 }
 
 const deleteOrder = async (_id: string) => {
-    return OrderModel.findOneAndDelete({
+    const result = await OrderModel.deleteOne({
         _id
     })
+    console.log(result.deletedCount)
+    if (result.deletedCount > 0) {
+        return true
+    } else {
+        return false
+    }
+
 }
 
 

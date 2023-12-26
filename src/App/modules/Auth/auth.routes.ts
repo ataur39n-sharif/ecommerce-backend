@@ -36,6 +36,5 @@ AuthRoutes
         AccessLimit([ERole.admin]),
         AuthController.deleteAccount
     )
-// delete account
 
 export default AuthRoutes
