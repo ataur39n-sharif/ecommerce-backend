@@ -117,7 +117,6 @@ const resetPassword = async (email: string, password: string) => {
     await AuthModel.findOneAndUpdate({email: email}, {
         password: newPassword
     }).lean()
-
     return true
 }
 

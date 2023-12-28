@@ -1,15 +1,13 @@
 openapi: 3.0.3
 info:
-  title: Ecommerce - Backend API
-  description: Ecommerce backend api documentation
+  title: Dream furniture bd - Rest API
+  description: Dream furniture bd rest api documentation
   version: 1.0.0
 servers:
   - description: localhost
     url: "http://localhost:9000/api/v1"
   - description: DTAL
     url: "https://api.dreamfurniturebd.com/api/v1"
-  - description: live demo
-    url: "https://site-api.trelyt.store/api/v1"
 
 tags:
   - name: Authentication

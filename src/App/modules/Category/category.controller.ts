@@ -36,7 +36,6 @@ const getSingleCategory = catchAsync(async (req, res, next) => {
     })
 })
 
-
 const addNew = catchAsync(async (req, res, next) => {
     const payload = pickFunction(req.body, Object.keys(CategoryModel.schema.obj))
 

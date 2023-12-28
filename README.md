@@ -5,7 +5,7 @@
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/nodejs_alt.svg" width="100" />
 
 <br>
-Ecommerce Backend
+Dream furniture bd - Rest API
 
 </h1>
 
@@ -43,26 +43,27 @@ Ecommerce Backend
 
 <img src="https://img.shields.io/github/commit-activity/m/ataur39n-sharif/ecommerce-backend?style&color=5D6D7E" alt="GitHub commit activity" />
 
-[//]: # (<img src="https://img.shields.io/github/license/ataur39n-sharif/ecommerce-backend?style&color=5D6D7E" alt="GitHub license" />)
+[//]: # (<img src="https://img.shields.io/github/license//dtal/dreamfurniturebd-backend?style&color=5D6D7E" alt="GitHub license" />)
 
 </div>
 
 ## Table of Contents
 
-* [Introduction](#introduction)
-* [Features](#features)
-* [Folder Structure](#folder-structure)
-* [Prerequisites](#prerequisites)
-* [🔧 Installation](#-installation)
-    * [Configuration](#configuration)
-* [Scripts](#scripts)
-* [Dependencies](#dependencies)
-* [Environment Variables](#environment-variables)
-* [Deployment Instructions](#deployment-instructions)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Folder Structure](#folder-structure)
+- [Prerequisites](#prerequisites)
+- [🔧 Installation](#-installation)
+  - [Configuration](#configuration)
+- [Scripts](#scripts)
+- [Dependencies](#dependencies)
+- [Environment Variables](#environment-variables)
+- [Deployment Instructions](#deployment-instructions)
 
 ## Introduction
 
-The E-Commerce Backend project is a robust and flexible backend system designed to power e-commerce applications. It
+This project is a robust and flexible backend system designed to power e-commerce applications. It
 provides a solid foundation for building single vendor online store, managing products, handling user authentication,
 processing
 orders, and collecting customer reviews and feedback.
@@ -114,6 +115,8 @@ Here is an overview of your project's folder structure:
 
 ## Prerequisites
 
+Before start to work must read this documentation - [Backend documentation](https://docs.google.com/document/d/1CBQgaPRxRGZNR9oAl_3dqs_RvEBvZUXL/edit?usp=sharing&ouid=111271945617209865770&rtpof=true&sd=true)
+
 List the prerequisites and dependencies that users need to have installed to run your application. For example:
 
 - [Node.js](https://nodejs.org/) (>=14.20.1)
@@ -127,7 +130,7 @@ Provide step-by-step instructions on how to install and set up your application 
 
 ```sh
 
-git clone https://github.com/ataur39n-sharif/ecommerce-backend
+git clone https://github.com/dtal/dreamfurniturebd-backend
 
 ```
 
@@ -135,7 +138,7 @@ git clone https://github.com/ataur39n-sharif/ecommerce-backend
 
 ```sh
 
-cd ecommerce-backend
+cd dreamfurniturebd-backend
 
 ```
 
@@ -162,6 +165,7 @@ npm install
    JWT_ACCESSTOKEN_EXP=1h
    JWT_REFRESHTOKEN_SECRET=your-refresh-secret-key
    JWT_REFRESHTOKEN_EXP=7d
+   // follow env.example file for all
    ```
 
    Replace the placeholders with your actual values.
